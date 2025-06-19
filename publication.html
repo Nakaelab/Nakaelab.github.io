@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Publications - Digital Twin Lab</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #f8f8f8;
+      color: #111;
+    }
+
+    /* === NAVIGATION === */
+    nav {
+      background-color: #333;
+      padding: 10px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav li {
+      margin: 0 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 12px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover, nav a.active {
+      background-color: #555;
+      border-radius: 4px;
+    }
+
+    /* === HERO SECTION === */
+    .hero {
+      position: relative;
+      height: 60vh;
+      background: linear-gradient(rgba(30, 60, 114, 0.8), rgba(30, 60, 114, 0.8)), 
+                  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23556b7d" width="1200" height="600"/><g fill="%23ffffff" opacity="0.1"><circle cx="200" cy="150" r="80"/><circle cx="600" cy="300" r="120"/><circle cx="1000" cy="200" r="60"/><circle cx="400" cy="450" r="90"/></g></svg>') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+    }
+
+    .hero-content h1 {
+      font-size: 3em;
+      margin-bottom: 0.3em;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .hero-content p {
+      font-size: 1.3em;
+      max-width: 700px;
+      line-height: 1.6;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+
+    /* === MAIN CONTENT === */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* === FILTER SECTION === */
+    .filter-section {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .filter-btn {
+      background: #e9ecef;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 500;
+      color: #495057;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: #1e3c72;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .search-box {
+      max-width: 400px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 12px 20px;
+      border: 2px solid #e9ecef;
+      border-radius: 25px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .search-box input:focus {
+      border-color: #1e3c72;
+    }
+
+    /* === STATS SECTION === */
+    .stats-section {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+
+    .stat-item:hover {
+      transform: scale(1.05);
+    }
+
+    .stat-number {
+      font-size: 2.5em;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      font-size: 1em;
+      opacity: 0.9;
+    }
+
+    /* === PUBLICATIONS SECTION === */
+    .publications-section {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .year-section {
+      margin-bottom: 40px;
+    }
+
+    .year-header {
+      font-size: 2em;
+      color: #1e3c72;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #1e3c72;
+      position: relative;
+    }
+
+    .year-header::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #1e3c72, #4a90e2);
+    }
+
+    .publication-item {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 20px;
+      border-left: 4px solid #1e3c72;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .publication-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(30, 60, 114, 0.05), transparent);
+      transition: left 0.5s;
+    }
+
+    .publication-item:hover::before {
+      left: 100%;
+    }
+
+    .publication-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .pub-type {
+      display: inline-block;
+      background: #1e3c72;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .pub-type.journal { background: #28a745; }
+    .pub-type.conference { background: #007bff; }
+    .pub-type.preprint { background: #ffc107; color: #333; }
+    .pub-type.book { background: #6f42c1; }
+
+    .citation-count {
+      float: right;
+      background: #dc3545;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 0.8em;
+      font-weight: bold;
+    }
+
+    .pub-title {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .pub-authors {
+      color: #666;
+      margin-bottom: 8px;
+      font-style: italic;
+    }
+
+    .pub-authors .highlight {
+      font-weight: bold;
+      color: #1e3c72;
+      font-style: normal;
+    }
+
+    .pub-venue {
+      color: #495057;
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+
+    .pub-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pub-link {
+      padding: 6px 15px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.9em;
+      font-weight: 500;
+      transition: all 0.3s;
+      border: 2px solid;
+    }
+
+    .pub-link.scholar {
+      background: #fff;
+      color: #4285f4;
+      border-color: #4285f4;
+    }
+
+    .pub-link.doi {
+      background: #fff;
+      color: #007bff;
+      border-color: #007bff;
+    }
+
+    .pub-link.pdf {
+      background: #fff;
+      color: #dc3545;
+      border-color: #dc3545;
+    }
+
+    .pub-link:hover {
+      background: currentColor;
+      color: white;
+      transform: translateY(-1px);
+    }
+
+    /* === RESPONSIVE === */
+    @media screen and (max-width: 768px) {
+      .hero-content h1 { font-size: 2em; }
+      .hero-content p { font-size: 1.1em; }
+      
+      .filter-buttons {
+        justify-content: flex-start;
+      }
+      
+      .filter-btn {
+        padding: 8px 15px;
+        font-size: 0.9em;
+      }
+      
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      nav li {
+        margin: 5px 10px;
+      }
+      
+      .pub-links {
+        justify-content: flex-start;
+      }
+
+      .citation-count {
+        float: none;
+        display: inline-block;
+        margin-left: 10px;
+      }
+    }
+
+    /* === ANIMATIONS === */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="news.html">NEWS</a></li>
+      <li><a href="mission.html">MISSION</a></li>
+      <li><a href="member.html">MEMBER</a></li>
+      <li><a href="publication.html" class="active">PUBLICATION</a></li>
+      <li><a href="link.html">LINK</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Publications</h1>
+      <p>Research outputs advancing our understanding of neural computation, digital twins, and computational neuroscience through innovative methodologies.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <!-- STATS -->
+    <section class="stats-section fade-in-up">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">52+</div>
+          <div class="stat-label">Total Publications</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">1000+</div>
+          <div class="stat-label">Total Citations</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">590</div>
+          <div class="stat-label">Highest Citations</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">10+</div>
+          <div class="stat-label">Years Active</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTERS -->
+    <section class="filter-section fade-in-up">
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">All Publications</button>
+        <button class="filter-btn" data-filter="journal">Journal Articles</button>
+        <button class="filter-btn" data-filter="conference">Conference Papers</button>
+        <button class="filter-btn" data-filter="preprint">Preprints</button>
+      </div>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search publications by title, author, or keyword...">
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section class="publications-section fade-in-up">
+      <!-- 2025 -->
+      <div class="year-section">
+        <h2 class="year-header">2025</h2>
+        
+        <div class="publication-item" data-type="journal">
+          <span class="pub-type journal">Journal Article</span>
+          <div class="pub-title">Possible Contribution to Data-Driven Primate Research: Comment on "Kinematic coding: Measuring Information in Naturalistic Behaviour" by Becchio, Pullar, Scaliti, and Panzeri</div>
+          <div class="pub-authors">K Mimura, <span class="highlight">K Nakae</span>, K Doya</div>
+          <div class="pub-venue">Physics of Life Reviews</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+          </div>
+        </div>
+
+        <div class="publication-item" data-type="journal">
+          <span class="pub-type journal">Journal Article</span>
+          <div class="pub-title">Does big data change neuroscience?</div>
+          <div class="pub-authors">R Kobayashi, <span class="highlight">K Nakae</span></div>
+          <div class="pub-venue">Neuroscience research, S0168-0102 (25) 00081-1</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+          </div>
+        </div>
+
+        <div class="publication-item" data-type="journal">
+          <span class="pub-type journal">Journal Article</span>
+          <div class="pub-title">Whether or not to act is determined by distinct signals from motor thalamus and orbitofrontal cortex to secondary motor cortex</div>
+          <div class="pub-authors">E Yoshida, M Kondo, <span class="highlight">K Nakae</span>, R Ako, S Terada, N Hatano, L Liu, ...</div>
+          <div class="pub-venue">Nature Communications 16 (1), 3106</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+            <a href="#" class="pub-link doi">DOI</a>
+          </div>
+        </div>
+
+        <div class="publication-item" data-type="preprint">
+          <span class="pub-type preprint">Preprint</span>
+          <div class="pub-title">A multimodal dataset linking wide-field calcium imaging to behavior changes in mice during an operant lever-pull task</div>
+          <div class="pub-authors">M Kondo, K Sehara, R Harukuni, R Aoki, S Sugimoto, YR Tanaka, ...</div>
+          <div class="pub-venue">bioRxiv, 2025.02. 03.631599</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+          </div>
+        </div>
+
+        <div class="publication-item" data-type="journal">
+          <span class="pub-type journal">Journal Article</span>
+          <div class="pub-title">Integrated Information Theory reveals the potential role of the Posterior Parietal Cortex in Sustaining Conditioning Responses in Classical Conditioning Tasks</div>
+          <div class="pub-authors">TC Phi, S Ishii, M Kondo, M Matsuzaki, <span class="highlight">K Nakae</span></div>
+          <div class="pub-venue">Frontiers in Neuroscience 19, 1512724</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+            <a href="#" class="pub-link doi">DOI</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2024 -->
+      <div class="year-section">
+        <h2 class="year-header">2024</h2>
+        
+        <div class="publication-item" data-type="journal">
+          <span class="pub-type journal">Journal Article</span>
+          <span class="citation-count">4 citations</span>
+          <div class="pub-title">Commonality and variance of resting-state networks in common marmoset brains</div>
+          <div class="pub-authors">K Muta, Y Haga, J Hata, T Kaneko, K Hagiya, Y Komaki, F Seki, ...</div>
+          <div class="pub-venue">Scientific reports 14 (1), 8316</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+            <a href="#" class="pub-link doi">DOI</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2023 -->
+      <div class="year-section">
+        <h2 class="year-header">2023</h2>
+        
+        <div class="publication-item" data-type="journal">
+          <span class="pub-type journal">Journal Article</span>
+          <span class="citation-count">41 citations</span>
+          <div class="pub-title">Local and long-distance organization of prefrontal cortex circuits in the marmoset brain</div>
+          <div class="pub-authors">A Watakabe, H Skibbe, <span class="highlight">K Nakae</span>, H Abe, N Ichinohe, MF Rachmadi, ...</div>
+          <div class="pub-venue">Neuron 111 (14), 2258-2273. e10</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+            <a href="#" class="pub-link doi">DOI</a>
+          </div>
+        </div>
+
+        <div class="publication-item" data-type="journal">
+          <span class="pub-type journal">Journal Article</span>
+          <span class="citation-count">22 citations</span>
+          <div class="pub-title">Multi-modal brain magnetic resonance imaging database covering marmosets with a wide age range</div>
+          <div class="pub-authors">J Hata, <span class="highlight">K Nakae</span>, H Tsukada, A Woodward, Y Haga, M Iida, A Uematsu, ...</div>
+          <div class="pub-venue">Scientific Data 10 (1), 221</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+            <a href="#" class="pub-link doi">DOI</a>
+          </div>
+        </div>
+
+        <div class="publication-item" data-type="journal">
+          <span class="pub-type journal">Journal Article</span>
+          <span class="citation-count">17 citations</span>
+          <div class="pub-title">The Brain/MINDS Marmoset Connectivity Resource: An open-access platform for cellular-level tracing and tractography in the primate brain</div>
+          <div class="pub-authors">H Skibbe, MF Rachmadi, <span class="highlight">K Nakae</span>, CE Gutierrez, J Hata, H Tsukada, ...</div>
+          <div class="pub-venue">PLoS biology 21 (6), e3002158</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+            <a href="#" class="pub-link doi">DOI</a>
+          </div>
+        </div>
+
+        <div class="publication-item" data-type="journal">
+          <span class="pub-type journal">Journal Article</span>
+          <span class="citation-count">4 citations</span>
+          <div class="pub-title">Group Surrogate Data Generating Models and similarity quantification of multivariate time-series: A resting-state fMRI study</div>
+          <div class="pub-authors">T Okuno, J Hata, Y Haga, K Muta, H Tsukada, <span class="highlight">K Nakae</span>, H Okano, ...</div>
+          <div class="pub-venue">NeuroImage 279, 120329</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+            <a href="#" class="pub-link doi">DOI</a>
+          </div>
+        </div>
+
+        <div class="publication-item" data-type="preprint">
+          <span class="pub-type preprint">Preprint</span>
+          <div class="pub-title">Epileptic responses in marmosets induced by knockdown of CREB Regulated Transcription Coactivator 1 (CRTC1)</div>
+          <div class="pub-authors">Y Nakagami, M Komatsu, <span class="highlight">K Nakae</span>, M Otsuka, J Hata, H Mizukami, ...</div>
+          <div class="pub-venue">bioRxiv, 2023.09. 22.558929</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+          </div>
+        </div>
+
+        <div class="publication-item" data-type="conference">
+          <span class="pub-type conference">Conference Paper</span>
+          <div class="pub-title">A 2D Cortical Flat Map Space for Computationally Efficient Mammalian Brain Simulation</div>
+          <div class="pub-authors">A Woodward, R Gong, <span class="highlight">K Nakae</span>, P Delmas</div>
+          <div class="pub-venue">International Conference on Advanced Concepts for Intelligent Vision Systems</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2022 -->
+      <div class="year-section">
+        <h2 class="year-header">2022</h2>
+        
+        <div class="publication-item" data-type="preprint">
+          <span class="pub-type preprint">Preprint</span>
+          <span class="citation-count">6 citations</span>
+          <div class="pub-title">The Brain/MINDS Marmoset Connectivity Atlas: exploring bidirectional tracing and tractography in the same stereotaxic space</div>
+          <div class="pub-authors">H Skibbe, MF Rachmadi, <span class="highlight">K Nakae</span>, CE Gutierrez, J Hata, H Tsukada, ...</div>
+          <div class="pub-venue">bioRxiv, 2022.06. 06.494999</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2021 -->
+      <div class="year-section">
+        <h2 class="year-header">2021</h2>
+        
+        <div class="publication-item" data-type="journal">
+          <span class="pub-type journal">Journal Article</span>
+          <span class="citation-count">18 citations</span>
+          <div class="pub-title">Model-based prediction of spatial gene expression via generative linear mapping</div>
+          <div class="pub-authors">Y Okochi, S Sakaguchi, <span class="highlight">K Nakae</span>, T Kondo, H Naoki</div>
+          <div class="pub-venue">Nature Communications 12 (1), 3731</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+            <a href="#" class="pub-link doi">DOI</a>
+          </div>
+        </div>
+
+        <div class="publication-item" data-type="preprint">
+          <span class="pub-type preprint">Preprint</span>
+          <span class="citation-count">3 citations</span>
+          <div class="pub-title">Connectional architecture of the prefrontal cortex in the marmoset brain</div>
+          <div class="pub-authors">A Watakabe, H Skibbe, <span class="highlight">K Nakae</span>, H Abe, N Ichinohe, J Wang, M Takaji, ...</div>
+          <div class="pub-venue">bioRxiv, 2021</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+          </div>
+        </div>
+
+        <div class="publication-item" data-type="conference">
+          <span class="pub-type conference">Conference Paper</span>
+          <span class="citation-count">2 citations</span>
+          <div class="pub-title">Semi-supervised Image-to-Image translation for robust image registration</div>
+          <div class="pub-authors">TY Henrik Skibbe, Akiya Watakabe, Febrian Rachmadi, Carlos Enrique Gutierrez ...</div>
+          <div class="pub-venue">MIDL 2021</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2020 -->
+      <div class="year-section">
+        <h2 class="year-header">2020</h2>
+        
+        <div class="publication-item" data-type="journal">
+          <span class="pub-type journal">Journal Article</span>
+          <span class="citation-count">25 citations</span>
+          <div class="pub-title">Optimization and validation of diffusion MRI-based fiber tracking with neural tracer data as a reference</div>
+          <div class="pub-authors">CE Gutierrez, H Skibbe, <span class="highlight">K Nakae</span>, H Tsukada, J Lienard, A Watakabe, ...</div>
+          <div class="pub-venue">Scientific reports 10 (1), 21285</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+            <a href="#" class="pub-link doi">DOI</a>
+          </div>
+        </div>
+
+        <div class="publication-item" data-type="journal">
+          <span class="pub-type journal">Journal Article</span>
+          <span class="citation-count">12 citations</span>
+          <div class="pub-title">The NanoZoomer artificial intelligence connectomics pipeline for tracer injection studies of the marmoset brain</div>
+          <div class="pub-authors">A Woodward, R Gong, H Abe, <span class="highlight">K Nakae</span>, J Hata, H Skibbe, Y Yamaguchi, ...</div>
+          <div class="pub-venue">Brain Structure and Function 225, 1225-1243</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+            <a href="#" class="pub-link doi">DOI</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2019 -->
+      <div class="year-section">
+        <h2 class="year-header">2019</h2>
+        
+        <div class="publication-item" data-type="journal">
+          <span class="pub-type journal">Journal Article</span>
+          <span class="citation-count">83 citations</span>
+          <div class="pub-title">Semi-supervised deep learning of brain tissue segmentation</div>
+          <div class="pub-authors">R Ito, <span class="highlight">K Nakae</span>, J Hata, H Okano, S Ishii</div>
+          <div class="pub-venue">Neural Networks 116, 25-34</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+            <a href="#" class="pub-link doi">DOI</a>
+          </div>
+        </div>
+
+        <div class="publication-item" data-type="preprint">
+          <span class="pub-type preprint">Preprint</span>
+          <span class="citation-count">12 citations</span>
+          <div class="pub-title">MarmoNet: a pipeline for automated projection mapping of the common marmoset brain from whole-brain serial two-photon tomography</div>
+          <div class="pub-authors">H Skibbe, A Watakabe, <span class="highlight">K Nakae</span>, CE Gutierrez, H Tsukada, J Hata, ...</div>
+          <div class="pub-venue">arXiv preprint arXiv:1908.00876</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link scholar">Google Scholar</a>
+          </div>
+        </div>
+
+        <div class="publication-item" data-type="journal">
+          <span class="pub-type journal">Journal Article</span>
+          <span class="citation-count">7 citations</span>
+          <div class="pub-title">System level analysis of motor-related neural activities

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Digital Twin Lab</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #f8f8f8;
+      color: #111;
+    }
+
+    /* パララックス効果共通 */
+    section {
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    /* フェードインアニメーション */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* === HERO SECTION === */
+    .hero {
+      position: relative;
+      height: 100vh;
+      background: url('marmoset.jpg') center/cover no-repeat, #556;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.15);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 20px;
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      margin-bottom: 0.3em;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+    }
+
+    .hero p {
+      font-size: 1.2em;
+      max-width: 600px;
+      line-height: 1.6;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+
+    @media screen and (max-width: 600px) {
+      .hero h1 { font-size: 2em; }
+      .hero p { font-size: 1em; }
+    }
+
+    /* === RESEARCH SECTION === */
+    .research {
+      background: url('brain.jpg') center/cover no-repeat, #f1f4f9;
+      position: relative;
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .research::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255, 255, 255, 0.6);
+      z-index: 1;
+    }
+
+    .research h2,
+    .pillars {
+      position: relative;
+      z-index: 2;
+    }
+
+    .research h2 {
+      font-size: 2.5em;
+      margin-bottom: 40px;
+      color: #1e3c72;
+    }
+
+    .pillars {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .pillar {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      padding: 30px;
+      max-width: 300px;
+      flex: 1 1 250px;
+      transition: transform 0.3s;
+    }
+
+    .pillar:hover {
+      transform: translateY(-5px);
+    }
+
+    .pillar h3 {
+      font-size: 1.4em;
+      color: #1e3c72;
+      margin-bottom: 15px;
+    }
+
+    .pillar p {
+      font-size: 1em;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    /* === MEMBERS SECTION === */
+    .members {
+      background: url('lab_member.jpg') center/cover no-repeat, #eef2f5;
+      position: relative;
+      text-align: center;
+      padding: 80px 20px;
+      color: #111;
+    }
+
+    .members::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255, 255, 255, 0.4);
+      z-index: 1;
+    }
+
+    .members h2,
+    .member-grid {
+      position: relative;
+      z-index: 2;
+    }
+
+    .members h2 {
+      font-size: 2.5em;
+      margin-bottom: 40px;
+      color: #1e3c72;
+    }
+
+    .member-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .member {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      max-width: 220px;
+      flex: 1 1 180px;
+      transition: transform 0.3s;
+    }
+
+    .member:hover {
+      transform: translateY(-4px);
+    }
+
+    .member h3 {
+      font-size: 1.1em;
+      margin-bottom: 5px;
+    }
+
+    .member p {
+      font-size: 0.95em;
+      color: #555;
+    }
+
+    /* === NEWS SECTION === */
+    .news {
+      background: url('news.jpg') center/cover no-repeat, #f4f4f4;
+      position: relative;
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .news::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255, 255, 255, 0.5);
+      z-index: 1;
+    }
+
+    .news h2,
+    .news-list {
+      position: relative;
+      z-index: 2;
+    }
+
+    .news h2 {
+      font-size: 2.5em;
+      margin-bottom: 40px;
+      color: #1e3c72;
+    }
+
+    .news-list {
+      list-style: none;
+      padding: 0;
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .news-list li {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      font-size: 1em;
+    }
+
+    .news-list .date {
+      display: inline-block;
+      min-width: 100px;
+      font-weight: bold;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero fade-in">
+    <div class="hero-content">
+      <h1>Toward the Digital Brain</h1>
+      <p>Reconstructing behavior and cognition through the eyes of the marmoset.</p>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section class="research fade-in">
+    <h2>Our Research Pillars</h2>
+    <div class="pillars">
+      <div class="pillar">
+        <h3>1. 3D Digital Twin</h3>
+        <p>Reconstructing the sensory and behavioral dynamics of the marmoset to model autonomous cognition.</p>
+      </div>
+      <div class="pillar">
+        <h3>2. Bio-Sensing & Cognition</h3>
+        <p>Visualizing brain cell health using bioluminescence to support early detection of cognitive disorders.</p>
+      </div>
+      <div class="pillar">
+        <h3>3. Neural Data Analytics</h3>
+        <p>Analyzing large-scale brain and behavior data to decode the architecture of life’s complexity.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMBERS -->
+  <section class="members fade-in">
+    <h2>Our Members</h2>
+    <div class="member-grid">
+      <div class="member"><h3>Ken Nakae</h3><p>准教授 / Associate Professor</p></div>
+      <div class="member"><h3>Koki Iwata</h3><p>非常勤研究員 / Research Fellow</p></div>
+      <div class="member"><h3>Erina Asahi</h3><p>事務補佐員 / Admin Assistant</p></div>
+      <div class="member"><h3>Atsushi Sakagawa</h3><p>技術補佐員 / Technical Assistant</p></div>
+      <div class="member"><h3>Takahi Yamauchi</h3><p>B4 Student</p></div>
+      <div class="member"><h3>Yuto Yamamoto</h3><p>B4 Student</p></div>
+      <div class="member"><h3>Kai Ishida</h3><p>B4 Student</p></div>
+      <div class="member"><h3>Kotone Yoshino</h3><p>B4 Student</p></div>
+      <div class="member"><h3>Ho Thanh Hieu</h3><p>B3 Student</p></div>
+      <div class="member"><h3>Yuri Inudo</h3><p>B3 Student</p></div>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section class="news fade-in">
+    <h2>News</h2>
+    <ul class="news-list">
+      <li><span class="date">2025.5.26</span> Neuroscience Researchでエディターとして特集公開</li>
+      <li><span class="date">2025.4.7</span> 福井大学で大型予算獲得勉強会を主催・発表</li>
+      <li><span class="date">2025.4.5</span> 神経回路学会誌に特集が掲載</li>
+      <li><span class="date">2025.3.17</span> APPW2025にてシンポジウム開催</li>
+      <li><span class="date">2025.3.1</span> デジタルツイン研究室を福井大学にて立ち上げ</li>
+    </ul>
+  </section>
+
+ <!-- Contact -->
+  <section class="contact fade-in">
+  <h2>Contact / Join Us</h2>
+  <div class="contact-content">
+    <p><strong>Location:</strong><br>
+    Fukui University, Bunkyo Campus<br>
+    Room 0511, Integrated Research Building I</p>
+
+    <p><strong>Email:</strong><br>
+    nakae [at] u-fukui.ac.jp</p>
+
+    <p><strong>We are recruiting graduate students and JSPS PD fellows!</strong><br>
+    Passionate researchers are always welcome.</p>
+
+    <p><a href="https://www.u-fukui.ac.jp/user_admission/examination/essential_point/info_grad/" target="_blank">
+      ➤ Graduate Admissions Info (Fukui Univ.)
+    </a></p>
+  </div>
+</section>
+
+
+  <!-- JS for fade-in animation -->
+  <script>
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeEls.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

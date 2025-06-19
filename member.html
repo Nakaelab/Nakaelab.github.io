@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Members - Digital Twin Lab</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #f8f8f8;
+      color: #111;
+    }
+
+    /* === NAVIGATION === */
+    nav {
+      background-color: #333;
+      padding: 10px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav li {
+      margin: 0 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 12px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover, nav a.active {
+      background-color: #555;
+      border-radius: 4px;
+    }
+
+    /* === HERO SECTION === */
+    .hero {
+      position: relative;
+      height: 60vh;
+      background: linear-gradient(rgba(30, 60, 114, 0.8), rgba(70, 130, 180, 0.8)), 
+                  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23556b7d" width="1200" height="600"/><g fill="%23ffffff" opacity="0.15"><circle cx="100" cy="100" r="40"/><circle cx="300" cy="200" r="60"/><circle cx="500" cy="150" r="35"/><circle cx="700" cy="300" r="50"/><circle cx="900" cy="180" r="45"/><circle cx="1100" cy="250" r="55"/><path d="M200,400 Q400,350 600,400 T1000,400" stroke="%23ffffff" stroke-width="2" fill="none" opacity="0.3"/></g></svg>') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+    }
+
+    .hero-content h1 {
+      font-size: 3em;
+      margin-bottom: 0.3em;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .hero-content p {
+      font-size: 1.3em;
+      max-width: 700px;
+      line-height: 1.6;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+
+    /* === MAIN CONTENT === */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* === STATS SECTION === */
+    .stats-section {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+
+    .stat-item:hover {
+      transform: scale(1.05);
+    }
+
+    .stat-number {
+      font-size: 2.5em;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      font-size: 1em;
+      opacity: 0.9;
+    }
+
+    /* === FILTER SECTION === */
+    .filter-section {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .filter-btn {
+      background: #e9ecef;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 500;
+      color: #495057;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: #1e3c72;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* === MEMBERS SECTION === */
+    .members-section {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .section-title {
+      font-size: 2em;
+      color: #1e3c72;
+      margin-bottom: 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #1e3c72, #4a90e2);
+    }
+
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-bottom: 50px;
+    }
+
+    .member-card {
+      background: #f8f9fa;
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid transparent;
+    }
+
+    .member-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(30, 60, 114, 0.05), transparent);
+      transition: left 0.5s;
+    }
+
+    .member-card:hover::before {
+      left: 100%;
+    }
+
+    .member-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      border-color: #1e3c72;
+    }
+
+    .member-card.faculty {
+      border-left: 4px solid #dc3545;
+    }
+
+    .member-card.staff {
+      border-left: 4px solid #28a745;
+    }
+
+    .member-card.student {
+      border-left: 4px solid #007bff;
+    }
+
+    .member-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      color: white;
+      font-weight: bold;
+      transition: transform 0.3s;
+    }
+
+    .member-card:hover .member-avatar {
+      transform: scale(1.1);
+    }
+
+    .member-name {
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .member-position {
+      color: #666;
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+
+    .member-role {
+      display: inline-block;
+      background: #1e3c72;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .member-role.faculty { background: #dc3545; }
+    .member-role.staff { background: #28a745; }
+    .member-role.student { background: #007bff; }
+
+    .member-interests {
+      color: #555;
+      font-size: 0.9em;
+      line-height: 1.4;
+    }
+
+    .member-links {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .member-link {
+      padding: 6px 12px;
+      border-radius: 15px;
+      text-decoration: none;
+      font-size: 0.8em;
+      font-weight: 500;
+      transition: all 0.3s;
+      border: 2px solid;
+    }
+
+    .member-link.email {
+      background: #fff;
+      color: #007bff;
+      border-color: #007bff;
+    }
+
+    .member-link.scholar {
+      background: #fff;
+      color: #4285f4;
+      border-color: #4285f4;
+    }
+
+    .member-link:hover {
+      background: currentColor;
+      color: white;
+      transform: translateY(-1px);
+    }
+
+    /* === JOIN US SECTION === */
+    .join-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 15px;
+      padding: 40px 30px;
+      text-align: center;
+      color: white;
+      margin-top: 30px;
+    }
+
+    .join-section h2 {
+      font-size: 2.2em;
+      margin-bottom: 20px;
+    }
+
+    .join-section p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      margin-bottom: 25px;
+      opacity: 0.9;
+    }
+
+    .join-btn {
+      display: inline-block;
+      background: white;
+      color: #667eea;
+      padding: 12px 30px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .join-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    /* === RESPONSIVE === */
+    @media screen and (max-width: 768px) {
+      .hero-content h1 { font-size: 2em; }
+      .hero-content p { font-size: 1.1em; }
+      
+      .members-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .filter-buttons {
+        justify-content: flex-start;
+      }
+      
+      .filter-btn {
+        padding: 8px 15px;
+        font-size: 0.9em;
+      }
+      
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      nav li {
+        margin: 5px 10px;
+      }
+    }
+
+    /* === ANIMATIONS === */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .member-card {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    /* Stagger animation for member cards */
+    .member-card:nth-child(1) { animation-delay: 0.1s; }
+    .member-card:nth-child(2) { animation-delay: 0.2s; }
+    .member-card:nth-child(3) { animation-delay: 0.3s; }
+    .member-card:nth-child(4) { animation-delay: 0.4s; }
+    .member-card:nth-child(5) { animation-delay: 0.5s; }
+    .member-card:nth-child(6) { animation-delay: 0.6s; }
+    .member-card:nth-child(7) { animation-delay: 0.7s; }
+    .member-card:nth-child(8) { animation-delay: 0.8s; }
+    .member-card:nth-child(9) { animation-delay: 0.9s; }
+    .member-card:nth-child(10) { animation-delay: 1.0s; }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="news.html">NEWS</a></li>
+      <li><a href="mission.html">MISSION</a></li>
+      <li><a href="member.html" class="active">MEMBER</a></li>
+      <li><a href="publication.html">PUBLICATION</a></li>
+      <li><a href="link.html">LINK</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Our Team</h1>
+      <p>Meet the brilliant minds behind Digital Twin Lab - a diverse team of researchers, engineers, and students working together to advance the frontiers of computational neuroscience.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <!-- STATS -->
+    <section class="stats-section fade-in-up">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">10</div>
+          <div class="stat-label">Team Members</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Research Areas</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">6</div>
+          <div class="stat-label">Students</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">2025</div>
+          <div class="stat-label">Lab Established</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTERS -->
+    <section class="filter-section fade-in-up">
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">All Members</button>
+        <button class="filter-btn" data-filter="faculty">Faculty</button>
+        <button class="filter-btn" data-filter="staff">Staff</button>
+        <button class="filter-btn" data-filter="student">Students</button>
+      </div>
+    </section>
+
+    <!-- FACULTY & STAFF -->
+    <section class="members-section fade-in-up">
+      <h2 class="section-title">Faculty & Staff</h2>
+      <div class="members-grid">
+        <div class="member-card faculty" data-role="faculty">
+          <div class="member-avatar">KN</div>
+          <span class="member-role faculty">Associate Professor</span>
+          <h3 class="member-name">Ken Nakae</h3>
+          <p class="member-position">准教授 / Associate Professor</p>
+          <p class="member-interests">Digital Twin Modeling, Computational Neuroscience, Statistical Methods, Marmoset Brain Research</p>
+          <div class="member-links">
+            <a href="mailto:nakae@u-fukui.ac.jp" class="member-link email">Email</a>
+            <a href="https://scholar.google.co.jp/citations?user=XOE-MT8AAAAJ&hl=ja" class="member-link scholar">Scholar</a>
+          </div>
+        </div>
+
+        <div class="member-card staff" data-role="staff">
+          <div class="member-avatar">KI</div>
+          <span class="member-role staff">Research Fellow</span>
+          <h3 class="member-name">Koki Iwata</h3>
+          <p class="member-position">非常勤研究員 / Research Fellow</p>
+          <p class="member-interests">Neural Data Analysis, Machine Learning, Brain Connectivity</p>
+          <div class="member-links">
+            <a href="#" class="member-link email">Email</a>
+          </div>
+        </div>
+
+        <div class="member-card staff" data-role="staff">
+          <div class="member-avatar">EA</div>
+          <span class="member-role staff">Admin Assistant</span>
+          <h3 class="member-name">Erina Asahi</h3>
+          <p class="member-position">事務補佐員 / Admin Assistant</p>
+          <p class="member-interests">Laboratory Administration, Research Support, Project Coordination</p>
+          <div class="member-links">
+            <a href="#" class="member-link email">Email</a>
+          </div>
+        </div>
+
+        <div class="member-card staff" data-role="staff">
+          <div class="member-avatar">AS</div>
+          <span class="member-role staff">Technical Assistant</span>
+          <h3 class="member-name">Atsushi Sakagawa</h3>
+          <p class="member-position">技術補佐員 / Technical Assistant</p>
+          <p class="member-interests">Technical Support, Equipment Maintenance, Data Management</p>
+          <div class="member-links">
+            <a href="#" class="member-link email">Email</a>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Students</h2>
+      <div class="members-grid">
+        <div class="member-card student" data-role="student">
+          <div class="member-avatar">TY</div>
+          <span class="member-role student">B4 Student</span>
+          <h3 class="member-name">Takahi Yamauchi</h3>
+          <p class="member-position">B4 Student</p>
+          <p class="member-interests">Neural Signal Processing, Bio-sensing Technology</p>
+          <div class="member-links">
+            <a href="#" class="member-link email">Email</a>
+          </div>
+        </div>
+
+        <div class="member-card student" data-role="student">
+          <div class="member-avatar">YY</div>
+          <span class="member-role student">B4 Student</span>
+          <h3 class="member-name">Yuto Yamamoto</h3>
+          <p class="member-position">B4 Student</p>
+          <p class="member-interests">Behavioral Analysis, Deep Learning Applications</p>
+          <div class="member-links">
+            <a href="#" class="member-link email">Email</a>
+          </div>
+        </div>
+
+        <div class="member-card student" data-role="student">
+          <div class="member-avatar">KI</div>
+          <span class="member-role student">B4 Student</span>
+          <h3 class="member-name">Kai Ishida</h3>
+          <p class="member-position">B4 Student</p>
+          <p class="member-interests">Digital Twin Construction, 3D Modeling</p>
+          <div class="member-links">
+            <a href="#" class="member-link email">Email</a>
+          </div>
+        </div>
+
+        <div class="member-card student" data-role="student">
+          <div class="member-avatar">KY</div>
+          <span class="member-role student">B4 Student</span>
+          <h3 class="member-name">Kotone Yoshino</h3>
+          <p class="member-position">B4 Student</p>
+          <p class="member-interests">Cognitive Modeling, Statistical Analysis</p>
+          <div class="member-links">
+            <a href="#" class="member-link email">Email</a>
+          </div>
+        </div>
+
+        <div class="member-card student" data-role="student">
+          <div class="member-avatar">HH</div>
+          <span class="member-role student">B3 Student</span>
+          <h3 class="member-name">Ho Thanh Hieu</h3>
+          <p class="member-position">B3 Student</p>
+          <p class="member-interests">Computer Vision, Image Processing</p>
+          <div class="member-links">
+            <a href="#" class="member-link email">Email</a>
+          </div>
+        </div>
+
+        <div class="member-card student" data-role="student">
+          <div class="member-avatar">YI</div>
+          <span class="member-role student">B3 Student</span>
+          <h3 class="member-name">Yuri Inudo</h3>
+          <p class="member-position">B3 Student</p>
+          <p class="member-interests">Brain Imaging, Data Visualization</p>
+          <div class="member-links">
+            <a href="#" class="member-link email">Email</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOIN US SECTION -->
+    <section class="join-section fade-in-up">
+      <h2>🚀 Join Our Team!</h2>
+      <p>We are actively recruiting passionate graduate students and JSPS PD fellows to join our cutting-edge research in digital twin technology and computational neuroscience. Become part of a dynamic team pushing the boundaries of brain research!</p>
+      <a href="https://www.u-fukui.ac.jp/user_admission/examination/essential_point/info_grad/" target="_blank" class="join-btn">
+        Learn More About Admissions
+      </a>
+    </section>
+  </div>
+
+  <script>
+    // Filter functionality
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const memberCards = document.querySelectorAll('.member-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active button
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+        
+        memberCards.forEach((card, index) => {
+          if (filter === 'all' || card.dataset.role === filter) {
+            card.style.display = 'block';
+            // Re-apply stagger animation
+            card.style.animation = `fadeInUp 0.6s ease forwards`;
+            card.style.animationDelay = `${(index % 6) * 0.1}s`;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Animate elements on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in-up');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.stats-section, .filter-section, .members-section, .join-section').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Add hover effects for member cards
+    memberCards.forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-12px) scale(1.02)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+
+    // Add click effects for member avatars
+    document.querySelectorAll('.member-avatar').forEach(avatar => {
+      avatar.addEventListener('click', function() {
+        this.style.transform = 'scale(1.2) rotate(360deg)';
+        setTimeout(() => {
+          this.style.transform = 'scale(1)';
+        }, 500);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>News - Digital Twin Lab</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #f8f8f8;
+      color: #111;
+      line-height: 1.7;
+    }
+
+    /* === NAVIGATION === */
+    nav {
+      background-color: #333;
+      padding: 10px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav li {
+      margin: 0 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 12px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover, nav a.active {
+      background-color: #555;
+      border-radius: 4px;
+    }
+
+    /* === HERO SECTION === */
+    .hero {
+      position: relative;
+      height: 60vh;
+      background: linear-gradient(135deg, rgba(30, 60, 114, 0.9), rgba(52, 152, 219, 0.8)), 
+                  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23556b7d" width="1200" height="600"/><g fill="%23ffffff" opacity="0.15"><rect x="100" y="100" width="60" height="4" rx="2"/><rect x="200" y="150" width="80" height="4" rx="2"/><rect x="120" y="200" width="100" height="4" rx="2"/><rect x="320" y="120" width="70" height="4" rx="2"/><rect x="450" y="180" width="90" height="4" rx="2"/><rect x="600" y="140" width="85" height="4" rx="2"/><rect x="750" y="190" width="75" height="4" rx="2"/><rect x="900" y="160" width="95" height="4" rx="2"/><circle cx="80" cy="80" r="8" opacity="0.6"/><circle cx="200" cy="120" r="6" opacity="0.4"/><circle cx="350" cy="90" r="10" opacity="0.5"/><circle cx="500" cy="130" r="7" opacity="0.6"/><circle cx="680" cy="100" r="9" opacity="0.4"/><circle cx="850" cy="140" r="8" opacity="0.5"/></g></svg>') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .hero-content h1 {
+      font-size: 3.5em;
+      margin-bottom: 0.3em;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      font-weight: 300;
+    }
+
+    .hero-content p {
+      font-size: 1.4em;
+      line-height: 1.6;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      font-weight: 300;
+      max-width: 700px;
+    }
+
+    /* === MAIN CONTENT === */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+
+    /* === FILTER SECTION === */
+    .filter-section {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .filter-btn {
+      background: #e9ecef;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 500;
+      color: #495057;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: #1e3c72;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .search-box {
+      max-width: 400px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 12px 20px;
+      border: 2px solid #e9ecef;
+      border-radius: 25px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .search-box input:focus {
+      border-color: #1e3c72;
+    }
+
+    /* === NEWS SECTION === */
+    .news-section {
+      background: white;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .section-title {
+      font-size: 2.5em;
+      color: #1e3c72;
+      margin-bottom: 40px;
+      text-align: center;
+      position: relative;
+      font-weight: 300;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #1e3c72, #4a90e2);
+    }
+
+    .news-timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .news-timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .news-item {
+      position: relative;
+      margin-bottom: 40px;
+      background: #f8f9fa;
+      border-radius: 15px;
+      padding: 30px 25px;
+      margin-left: 20px;
+      transition: all 0.3s ease;
+      border-left: 4px solid transparent;
+      opacity: 0;
+      transform: translateX(30px);
+      animation: slideInLeft 0.8s ease forwards;
+    }
+
+    .news-item:nth-child(1) { animation-delay: 0.1s; }
+    .news-item:nth-child(2) { animation-delay: 0.2s; }
+    .news-item:nth-child(3) { animation-delay: 0.3s; }
+    .news-item:nth-child(4) { animation-delay: 0.4s; }
+    .news-item:nth-child(5) { animation-delay: 0.5s; }
+    .news-item:nth-child(6) { animation-delay: 0.6s; }
+
+    @keyframes slideInLeft {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .news-item::before {
+      content: '';
+      position: absolute;
+      left: -35px;
+      top: 25px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid #667eea;
+      z-index: 2;
+    }
+
+    .news-item:hover {
+      transform: translateX(10px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      border-left-color: #667eea;
+    }
+
+    .news-item.publication {
+      border-left-color: #28a745;
+    }
+
+    .news-item.publication::before {
+      border-color: #28a745;
+    }
+
+    .news-item.event {
+      border-left-color: #007bff;
+    }
+
+    .news-item.event::before {
+      border-color: #007bff;
+    }
+
+    .news-item.award {
+      border-left-color: #ffc107;
+    }
+
+    .news-item.award::before {
+      border-color: #ffc107;
+    }
+
+    .news-item.milestone {
+      border-left-color: #dc3545;
+    }
+
+    .news-item.milestone::before {
+      border-color: #dc3545;
+    }
+
+    .news-date {
+      display: inline-block;
+      background: #1e3c72;
+      color: white;
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .news-category {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 15px;
+      font-size: 0.8em;
+      font-weight: bold;
+      margin-left: 10px;
+      color: white;
+    }
+
+    .news-category.publication { background: #28a745; }
+    .news-category.event { background: #007bff; }
+    .news-category.award { background: #ffc107; color: #333; }
+    .news-category.milestone { background: #dc3545; }
+
+    .news-title {
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+
+    .news-description {
+      color: #666;
+      font-size: 1em;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .news-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .news-link {
+      padding: 6px 15px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.9em;
+      font-weight: 500;
+      transition: all 0.3s;
+      border: 2px solid;
+    }
+
+    .news-link.external {
+      background: #fff;
+      color: #007bff;
+      border-color: #007bff;
+    }
+
+    .news-link.pdf {
+      background: #fff;
+      color: #dc3545;
+      border-color: #dc3545;
+    }
+
+    .news-link.more {
+      background: #fff;
+      color: #28a745;
+      border-color: #28a745;
+    }
+
+    .news-link:hover {
+      background: currentColor;
+      color: white;
+      transform: translateY(-1px);
+    }
+
+    /* === ARCHIVE SECTION === */
+    .archive-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 15px;
+      padding: 40px;
+      text-align: center;
+      color: white;
+      margin-top: 40px;
+    }
+
+    .archive-section h3 {
+      font-size: 1.8em;
+      margin-bottom: 15px;
+      font-weight: 300;
+    }
+
+    .archive-section p {
+      font-size: 1.1em;
+      margin-bottom: 25px;
+      opacity: 0.9;
+    }
+
+    .archive-btn {
+      display: inline-block;
+      background: white;
+      color: #667eea;
+      padding: 12px 30px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .archive-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    /* === RESPONSIVE === */
+    @media screen and (max-width: 768px) {
+      .hero-content h1 { font-size: 2.5em; }
+      .hero-content p { font-size: 1.2em; }
+      
+      .news-section {
+        padding: 30px 20px;
+      }
+      
+      .news-timeline {
+        padding-left: 20px;
+      }
+      
+      .news-item {
+        margin-left: 15px;
+        padding: 25px 20px;
+      }
+      
+      .news-item::before {
+        left: -28px;
+      }
+      
+      .filter-buttons {
+        justify-content: flex-start;
+      }
+      
+      .filter-btn {
+        padding: 8px 15px;
+        font-size: 0.9em;
+      }
+      
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      nav li {
+        margin: 5px 10px;
+      }
+    }
+
+    /* === ANIMATIONS === */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.8s ease forwards;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="news.html" class="active">NEWS</a></li>
+      <li><a href="mission.html">MISSION</a></li>
+      <li><a href="member.html">MEMBER</a></li>
+      <li><a href="publication.html">PUBLICATION</a></li>
+      <li><a href="link.html">LINK</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>What's New</h1>
+      <p>Digital Twin Labの最新のニュース、研究成果、イベント情報をお届けします</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <!-- FILTERS -->
+    <section class="filter-section fade-in-up">
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">すべて</button>
+        <button class="filter-btn" data-filter="publication">論文・出版</button>
+        <button class="filter-btn" data-filter="event">イベント</button>
+        <button class="filter-btn" data-filter="award">受賞・表彰</button>
+        <button class="filter-btn" data-filter="milestone">マイルストーン</button>
+      </div>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="ニュースを検索...">
+      </div>
+    </section>
+
+    <!-- NEWS SECTION -->
+    <section class="news-section fade-in-up">
+      <h2 class="section-title">最新ニュース</h2>
+      
+      <div class="news-timeline">
+        <div class="news-item publication" data-category="publication">
+          <span class="news-date">2025.5.26</span>
+          <span class="news-category publication">論文・出版</span>
+          <h3 class="news-title">Neuroscience Researchで特集エディターを担当</h3>
+          <div class="news-description">
+            Neuroscience Researchでエディターとして「Will BigData change Neuroscience?」特集を企画・編集し、公開されました。ビッグデータが神経科学研究に与える影響について、最新の研究動向をまとめています。
+          </div>
+          <div class="news-links">
+            <a href="#" class="news-link external">特集ページ</a>
+            <a href="#" class="news-link pdf">PDF</a>
+          </div>
+        </div>
+
+        <div class="news-item event" data-category="event">
+          <span class="news-date">2025.4.7</span>
+          <span class="news-category event">イベント</span>
+          <h3 class="news-title">福井大学で大型予算獲得勉強会を主催</h3>
+          <div class="news-description">
+            福井大学において大型予算獲得に向けた勉強会を主催し、研究戦略と申請書作成のノウハウについて発表を行いました。多くの研究者にとって有益な情報共有の機会となりました。
+          </div>
+          <div class="news-links">
+            <a href="#" class="news-link more">詳細情報</a>
+          </div>
+        </div>
+
+        <div class="news-item publication" data-category="publication">
+          <span class="news-date">2025.4.5</span>
+          <span class="news-category publication">論文・出版</span>
+          <h3 class="news-title">神経回路学会誌で「デジタル脳」特集を公開</h3>
+          <div class="news-description">
+            神経回路学会誌でエディターとして「デジタル脳」特集を企画・編集し、公開されました。デジタル技術を活用した脳研究の最前線について包括的に紹介しています。
+          </div>
+          <div class="news-links">
+            <a href="#" class="news-link external">学会誌</a>
+            <a href="#" class="news-link pdf">PDF</a>
+          </div>
+        </div>
+
+        <div class="news-item publication" data-category="publication">
+          <span class="news-date">2025.4.4</span>
+          <span class="news-category publication">論文・出版</span>
+          <h3 class="news-title">Nature Communicationに共著論文が掲載</h3>
+          <div class="news-description">
+            国際的な権威ある学術誌Nature Communicationに共著者として参加した論文が掲載されました。この研究は神経科学分野における重要な発見として注目を集めています。
+          </div>
+          <div class="news-links">
+            <a href="#" class="news-link external">Nature Communications</a>
+            <a href="#" class="news-link pdf">論文PDF</a>
+          </div>
+        </div>
+
+        <div class="news-item event" data-category="event">
+          <span class="news-date">2025.3.17</span>
+          <span class="news-category event">イベント</span>
+          <h3 class="news-title">APPW2025でシンポジウム開催</h3>
+          <div class="news-description">
+            APPW2025において"The Future of AI and the Co-Creation of Life"をテーマとしたシンポジウムを開催し、AIと生命の共創について研究発表を行いました。国内外から多くの研究者が参加し、活発な議論が交わされました。
+          </div>
+          <div class="news-links">
+            <a href="#" class="news-link external">APPW2025</a>
+            <a href="#" class="news-link more">発表資料</a>
+          </div>
+        </div>
+
+        <div class="news-item milestone" data-category="milestone">
+          <span class="news-date">2025.3.1</span>
+          <span class="news-category milestone">マイルストーン</span>
+          <h3 class="news-title">デジタルツイン研究室を福井大学にて立ち上げ</h3>
+          <div class="news-description">
+            福井大学工学研究科にデジタルツイン研究室を正式に立ち上げました。最先端のデジタルツイン技術と計算神経科学の融合により、生命現象のデジタル再現という新たな研究分野の開拓を目指します。
+          </div>
+          <div class="news-links">
+            <a href="#" class="news-link more">研究室紹介</a>
+            <a href="member.html" class="news-link external">メンバー紹介</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARCHIVE SECTION -->
+    <section class="archive-section fade-in-up">
+      <h3>📰 過去のニュース</h3>
+      <p>2024年以前のニュースやアーカイブをご覧いただけます</p>
+      <a href="#" class="archive-btn">アーカイブを見る</a>
+    </section>
+  </div>
+
+  <script>
+    // Filter functionality
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const newsItems = document.querySelectorAll('.news-item');
+    const searchInput = document.getElementById('searchInput');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active button
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+        
+        newsItems.forEach((item, index) => {
+          if (filter === 'all' || item.dataset.category === filter) {
+            item.style.display = 'block';
+            // Re-apply stagger animation
+            item.style.animation = `slideInLeft 0.8s ease forwards`;
+            item.style.animationDelay = `${index * 0.1}s`;
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Search functionality
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      
+      newsItems.forEach(item => {
+        const title = item.querySelector('.news-title').textContent.toLowerCase();
+        const description = item.querySelector('.news-description').textContent.toLowerCase();
+        
+        if (title.includes(searchTerm) || description.includes(searchTerm)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in-up');
+        }
+      });
+    }, observerOptions);
+
+    // Observe elements for animation
+    document.querySelectorAll('.filter-section, .news-section, .archive-section').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Enhanced hover effects for news items
+    newsItems.forEach(item => {
+      item.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateX(15px) scale(1.02)';
+        this.style.boxShadow = '0 15px 35px rgba(0,0,0,0.15)';
+      });
+      
+      item.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateX(0) scale(1)';
+        this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+      });
+    });
+
+    // Add smooth scrolling for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

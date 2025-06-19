@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Links - Digital Twin Lab</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #f8f8f8;
+      color: #111;
+      line-height: 1.7;
+    }
+
+    /* === NAVIGATION === */
+    nav {
+      background-color: #333;
+      padding: 10px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav li {
+      margin: 0 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 12px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover, nav a.active {
+      background-color: #555;
+      border-radius: 4px;
+    }
+
+    /* === HERO SECTION === */
+    .hero {
+      position: relative;
+      height: 50vh;
+      background: linear-gradient(135deg, rgba(30, 60, 114, 0.9), rgba(52, 152, 219, 0.8)), 
+                  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23556b7d" width="1200" height="400"/><g fill="%23ffffff" opacity="0.1"><circle cx="100" cy="100" r="20"/><circle cx="300" cy="150" r="15"/><circle cx="500" cy="80" r="25"/><circle cx="700" cy="200" r="18"/><circle cx="900" cy="120" r="22"/><circle cx="1100" cy="180" r="16"/><path d="M150,250 Q350,200 550,250 T950,250" stroke="%23ffffff" stroke-width="2" fill="none" opacity="0.3"/><path d="M100,300 Q300,280 500,300 T900,300" stroke="%23ffffff" stroke-width="1" fill="none" opacity="0.2"/></g></svg>') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+    }
+
+    .hero-content h1 {
+      font-size: 3em;
+      margin-bottom: 0.3em;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      font-weight: 300;
+    }
+
+    .hero-content p {
+      font-size: 1.3em;
+      line-height: 1.6;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      font-weight: 300;
+      max-width: 700px;
+    }
+
+    /* === MAIN CONTENT === */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* === TAB SECTION === */
+    .tab-section {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .tab-header {
+      display: flex;
+      background: #f8f9fa;
+      border-bottom: 2px solid #e9ecef;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      padding: 20px 30px;
+      font-size: 1.1em;
+      font-weight: 500;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      min-width: 120px;
+    }
+
+    .tab-btn:hover {
+      background: #e9ecef;
+      color: #333;
+    }
+
+    .tab-btn.active {
+      background: white;
+      color: #1e3c72;
+      border-bottom-color: #1e3c72;
+    }
+
+    .tab-content {
+      padding: 40px;
+      min-height: 500px;
+    }
+
+    .tab-pane {
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* === CATEGORY SECTIONS === */
+    .category-title {
+      font-size: 2em;
+      color: #1e3c72;
+      margin-bottom: 30px;
+      text-align: center;
+      position: relative;
+      font-weight: 300;
+    }
+
+    .category-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #1e3c72, #4a90e2);
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .link-card {
+      background: #f8f9fa;
+      border-radius: 15px;
+      padding: 25px;
+      transition: all 0.3s ease;
+      border-left: 4px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(30, 60, 114, 0.05), transparent);
+      transition: left 0.5s;
+    }
+
+    .link-card:hover::before {
+      left: 100%;
+    }
+
+    .link-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      border-left-color: var(--accent-color, #1e3c72);
+    }
+
+    .link-card.research { --accent-color: #28a745; }
+    .link-card.seminar { --accent-color: #007bff; }
+    .link-card.event { --accent-color: #ffc107; }
+    .link-card.database { --accent-color: #6f42c1; }
+
+    .link-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-color, #1e3c72), var(--accent-color-light, #4a90e2));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    .link-card:hover .link-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .link-card.research .link-icon { --accent-color: #28a745; --accent-color-light: #5cb85c; }
+    .link-card.seminar .link-icon { --accent-color: #007bff; --accent-color-light: #5bc0de; }
+    .link-card.event .link-icon { --accent-color: #ffc107; --accent-color-light: #ffeb3b; }
+    .link-card.database .link-icon { --accent-color: #6f42c1; --accent-color-light: #9c27b0; }
+
+    .link-title {
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .link-description {
+      color: #666;
+      font-size: 0.95em;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    .link-url {
+      display: inline-block;
+      background: var(--accent-color, #1e3c72);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.9em;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .link-url:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .link-url.external::after {
+      content: ' ↗';
+      font-size: 0.8em;
+    }
+
+    /* === SPECIAL SECTIONS === */
+    .highlight-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 15px;
+      padding: 30px;
+      color: white;
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .highlight-section h3 {
+      font-size: 1.8em;
+      margin-bottom: 15px;
+      font-weight: 300;
+    }
+
+    .highlight-section p {
+      font-size: 1.1em;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .highlight-link {
+      display: inline-block;
+      background: white;
+      color: #667eea;
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .highlight-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    /* === RESPONSIVE === */
+    @media screen and (max-width: 768px) {
+      .hero-content h1 { font-size: 2.2em; }
+      .hero-content p { font-size: 1.1em; }
+      
+      .tab-header {
+        flex-wrap: wrap;
+      }
+      
+      .tab-btn {
+        padding: 15px 20px;
+        font-size: 1em;
+        min-width: 100px;
+      }
+      
+      .tab-content {
+        padding: 25px 20px;
+      }
+      
+      .links-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .link-card {
+        padding: 20px;
+      }
+      
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      nav li {
+        margin: 5px 10px;
+      }
+    }
+
+    /* === ANIMATIONS === */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .link-card {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .link-card:nth-child(1) { animation-delay: 0.1s; }
+    .link-card:nth-child(2) { animation-delay: 0.2s; }
+    .link-card:nth-child(3) { animation-delay: 0.3s; }
+    .link-card:nth-child(4) { animation-delay: 0.4s; }
+    .link-card:nth-child(5) { animation-delay: 0.5s; }
+    .link-card:nth-child(6) { animation-delay: 0.6s; }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="news.html">NEWS</a></li>
+      <li><a href="mission.html">MISSION</a></li>
+      <li><a href="member.html">MEMBER</a></li>
+      <li><a href="publication.html">PUBLICATION</a></li>
+      <li><a href="link.html" class="active">LINK</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Links & Resources</h1>
+      <p>研究関連リンク、セミナー情報、データベースなど、Digital Twin Labの活動に関連する重要なリソースをご紹介します</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <!-- TAB SECTION -->
+    <section class="tab-section fade-in-up">
+      <div class="tab-header">
+        <button class="tab-btn active" data-tab="research">研究費・プロジェクト</button>
+        <button class="tab-btn" data-tab="seminar">セミナー</button>
+        <button class="tab-btn" data-tab="event">イベント</button>
+        <button class="tab-btn" data-tab="database">データベース</button>
+      </div>
+
+      <div class="tab-content">
+        <!-- RESEARCH TAB -->
+        <div class="tab-pane active" id="research">
+          <h2 class="category-title">研究費・プロジェクト</h2>
+          <div class="links-grid">
+            <div class="link-card research">
+              <div class="link-icon">💰</div>
+              <h3 class="link-title">研究者情報データベース</h3>
+              <p class="link-description">Ken Nakae准教授の研究費獲得状況、研究プロジェクト、共同研究機関などの詳細情報をご覧いただけます。</p>
+              <a href="https://research-er.jp/researchers/view/811121" class="link-url external" target="_blank">詳細を見る</a>
+            </div>
+
+            <div class="link-card research">
+              <div class="link-icon">🧠</div>
+              <h3 class="link-title">Digital Brain Project</h3>
+              <p class="link-description">デジタル脳プロジェクトの概要、研究目標、最新の研究成果について紹介しています。</p>
+              <a href="#" class="link-url">プロジェクトページ</a>
+            </div>
+
+            <div class="link-card research">
+              <div class="link-icon">📊</div>
+              <h3 class="link-title">大型予算獲得支援</h3>
+              <p class="link-description">研究者向けの大型予算獲得に関するノウハウ、申請書作成支援、戦略立案をサポートします。</p>
+              <a href="#" class="link-url">勉強会情報</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEMINAR TAB -->
+        <div class="tab-pane" id="seminar">
+          <h2 class="category-title">セミナー・講演</h2>
+          <div class="links-grid">
+            <div class="link-card seminar">
+              <div class="link-icon">🎓</div>
+              <h3 class="link-title">Digital Brain Seminar</h3>
+              <p class="link-description">デジタル脳プロジェクトに関連するセミナーシリーズ。最新の研究動向と技術発展について定期的に開催しています。</p>
+              <a href="https://digitalbrainproject.github.io/seminar/" class="link-url external" target="_blank">セミナー情報</a>
+            </div>
+
+            <div class="link-card seminar">
+              <div class="link-icon">📺</div>
+              <h3 class="link-title">Ken Nakae YouTube Channel</h3>
+              <p class="link-description">計算神経科学、デジタルツイン技術に関する講義動画、研究解説、セミナー録画をご視聴いただけます。</p>
+              <a href="https://www.youtube.com/@kennakae2779" class="link-url external" target="_blank">YouTubeチャンネル</a>
+            </div>
+
+            <div class="link-card seminar">
+              <div class="link-icon">🧪</div>
+              <h3 class="link-title">Computational Neurology Club</h3>
+              <p class="link-description">計算神経学に興味のある研究者・学生向けの勉強会・交流会。最新論文の紹介や議論を行っています。</p>
+              <a href="#" class="link-url">クラブ情報</a>
+            </div>
+
+            <div class="link-card seminar">
+              <div class="link-icon">💡</div>
+              <h3 class="link-title">福井大学 大型予算獲得勉強会</h3>
+              <p class="link-description">研究者向けの大型予算獲得のための実践的な勉強会。申請書作成から戦略立案まで幅広くカバーします。</p>
+              <a href="#" class="link-url">勉強会資料</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- EVENT TAB -->
+        <div class="tab-pane" id="event">
+          <h2 class="category-title">イベント・ワークショップ</h2>
+          <div class="links-grid">
+            <div class="link-card event">
+              <div class="link-icon">🚀</div>
+              <h3 class="link-title">1st Digital Brain Workshop</h3>
+              <p class="link-description">デジタル脳技術の最前線を探る初回ワークショップ。国内外の研究者による最新研究発表と議論の場です。</p>
+              <a href="#" class="link-url">ワークショップ詳細</a>
+            </div>
+
+            <div class="link-card event">
+              <div class="link-icon">🔬</div>
+              <h3 class="link-title">数学と脳科学の連携ワークショップ</h3>
+              <p class="link-description">数学的手法と脳科学研究の融合を目指したワークショップ。理論と実践の架け橋となる議論を展開します。</p>
+              <a href="#" class="link-url">イベント情報</a>
+            </div>
+
+            <div class="link-card event">
+              <div class="link-icon">💻</div>
+              <h3 class="link-title">学術変革領域A・行動変容生物学ハッカソン</h3>
+              <p class="link-description">行動変容生物学の課題解決に向けたハッカソンイベント。学際的なチームでの課題解決にチャレンジします。</p>
+              <a href="#" class="link-url">ハッカソン詳細</a>
+            </div>
+          </div>
+
+          <div class="highlight-section">
+            <h3>🎯 次回イベント予告</h3>
+            <p>2025年夏頃に第2回Digital Brain Workshopの開催を予定しています。詳細は決定次第お知らせいたします。</p>
+            <a href="#" class="highlight-link">最新情報を受け取る</a>
+          </div>
+        </div>
+
+        <!-- DATABASE TAB -->
+        <div class="tab-pane" id="database">
+          <h2 class="category-title">データベース・リソース</h2>
+          <div class="links-grid">
+            <div class="link-card database">
+              <div class="link-icon">🗃️</div>
+              <h3 class="link-title">BraiDyn-BC Database</h3>
+              <p class="link-description">脳の動態と行動変容に関する包括的なデータベース。研究データの共有と利活用を促進するプラットフォームです。</p>
+              <a href="#" class="link-url">データベースアクセス</a>
+            </div>
+
+            <div class="link-card database">
+              <div class="link-icon">🌐</div>
+              <h3 class="link-title">Brain/MINDS Data Portal</h3>
+              <p class="link-description">Brain/MINDSプロジェクトの研究データを公開するポータルサイト。マーモセット脳研究の豊富なデータセットが利用可能です。</p>
+              <a href="https://dataportal.brainminds.jp/" class="link-url external" target="_blank">ポータルサイト</a>
+            </div>
+
+            <div class="link-card database">
+              <div class="link-icon">🐵</div>
+              <h3 class="link-title">マーモセット前頭前野機能マッピング</h3>
+              <p class="link-description">マーモセット前頭前野の機能マッピングに向けたタスク指針とプロトコル。実験デザインの参考資料として活用できます。</p>
+              <a href="#" class="link-url">タスク指針</a>
+            </div>
+
+            <div class="link-card database">
+              <div class="link-icon">📈</div>
+              <h3 class="link-title">Digital Twin Data Archive</h3>
+              <p class="link-description">デジタルツイン研究で生成されたデータのアーカイブ。3Dモデル、行動データ、解析結果などを保存・共有しています。</p>
+              <a href="#" class="link-url">アーカイブアクセス</a>
+            </div>
+          </div>
+
+          <div class="highlight-section">
+            <h3>📊 オープンデータポリシー</h3>
+            <p>私たちは研究データの透明性とオープンサイエンスを重視し、可能な限りデータを公開・共有しています。</p>
+            <a href="#" class="highlight-link">データ利用ガイドライン</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Tab functionality
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all buttons and panes
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabPanes.forEach(p => p.classList.remove('active'));
+
+        // Add active class to clicked button
+        btn.classList.add('active');
+
+        // Show corresponding tab pane
+        const targetTab = btn.dataset.tab;
+        document.getElementById(targetTab).classList.add('active');
+
+        // Re-trigger animations for link cards
+        const linkCards = document.querySelectorAll(`#${targetTab} .link-card`);
+        linkCards.forEach((card, index) => {
+          card.style.animation = 'none';
+          card.offsetHeight; // Trigger reflow
+          card.style.animation = `fadeInUp 0.6s ease forwards`;
+          card.style.animationDelay = `${index * 0.1}s`;
+        });
+      });
+    });
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in-up');
+        }
+      });
+    }, observerOptions);
+
+    // Observe elements for animation
+    document.querySelectorAll('.tab-section').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Enhanced hover effects for link cards
+    document.querySelectorAll('.link-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px) scale(1.02)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+
+    // Add click tracking for external links
+    document.querySelectorAll('a.external').forEach(link => {
+      link.addEventListener('click', function() {
+        console.log('External link clicked:', this.href);
+        // Here you could add analytics tracking
+      });
+    });
+
+    // Smooth scrolling for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

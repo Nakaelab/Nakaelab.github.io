@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mission - Digital Twin Lab</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #f8f8f8;
+      color: #111;
+      line-height: 1.7;
+    }
+
+    /* === NAVIGATION === */
+    nav {
+      background-color: #333;
+      padding: 10px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav li {
+      margin: 0 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 12px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover, nav a.active {
+      background-color: #555;
+      border-radius: 4px;
+    }
+
+    /* === HERO SECTION === */
+    .hero {
+      position: relative;
+      height: 70vh;
+      background: linear-gradient(135deg, rgba(30, 60, 114, 0.9), rgba(70, 130, 180, 0.8)), 
+                  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23556b7d" width="1200" height="600"/><g fill="%23ffffff" opacity="0.1"><circle cx="150" cy="100" r="3"/><circle cx="300" cy="150" r="2"/><circle cx="450" cy="80" r="4"/><circle cx="600" cy="200" r="3"/><circle cx="750" cy="120" r="2"/><circle cx="900" cy="180" r="5"/><circle cx="1050" cy="90" r="3"/><path d="M100,300 Q300,250 500,300 T900,300" stroke="%23ffffff" stroke-width="1" fill="none" opacity="0.3"/><path d="M150,400 Q350,350 550,400 T950,400" stroke="%23ffffff" stroke-width="1" fill="none" opacity="0.2"/></g></svg>') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .hero-particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      animation: float 8s infinite linear;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 20px;
+    }
+
+    .hero-content h1 {
+      font-size: 3.5em;
+      margin-bottom: 0.3em;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      font-weight: 300;
+    }
+
+    .hero-content p {
+      font-size: 1.4em;
+      line-height: 1.6;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      font-weight: 300;
+    }
+
+    /* === MAIN CONTENT === */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+
+    /* === MISSION STATEMENT === */
+    .mission-statement {
+      background: white;
+      border-radius: 20px;
+      padding: 50px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mission-statement::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+      background-size: 200% 100%;
+      animation: gradientShift 3s ease-in-out infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .mission-statement h2 {
+      font-size: 2.5em;
+      color: #1e3c72;
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+
+    .mission-text {
+      font-size: 1.2em;
+      color: #555;
+      line-height: 1.8;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* === PILLARS SECTION === */
+    .pillars-section {
+      margin: 60px 0;
+    }
+
+    .pillars-intro {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .pillars-intro h2 {
+      font-size: 2.5em;
+      color: #1e3c72;
+      margin-bottom: 20px;
+      font-weight: 300;
+    }
+
+    .pillars-intro p {
+      font-size: 1.1em;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .pillar-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 35px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      border-top: 5px solid transparent;
+    }
+
+    .pillar-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--pillar-color), var(--pillar-color-light));
+      transition: height 0.3s ease;
+    }
+
+    .pillar-card:hover::before {
+      height: 8px;
+    }
+
+    .pillar-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .pillar-card.pillar-1 {
+      --pillar-color: #667eea;
+      --pillar-color-light: #764ba2;
+    }
+
+    .pillar-card.pillar-2 {
+      --pillar-color: #f093fb;
+      --pillar-color-light: #f5576c;
+    }
+
+    .pillar-card.pillar-3 {
+      --pillar-color: #4facfe;
+      --pillar-color-light: #00f2fe;
+    }
+
+    .pillar-number {
+      display: inline-block;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pillar-color), var(--pillar-color-light));
+      color: white;
+      font-size: 1.5em;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .pillar-card:hover .pillar-number {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .pillar-title {
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    .pillar-description {
+      color: #666;
+      font-size: 1em;
+      line-height: 1.7;
+    }
+
+    /* === IMPACT SECTION === */
+    .impact-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 20px;
+      padding: 50px;
+      color: white;
+      text-align: center;
+      margin: 60px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .impact-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .impact-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .impact-section h2 {
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+
+    .impact-section p {
+      font-size: 1.2em;
+      line-height: 1.7;
+      max-width: 800px;
+      margin: 0 auto 30px;
+      opacity: 0.95;
+    }
+
+    .impact-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .impact-stat {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 25px;
+      transition: transform 0.3s ease;
+    }
+
+    .impact-stat:hover {
+      transform: scale(1.05);
+    }
+
+    .impact-stat-number {
+      font-size: 2.5em;
+      font-weight: bold;
+      margin-bottom: 10px;
+      background: linear-gradient(45deg, #fff, #f0f0f0);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .impact-stat-label {
+      font-size: 1em;
+      opacity: 0.9;
+    }
+
+    /* === VISION SECTION === */
+    .vision-section {
+      background: white;
+      border-radius: 20px;
+      padding: 50px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .vision-section h2 {
+      font-size: 2.5em;
+      color: #1e3c72;
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+
+    .vision-text {
+      font-size: 1.1em;
+      color: #666;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* === RESPONSIVE === */
+    @media screen and (max-width: 768px) {
+      .hero-content h1 { font-size: 2.5em; }
+      .hero-content p { font-size: 1.2em; }
+      
+      .mission-statement, .impact-section, .vision-section {
+        padding: 30px 25px;
+      }
+      
+      .pillars-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .pillar-card {
+        padding: 30px 25px;
+      }
+      
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      nav li {
+        margin: 5px 10px;
+      }
+      
+      .impact-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+    }
+
+    /* === ANIMATIONS === */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .pillar-card {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .pillar-card:nth-child(1) { animation-delay: 0.2s; }
+    .pillar-card:nth-child(2) { animation-delay: 0.4s; }
+    .pillar-card:nth-child(3) { animation-delay: 0.6s; }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="news.html">NEWS</a></li>
+      <li><a href="mission.html" class="active">MISSION</a></li>
+      <li><a href="member.html">MEMBER</a></li>
+      <li><a href="publication.html">PUBLICATION</a></li>
+      <li><a href="link.html">LINK</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-particles" id="particles"></div>
+    <div class="hero-content">
+      <h1>Our Mission</h1>
+      <p>現実世界の複雑で多様な生命現象をデジタル空間へ忠実かつ革新的に再現し、<br>科学の最前線を切り拓く</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <!-- MISSION STATEMENT -->
+    <section class="mission-statement fade-in-up">
+      <h2>私たちのミッション</h2>
+      <div class="mission-text">
+        私たちのミッションは、現実世界の複雑で多様な生命現象をデジタル空間へ忠実かつ革新的に再現することで、科学の最前線を切り拓き、未来の医療・エンターテイメント・福祉分野を支える新たな価値を創造することです。
+      </div>
+    </section>
+
+    <!-- PILLARS SECTION -->
+    <section class="pillars-section">
+      <div class="pillars-intro fade-in-up">
+        <h2>3つの研究の柱</h2>
+        <p>以下の3つの柱に基づいて、革新的な研究を進めています</p>
+      </div>
+
+      <div class="pillars-grid">
+        <div class="pillar-card pillar-1">
+          <div class="pillar-number">1</div>
+          <h3 class="pillar-title">生命のダイナミクスを解明する<br>3Dデジタルツインの構築</h3>
+          <div class="pillar-description">
+            霊長類であるマーモセットの視覚や触覚、さらには行動全体を精密な3D再現技術と大量データによる解析を通じて、主観的な感覚や複雑な行動パターンをデジタル空間に再現します。これにより、デジタル上で生命体が自律的に認識し、行動する新たな知能モデルの構築を目指します。
+          </div>
+        </div>
+
+        <div class="pillar-card pillar-2">
+          <div class="pillar-number">2</div>
+          <h3 class="pillar-title">先進的な生体計測技術を活用した<br>健康と認知の最適化</h3>
+          <div class="pillar-description">
+            生物発光技術を用い、脳細胞の健全性や認知機能の低下をリアルタイムで自動測定する装置を開発します。マーモセットを通じた静寂な深夜の計測実験により、細胞レベルから脳全体の状態を可視化し、認知症やその他の神経疾患の早期発見・予防に寄与する技術の確立を目指します。
+          </div>
+        </div>
+
+        <div class="pillar-card pillar-3">
+          <div class="pillar-number">3</div>
+          <h3 class="pillar-title">脳・行動データの解析による<br>多次元アプローチ</h3>
+          <div class="pillar-description">
+            動物やヒトの脳データの大規模データベース構築と先進的な解析手法の開発を通じ、構造的ネットワークと動的な脳活動、さらには身体各部の動態まで、多層的に解明します。これにより、未知の生命現象の理解を深めるとともに、実用的な応用技術の創出につなげます。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPACT SECTION -->
+    <section class="impact-section fade-in-up">
+      <div class="impact-content">
+        <h2>社会への貢献</h2>
+        <p>
+          私たちの研究は、医療分野での早期診断技術、エンターテイメント業界でのリアルなVR体験、福祉分野でのリハビリテーション支援など、幅広い分野で社会に貢献する技術を生み出します。デジタルツイン技術により、個人に最適化された治療やサービスの提供が可能になります。
+        </p>
+        
+        <div class="impact-stats">
+          <div class="impact-stat">
+            <div class="impact-stat-number">3</div>
+            <div class="impact-stat-label">主要研究分野</div>
+          </div>
+          <div class="impact-stat">
+            <div class="impact-stat-number">100+</div>
+            <div class="impact-stat-label">論文・発表数</div>
+          </div>
+          <div class="impact-stat">
+            <div class="impact-stat-number">10+</div>
+            <div class="impact-stat-label">共同研究機関</div>
+          </div>
+          <div class="impact-stat">
+            <div class="impact-stat-number">∞</div>
+            <div class="impact-stat-label">可能性</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISION SECTION -->
+    <section class="vision-section fade-in-up">
+      <h2>未来への展望</h2>
+      <div class="vision-text">
+        私たちは、デジタルツイン技術を通じて「生命をデジタルで理解する」という新しい科学のパラダイムを確立することを目指しています。この技術により、個々の患者に最適化された治療法の開発、高齢者の認知機能維持支援、そして人間の認知メカニズムの根本的な理解が可能になります。私たちの研究が、より健康で豊かな社会の実現に貢献することを願っています。
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Particle animation
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 50;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 8 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in-up');
+        }
+      });
+    }, observerOptions);
+
+    // Observe elements for animation
+    document.querySelectorAll('.mission-statement, .pillars-intro, .impact-section, .vision-section').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Pillar cards hover effects
+    document.querySelectorAll('.pillar-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-15px) scale(1.02)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+
+    // Initialize particles
+    createParticles();
+
+    // Add dynamic text effect
+    function typeWriter(element, text, speed = 50) {
+      let i = 0;
+      element.innerHTML = '';
+      
+      function type() {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        }
+      }
+      type();
+    }
+
+    // Scroll-triggered animations for stats
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const statNumbers = entry.target.querySelectorAll('.impact-stat-number');
+          statNumbers.forEach((stat, index) => {
+            setTimeout(() => {
+              stat.style.transform = 'scale(1.2)';
+              setTimeout(() => {
+                stat.style.transform = 'scale(1)';
+              }, 200);
+            }, index * 100);
+          });
+        }
+      });
+    });
+
+    statsObserver.observe(document.querySelector('.impact-stats'));
+  </script>
+</body>
+</html>
