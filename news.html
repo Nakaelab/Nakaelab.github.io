@@ -47,12 +47,13 @@
       border-radius: 4px;
     }
 
-    /* === HERO SECTION === */
+    /* === UPDATED HERO SECTION === */
     .hero {
       position: relative;
       height: 60vh;
-      background: linear-gradient(135deg, rgba(30, 60, 114, 0.9), rgba(52, 152, 219, 0.8)), 
-                  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23556b7d" width="1200" height="600"/><g fill="%23ffffff" opacity="0.15"><rect x="100" y="100" width="60" height="4" rx="2"/><rect x="200" y="150" width="80" height="4" rx="2"/><rect x="120" y="200" width="100" height="4" rx="2"/><rect x="320" y="120" width="70" height="4" rx="2"/><rect x="450" y="180" width="90" height="4" rx="2"/><rect x="600" y="140" width="85" height="4" rx="2"/><rect x="750" y="190" width="75" height="4" rx="2"/><rect x="900" y="160" width="95" height="4" rx="2"/><circle cx="80" cy="80" r="8" opacity="0.6"/><circle cx="200" cy="120" r="6" opacity="0.4"/><circle cx="350" cy="90" r="10" opacity="0.5"/><circle cx="500" cy="130" r="7" opacity="0.6"/><circle cx="680" cy="100" r="9" opacity="0.4"/><circle cx="850" cy="140" r="8" opacity="0.5"/></g></svg>') center/cover no-repeat;
+      background: 
+        linear-gradient(135deg, rgba(30, 60, 114, 0.8), rgba(52, 152, 219, 0.7)),
+        url('marmoset_news.png') center/cover no-repeat;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -62,19 +63,67 @@
       overflow: hidden;
     }
 
+    /* Fallback for when image doesn't load */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(30, 60, 114, 0.9), rgba(52, 152, 219, 0.8));
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      animation: heroFadeIn 1.5s ease forwards;
+    }
+
     .hero-content h1 {
       font-size: 3.5em;
       margin-bottom: 0.3em;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
       font-weight: 300;
+      opacity: 0;
+      animation: slideUpFade 1s ease 0.5s forwards;
     }
 
     .hero-content p {
       font-size: 1.4em;
       line-height: 1.6;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
       font-weight: 300;
       max-width: 700px;
+      opacity: 0;
+      animation: slideUpFade 1s ease 0.8s forwards;
+    }
+
+    /* Add subtle floating animation to the hero */
+    .hero {
+      animation: heroBreath 4s ease-in-out infinite;
+    }
+
+    @keyframes heroBreath {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.01); }
+    }
+
+    @keyframes heroFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUpFade {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* === MAIN CONTENT === */
@@ -382,8 +431,17 @@
 
     /* === RESPONSIVE === */
     @media screen and (max-width: 768px) {
-      .hero-content h1 { font-size: 2.5em; }
-      .hero-content p { font-size: 1.2em; }
+      .hero-content h1 { 
+        font-size: 2.5em; 
+      }
+      .hero-content p { 
+        font-size: 1.2em; 
+        padding: 0 20px;
+      }
+      
+      .hero {
+        height: 50vh;
+      }
       
       .news-section {
         padding: 30px 20px;
@@ -436,6 +494,24 @@
     .fade-in-up {
       animation: fadeInUp 0.8s ease forwards;
     }
+
+    /* === LOADING STATE FOR IMAGE === */
+    .hero-image-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 16px;
+      z-index: 1;
+      opacity: 0;
+      animation: pulseLoading 2s ease-in-out infinite;
+    }
+
+    @keyframes pulseLoading {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.7; }
+    }
   </style>
 </head>
 
@@ -452,8 +528,9 @@
     </ul>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO WITH MARMOSET NEWS IMAGE -->
   <section class="hero">
+    <div class="hero-image-loading">Loading marmoset news image...</div>
     <div class="hero-content">
       <h1>What's New</h1>
       <p>Digital Twin Labの最新のニュース、研究成果、イベント情報をお届けします</p>
@@ -568,6 +645,27 @@
   </div>
 
   <script>
+    // Check if marmoset news image loads successfully
+    const heroSection = document.querySelector('.hero');
+    const loadingText = document.querySelector('.hero-image-loading');
+    
+    // Create a test image to check if the background image loads
+    const testImg = new Image();
+    testImg.onload = function() {
+      // Image loaded successfully, hide loading text
+      if (loadingText) {
+        loadingText.style.display = 'none';
+      }
+    };
+    testImg.onerror = function() {
+      // Image failed to load, show message
+      if (loadingText) {
+        loadingText.innerHTML = 'marmoset_news.png not found - using fallback background';
+        loadingText.style.display = 'block';
+      }
+    };
+    testImg.src = 'marmoset_news.png';
+
     // Filter functionality
     const filterBtns = document.querySelectorAll('.filter-btn');
     const newsItems = document.querySelectorAll('.news-item');
