@@ -46,31 +46,82 @@
       border-radius: 4px;
     }
 
-    /* === HERO SECTION === */
+    /* === HERO SECTION WITH TEAM MARMOSETS === */
     .hero {
       position: relative;
       height: 60vh;
-      background: linear-gradient(rgba(30, 60, 114, 0.8), rgba(70, 130, 180, 0.8)), 
-                  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23556b7d" width="1200" height="600"/><g fill="%23ffffff" opacity="0.15"><circle cx="100" cy="100" r="40"/><circle cx="300" cy="200" r="60"/><circle cx="500" cy="150" r="35"/><circle cx="700" cy="300" r="50"/><circle cx="900" cy="180" r="45"/><circle cx="1100" cy="250" r="55"/><path d="M200,400 Q400,350 600,400 T1000,400" stroke="%23ffffff" stroke-width="2" fill="none" opacity="0.3"/></g></svg>') center/cover no-repeat;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      background: 
+        url('member_back.png') center/cover no-repeat,
+        #f8f9fa;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       align-items: center;
-      text-align: center;
-      color: #fff;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      gap: 60px;
+      color: #333;
+      overflow: hidden;
+    }
+
+    /* Left Side - Team Marmosets */
+    .hero-image-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .hero-team-image {
+      width: 100%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
+      max-width: 450px;
+    }
+
+    .hero-team-image:hover {
+      transform: scale(1.02);
+    }
+
+    /* Right Side - Content */
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding-left: 40px;
+    }
+
+    .hero-lab-name {
+      font-size: 28px;
+      color: #666;
+      margin-bottom: 15px;
+      font-weight: 400;
+      opacity: 0;
+      animation: slideUpFade 1s ease 0.5s forwards;
     }
 
     .hero-content h1 {
-      font-size: 3em;
+      font-size: clamp(48px, 8vw, 72px);
       margin-bottom: 0.3em;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      text-shadow: none;
+      font-weight: 700;
+      color: #333;
+      line-height: 1.1;
+      opacity: 0;
+      animation: slideUpFade 1s ease 0.7s forwards;
     }
 
     .hero-content p {
-      font-size: 1.3em;
-      max-width: 700px;
+      font-size: 18px;
       line-height: 1.6;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      text-shadow: none;
+      font-weight: 400;
+      color: #666;
+      max-width: none;
+      opacity: 0;
+      animation: slideUpFade 1s ease 0.9s forwards;
     }
 
     /* === MAIN CONTENT === */
@@ -357,35 +408,12 @@
       box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
 
-    /* === RESPONSIVE === */
-    @media screen and (max-width: 768px) {
-      .hero-content h1 { font-size: 2em; }
-      .hero-content p { font-size: 1.1em; }
-      
-      .members-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .filter-buttons {
-        justify-content: flex-start;
-      }
-      
-      .filter-btn {
-        padding: 8px 15px;
-        font-size: 0.9em;
-      }
-      
-      nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      
-      nav li {
-        margin: 5px 10px;
-      }
+    /* === ANIMATIONS === */
+    @keyframes slideUpFade {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* === ANIMATIONS === */
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -416,6 +444,67 @@
     .member-card:nth-child(8) { animation-delay: 0.8s; }
     .member-card:nth-child(9) { animation-delay: 0.9s; }
     .member-card:nth-child(10) { animation-delay: 1.0s; }
+
+    /* === RESPONSIVE === */
+    @media screen and (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+        padding: 40px 30px;
+        height: auto;
+        min-height: 60vh;
+      }
+      
+      .hero-content {
+        padding-left: 0;
+        order: -1;
+      }
+      
+      .hero-team-image {
+        max-width: 400px;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .hero {
+        padding: 30px 20px;
+      }
+      
+      .hero-content h1 { 
+        font-size: 2.5em; 
+      }
+      .hero-content p { 
+        font-size: 1.2em; 
+        padding: 0 20px;
+      }
+      
+      .hero-team-image {
+        max-width: 320px;
+      }
+
+      .members-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .filter-buttons {
+        justify-content: flex-start;
+      }
+      
+      .filter-btn {
+        padding: 8px 15px;
+        font-size: 0.9em;
+      }
+      
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      nav li {
+        margin: 5px 10px;
+      }
+    }
   </style>
 </head>
 
@@ -423,6 +512,7 @@
   <nav>
     <ul>
       <li><a href="index.html">HOME</a></li>
+      <li><a href="workshop.html">WORKSHOP</a></li>
       <li><a href="news.html">NEWS</a></li>
       <li><a href="mission.html">MISSION</a></li>
       <li><a href="member.html" class="active">MEMBER</a></li>
@@ -432,9 +522,24 @@
     </ul>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO WITH TEAM MARMOSETS -->
   <section class="hero">
+    <!-- Left Side - Team Marmosets -->
+    <div class="hero-image-container">
+      <img 
+        src="marmoset_team.png" 
+        alt="Marmoset research team" 
+        class="hero-team-image"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+      >
+      <div style="display: none; padding: 40px; background: #f0f0f0; border-radius: 15px; text-align: center; color: #666;">
+        marmoset_team.png<br>チーム画像を読み込み中...
+      </div>
+    </div>
+    
+    <!-- Right Side - Content -->
     <div class="hero-content">
+      <div class="hero-lab-name">Nakae Lab,</div>
       <h1>Our Team</h1>
       <p>Meet the brilliant minds behind Digital Twin Lab - a diverse team of researchers, engineers, and students working together to advance the frontiers of computational neuroscience.</p>
     </div>
