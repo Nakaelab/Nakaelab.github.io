@@ -775,24 +775,22 @@
     video.addEventListener('mouseleave', function() {
       this.style.transform = 'scale(1)';
     });
-    // マウス追従マーモセット
-document.addEventListener('mousemove', function(e) {
-  const marmoset = document.querySelector('.floating-marmoset.following');
-  if (marmoset) {
-    marmoset.style.left = (e.clientX - 30) + 'px';
-    marmoset.style.top = (e.clientY - 30) + 'px';
-  }
-});
-    // クリック時に跳ねるアニメーション
+    // クリックした場所に飛んでいくマーモセット
 document.addEventListener('click', function(e) {
   const marmoset = document.querySelector('.floating-marmoset.following');
   if (marmoset) {
+    // クリックした場所に移動
+    marmoset.style.left = (e.clientX - 30) + 'px';
+    marmoset.style.top = (e.clientY - 30) + 'px';
+    
+    // 跳ねるアニメーション
     marmoset.classList.add('bounce');
     setTimeout(() => {
       marmoset.classList.remove('bounce');
     }, 600);
   }
 });
+   
   </script>
 
 </body>
