@@ -587,7 +587,18 @@
   background: url('m_4.png') center/contain no-repeat;
 }
 
+/* 跳ねるアニメーション */
+.floating-marmoset.bounce {
+  animation: bounce 0.6s ease;
+}
 
+@keyframes bounce {
+  0% { transform: scale(1) translateY(0); }
+  30% { transform: scale(1.2) translateY(-20px); }
+  50% { transform: scale(1.1) translateY(-10px); }
+  70% { transform: scale(1.15) translateY(-15px); }
+  100% { transform: scale(1) translateY(0); }
+}
   </style>
 </head>
 
@@ -770,6 +781,16 @@ document.addEventListener('mousemove', function(e) {
   if (marmoset) {
     marmoset.style.left = (e.clientX - 30) + 'px';
     marmoset.style.top = (e.clientY - 30) + 'px';
+  }
+});
+    // クリック時に跳ねるアニメーション
+document.addEventListener('click', function(e) {
+  const marmoset = document.querySelector('.floating-marmoset.following');
+  if (marmoset) {
+    marmoset.classList.add('bounce');
+    setTimeout(() => {
+      marmoset.classList.remove('bounce');
+    }, 600);
   }
 });
   </script>
