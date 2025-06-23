@@ -779,9 +779,20 @@
 document.addEventListener('click', function(e) {
   const marmoset = document.querySelector('.floating-marmoset.following');
   if (marmoset) {
-    // クリックした場所に移動
-    marmoset.style.left = (e.clientX - 30) + 'px';
-    marmoset.style.top = (e.clientY - 30) + 'px';
+   // ランダムな範囲で移動（クリック位置の周辺）
+　const randomX = e.clientX + (Math.random() - 0.5) * 200; // ±100pxの範囲
+　const randomY = e.clientY + (Math.random() - 0.5) * 200; // ±100pxの範囲
+
+　　// 画面外に出ないように調整
+　const maxX = window.innerWidth - 60;
+　const maxY = window.innerHeight - 60;
+　const finalX = Math.max(30, Math.min(randomX, maxX));
+　const finalY = Math.max(30, Math.min(randomY, maxY));
+
+　　// スムーズに移動
+　marmoset.style.transition = 'all 0.5s ease-out';
+　marmoset.style.left = finalX + 'px';
+　marmoset.style.top = finalY + 'px';
     
     // 跳ねるアニメーション
     marmoset.classList.add('bounce');
