@@ -1,777 +1,302 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Members - Digital Twin Lab</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
-      background-color: #f8f8f8;
-      color: #111;
-    }
-
-    /* === NAVIGATION === */
-    nav {
-      background-color: #333;
-      padding: 10px 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    nav ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-    }
-
-    nav li {
-      margin: 0 20px;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 8px 12px;
-      transition: background-color 0.3s;
-    }
-
-    nav a:hover, nav a.active {
-      background-color: #555;
-      border-radius: 4px;
-    }
-
-    /* === HERO SECTION WITH TEAM MARMOSETS === */
-    .hero {
-      position: relative;
-      height: 60vh;
-      background: 
-        url('member_back.png') center/cover no-repeat,
-        #f8f9fa;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 40px;
-      gap: 60px;
-      color: #333;
-      overflow: hidden;
-    }
-
-    /* Left Side - Team Marmosets */
-    .hero-image-container {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1;
-    }
-
-    .hero-team-image {
-      width: 100%;
-      height: auto;
-      border-radius: 15px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-      transition: transform 0.3s ease;
-      max-width: 450px;
-    }
-
-    .hero-team-image:hover {
-      transform: scale(1.02);
-    }
-
-    /* Right Side - Content */
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      padding-left: 40px;
-    }
-
-    .hero-lab-name {
-      font-size: 28px;
-      color: #666;
-      margin-bottom: 15px;
-      font-weight: 400;
-      opacity: 0;
-      animation: slideUpFade 1s ease 0.5s forwards;
-    }
-
-    .hero-content h1 {
-      font-size: clamp(48px, 8vw, 72px);
-      margin-bottom: 0.3em;
-      text-shadow: none;
-      font-weight: 700;
-      color: #333;
-      line-height: 1.1;
-      opacity: 0;
-      animation: slideUpFade 1s ease 0.7s forwards;
-    }
-
-    .hero-content p {
-      font-size: 18px;
-      line-height: 1.6;
-      text-shadow: none;
-      font-weight: 400;
-      color: #666;
-      max-width: none;
-      opacity: 0;
-      animation: slideUpFade 1s ease 0.9s forwards;
-    }
-
-    /* === MAIN CONTENT === */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-
-    /* === STATS SECTION === */
-    .stats-section {
-      background: white;
-      border-radius: 15px;
-      padding: 30px;
-      margin-bottom: 30px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-    }
-
-    .stat-item {
-      text-align: center;
-      padding: 20px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border-radius: 10px;
-      transition: transform 0.3s;
-    }
-
-    .stat-item:hover {
-      transform: scale(1.05);
-    }
-
-    .stat-number {
-      font-size: 2.5em;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    .stat-label {
-      font-size: 1em;
-      opacity: 0.9;
-    }
-
-    /* === FILTER SECTION === */
-    .filter-section {
-      background: white;
-      border-radius: 15px;
-      padding: 30px;
-      margin-bottom: 30px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-
-    .filter-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-    }
-
-    .filter-btn {
-      background: #e9ecef;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 25px;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-weight: 500;
-      color: #495057;
-    }
-
-    .filter-btn:hover, .filter-btn.active {
-      background: #1e3c72;
-      color: white;
-      transform: translateY(-2px);
-    }
-
-    /* === MEMBERS SECTION === */
-    .members-section {
-      background: white;
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    .section-title {
-      font-size: 2em;
-      color: #1e3c72;
-      margin-bottom: 30px;
-      text-align: center;
-      position: relative;
-    }
-
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, #1e3c72, #4a90e2);
-    }
-
-    .members-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-      margin-bottom: 50px;
-    }
-
-    .member-card {
-      background: #f8f9fa;
-      border-radius: 15px;
-      padding: 25px;
-      text-align: center;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-      border: 2px solid transparent;
-    }
-
-    .member-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(30, 60, 114, 0.05), transparent);
-      transition: left 0.5s;
-    }
-
-    .member-card:hover::before {
-      left: 100%;
-    }
-
-    .member-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-      border-color: #1e3c72;
-    }
-
-    .member-card.faculty {
-      border-left: 4px solid #dc3545;
-    }
-
-    .member-card.staff {
-      border-left: 4px solid #28a745;
-    }
-
-    .member-card.student {
-      border-left: 4px solid #007bff;
-    }
-
-    .member-avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      margin: 0 auto 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2em;
-      color: white;
-      font-weight: bold;
-      transition: transform 0.3s;
-    }
-
-    .member-card:hover .member-avatar {
-      transform: scale(1.1);
-    }
-
-    .member-name {
-      font-size: 1.3em;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 8px;
-    }
-
-    .member-position {
-      color: #666;
-      margin-bottom: 15px;
-      font-style: italic;
-    }
-
-    .member-role {
-      display: inline-block;
-      background: #1e3c72;
-      color: white;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.8em;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
-
-    .member-role.faculty { background: #dc3545; }
-    .member-role.staff { background: #28a745; }
-    .member-role.student { background: #007bff; }
-
-    .member-interests {
-      color: #555;
-      font-size: 0.9em;
-      line-height: 1.4;
-    }
-
-    .member-links {
-      margin-top: 15px;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .member-link {
-      padding: 6px 12px;
-      border-radius: 15px;
-      text-decoration: none;
-      font-size: 0.8em;
-      font-weight: 500;
-      transition: all 0.3s;
-      border: 2px solid;
-    }
-
-    .member-link.email {
-      background: #fff;
-      color: #007bff;
-      border-color: #007bff;
-    }
-
-    .member-link.scholar {
-      background: #fff;
-      color: #4285f4;
-      border-color: #4285f4;
-    }
-
-    .member-link:hover {
-      background: currentColor;
-      color: white;
-      transform: translateY(-1px);
-    }
-
-    /* === JOIN US SECTION === */
-    .join-section {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 15px;
-      padding: 40px 30px;
-      text-align: center;
-      color: white;
-      margin-top: 30px;
-    }
-
-    .join-section h2 {
-      font-size: 2.2em;
-      margin-bottom: 20px;
-    }
-
-    .join-section p {
-      font-size: 1.1em;
-      line-height: 1.6;
-      margin-bottom: 25px;
-      opacity: 0.9;
-    }
-
-    .join-btn {
-      display: inline-block;
-      background: white;
-      color: #667eea;
-      padding: 12px 30px;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.3s;
-    }
-
-    .join-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    }
-
-    /* === ANIMATIONS === */
-    @keyframes slideUpFade {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .fade-in-up {
-      animation: fadeInUp 0.6s ease forwards;
-    }
-
-    .member-card {
-      animation: fadeInUp 0.6s ease forwards;
-    }
-
-    /* Stagger animation for member cards */
-    .member-card:nth-child(1) { animation-delay: 0.1s; }
-    .member-card:nth-child(2) { animation-delay: 0.2s; }
-    .member-card:nth-child(3) { animation-delay: 0.3s; }
-    .member-card:nth-child(4) { animation-delay: 0.4s; }
-    .member-card:nth-child(5) { animation-delay: 0.5s; }
-    .member-card:nth-child(6) { animation-delay: 0.6s; }
-    .member-card:nth-child(7) { animation-delay: 0.7s; }
-    .member-card:nth-child(8) { animation-delay: 0.8s; }
-    .member-card:nth-child(9) { animation-delay: 0.9s; }
-    .member-card:nth-child(10) { animation-delay: 1.0s; }
-
-    /* === RESPONSIVE === */
-    @media screen and (max-width: 1024px) {
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        text-align: center;
-        padding: 40px 30px;
-        height: auto;
-        min-height: 60vh;
-      }
-      
-      .hero-content {
-        padding-left: 0;
-        order: -1;
-      }
-      
-      .hero-team-image {
-        max-width: 400px;
-      }
-    }
-
-    @media screen and (max-width: 768px) {
-      .hero {
-        padding: 30px 20px;
-      }
-      
-      .hero-content h1 { 
-        font-size: 2.5em; 
-      }
-      .hero-content p { 
-        font-size: 1.2em; 
-        padding: 0 20px;
-      }
-      
-      .hero-team-image {
-        max-width: 320px;
-      }
-
-      .members-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .filter-buttons {
-        justify-content: flex-start;
-      }
-      
-      .filter-btn {
-        padding: 8px 15px;
-        font-size: 0.9em;
-      }
-      
-      nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      
-      nav li {
-        margin: 5px 10px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <nav>
-    <ul>
-      <li><a href="index.html">HOME</a></li>
-      <li><a href="workshop.html">WORKSHOP</a></li>
-      <li><a href="news.html">NEWS</a></li>
-      <li><a href="mission.html">MISSION</a></li>
-      <li><a href="member.html" class="active">MEMBER</a></li>
-      <li><a href="publication.html">PUBLICATION</a></li>
-      <li><a href="link.html">LINK</a></li>
-      <li><a href="contact.html">CONTACT</a></li>
-    </ul>
-  </nav>
-
-  <!-- HERO WITH TEAM MARMOSETS -->
-  <section class="hero">
-    <!-- Left Side - Team Marmosets -->
-    <div class="hero-image-container">
-      <img 
-        src="marmoset_team.png" 
-        alt="Marmoset research team" 
-        class="hero-team-image"
-        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
-      >
-      <div style="display: none; padding: 40px; background: #f0f0f0; border-radius: 15px; text-align: center; color: #666;">
-        marmoset_team.png<br>チーム画像を読み込み中...
-      </div>
-    </div>
-    
-    <!-- Right Side - Content -->
-    <div class="hero-content">
-      <div class="hero-lab-name">Nakae Lab,</div>
-      <h1>Our Team</h1>
-      <p>Meet the brilliant minds behind Digital Twin Lab - a diverse team of researchers, engineers, and students working together to advance the frontiers of computational neuroscience.</p>
-    </div>
-  </section>
-
-  <div class="container">
-    <!-- STATS -->
-    <section class="stats-section fade-in-up">
-      <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-number">10</div>
-          <div class="stat-label">Team Members</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">3</div>
-          <div class="stat-label">Research Areas</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">6</div>
-          <div class="stat-label">Students</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">2025</div>
-          <div class="stat-label">Lab Established</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FILTERS -->
-    <section class="filter-section fade-in-up">
-      <div class="filter-buttons">
-        <button class="filter-btn active" data-filter="all">All Members</button>
-        <button class="filter-btn" data-filter="faculty">Faculty</button>
-        <button class="filter-btn" data-filter="staff">Staff</button>
-        <button class="filter-btn" data-filter="student">Students</button>
-      </div>
-    </section>
-
-    <!-- FACULTY & STAFF -->
-    <section class="members-section fade-in-up">
-      <h2 class="section-title">Faculty & Staff</h2>
-      <div class="members-grid">
-        <div class="member-card faculty" data-role="faculty">
-          <div class="member-avatar">KN</div>
-          <span class="member-role faculty">Associate Professor</span>
-          <h3 class="member-name">Ken Nakae</h3>
-          <p class="member-position">准教授 / Associate Professor</p>
-          <p class="member-interests">Digital Twin Modeling, Computational Neuroscience, Statistical Methods, Marmoset Brain Research</p>
-          <div class="member-links">
-            <a href="mailto:nakae@u-fukui.ac.jp" class="member-link email">Email</a>
-            <a href="https://scholar.google.co.jp/citations?user=XOE-MT8AAAAJ&hl=ja" class="member-link scholar">Scholar</a>
-          </div>
-        </div>
-
-        <div class="member-card staff" data-role="staff">
-          <div class="member-avatar">KI</div>
-          <span class="member-role staff">Research Fellow</span>
-          <h3 class="member-name">Koki Iwata</h3>
-          <p class="member-position">非常勤研究員 / Research Fellow</p>
-          <p class="member-interests">Neural Data Analysis, Machine Learning, Brain Connectivity</p>
-          <div class="member-links">
-            <a href="#" class="member-link email">Email</a>
-          </div>
-        </div>
-
-        <div class="member-card staff" data-role="staff">
-          <div class="member-avatar">EA</div>
-          <span class="member-role staff">Admin Assistant</span>
-          <h3 class="member-name">Erina Asahi</h3>
-          <p class="member-position">事務補佐員 / Admin Assistant</p>
-          <p class="member-interests">Laboratory Administration, Research Support, Project Coordination</p>
-          <div class="member-links">
-            <a href="#" class="member-link email">Email</a>
-          </div>
-        </div>
-
-        <div class="member-card staff" data-role="staff">
-          <div class="member-avatar">AS</div>
-          <span class="member-role staff">Technical Assistant</span>
-          <h3 class="member-name">Atsushi Sakagawa</h3>
-          <p class="member-position">技術補佐員 / Technical Assistant</p>
-          <p class="member-interests">Technical Support, Equipment Maintenance, Data Management</p>
-          <div class="member-links">
-            <a href="#" class="member-link email">Email</a>
-          </div>
-        </div>
-      </div>
-
-      <h2 class="section-title">Students</h2>
-      <div class="members-grid">
-        <div class="member-card student" data-role="student">
-          <div class="member-avatar">TY</div>
-          <span class="member-role student">B4 Student</span>
-          <h3 class="member-name">Takahi Yamauchi</h3>
-          <p class="member-position">B4 Student</p>
-          <p class="member-interests">Neural Signal Processing, Bio-sensing Technology</p>
-          <div class="member-links">
-            <a href="#" class="member-link email">Email</a>
-          </div>
-        </div>
-
-        <div class="member-card student" data-role="student">
-          <div class="member-avatar">YY</div>
-          <span class="member-role student">B4 Student</span>
-          <h3 class="member-name">Yuto Yamamoto</h3>
-          <p class="member-position">B4 Student</p>
-          <p class="member-interests">Behavioral Analysis, Deep Learning Applications</p>
-          <div class="member-links">
-            <a href="#" class="member-link email">Email</a>
-          </div>
-        </div>
-
-        <div class="member-card student" data-role="student">
-          <div class="member-avatar">KI</div>
-          <span class="member-role student">B4 Student</span>
-          <h3 class="member-name">Kai Ishida</h3>
-          <p class="member-position">B4 Student</p>
-          <p class="member-interests">Digital Twin Construction, 3D Modeling</p>
-          <div class="member-links">
-            <a href="#" class="member-link email">Email</a>
-          </div>
-        </div>
-
-        <div class="member-card student" data-role="student">
-          <div class="member-avatar">KY</div>
-          <span class="member-role student">B4 Student</span>
-          <h3 class="member-name">Kotone Yoshino</h3>
-          <p class="member-position">B4 Student</p>
-          <p class="member-interests">Cognitive Modeling, Statistical Analysis</p>
-          <div class="member-links">
-            <a href="#" class="member-link email">Email</a>
-          </div>
-        </div>
-
-        <div class="member-card student" data-role="student">
-          <div class="member-avatar">HH</div>
-          <span class="member-role student">B3 Student</span>
-          <h3 class="member-name">Ho Thanh Hieu</h3>
-          <p class="member-position">B3 Student</p>
-          <p class="member-interests">Computer Vision, Image Processing</p>
-          <div class="member-links">
-            <a href="#" class="member-link email">Email</a>
-          </div>
-        </div>
-
-        <div class="member-card student" data-role="student">
-          <div class="member-avatar">YI</div>
-          <span class="member-role student">B3 Student</span>
-          <h3 class="member-name">Yuri Inudo</h3>
-          <p class="member-position">B3 Student</p>
-          <p class="member-interests">Brain Imaging, Data Visualization</p>
-          <div class="member-links">
-            <a href="#" class="member-link email">Email</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- JOIN US SECTION -->
-    <section class="join-section fade-in-up">
-      <h2>🚀 Join Our Team!</h2>
-      <p>We are actively recruiting passionate graduate students and JSPS PD fellows to join our cutting-edge research in digital twin technology and computational neuroscience. Become part of a dynamic team pushing the boundaries of brain research!</p>
-      <a href="https://www.u-fukui.ac.jp/user_admission/examination/essential_point/info_grad/" target="_blank" class="join-btn">
-        Learn More About Admissions
-      </a>
-    </section>
-  </div>
-
-  <script>
-    // Filter functionality
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const memberCards = document.querySelectorAll('.member-card');
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Update active button
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const filter = btn.dataset.filter;
-        
-        memberCards.forEach((card, index) => {
-          if (filter === 'all' || card.dataset.role === filter) {
-            card.style.display = 'block';
-            // Re-apply stagger animation
-            card.style.animation = `fadeInUp 0.6s ease forwards`;
-            card.style.animationDelay = `${(index % 6) * 0.1}s`;
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      });
-    });
-
-    // Animate elements on scroll
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in-up');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nakae Lab - Our Team</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-      });
-    }, observerOptions);
 
-    document.querySelectorAll('.stats-section, .filter-section, .members-section, .join-section').forEach(el => {
-      observer.observe(el);
-    });
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
 
-    // Add hover effects for member cards
-    memberCards.forEach(card => {
-      card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-12px) scale(1.02)';
-      });
-      
-      card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
-      });
-    });
+        .navbar {
+            background: #333;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-    // Add click effects for member avatars
-    document.querySelectorAll('.member-avatar').forEach(avatar => {
-      avatar.addEventListener('click', function() {
-        this.style.transform = 'scale(1.2) rotate(360deg)';
-        setTimeout(() => {
-          this.style.transform = 'scale(1)';
-        }, 500);
-      });
-    });
-  </script>
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+
+        .hero-section {
+            position: relative;
+            padding: 4rem 2rem;
+            min-height: 80vh;
+            background: url('member_back.png') center/cover no-repeat;
+            overflow: hidden;
+        }
+
+        /* 背景の植物装飾 */
+        .plant-decoration {
+            position: absolute;
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .plant-decoration.top-right {
+            top: 10%;
+            right: 5%;
+            width: 300px;
+            height: 300px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><g fill="%23a8d5ba"><circle cx="20" cy="30" r="8"/><circle cx="35" cy="25" r="6"/><circle cx="50" cy="35" r="7"/><circle cx="65" cy="20" r="5"/><circle cx="80" cy="40" r="9"/><circle cx="95" cy="15" r="6"/><circle cx="110" cy="45" r="8"/><circle cx="125" cy="25" r="7"/><circle cx="140" cy="35" r="6"/><circle cx="155" cy="30" r="8"/><circle cx="170" cy="20" r="5"/><circle cx="185" cy="40" r="7"/></g></svg>') no-repeat;
+            background-size: contain;
+        }
+
+        .plant-decoration.bottom-left {
+            bottom: 10%;
+            left: 5%;
+            width: 250px;
+            height: 250px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><g fill="%23b8e6d3"><path d="M20,100 Q40,80 60,100 Q80,120 100,100 Q120,80 140,100 Q160,120 180,100"/><path d="M30,110 Q50,90 70,110 Q90,130 110,110 Q130,90 150,110 Q170,130 190,110"/><path d="M15,120 Q35,100 55,120 Q75,140 95,120 Q115,100 135,120 Q155,140 175,120"/></g></svg>') no-repeat;
+            background-size: contain;
+        }
+
+        .content-container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        /* マーモセット画像部分 */
+        .marmoset-section {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .marmoset-container {
+            position: relative;
+            z-index: 5;
+        }
+
+        .marmoset-image {
+            width: 350px;
+            height: 280px;
+            background: url('marmoset_team.png') center/contain no-repeat;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+            transition: transform 0.3s ease;
+        }
+
+        .marmoset-image:hover {
+            transform: scale(1.05);
+        }
+
+        /* 装飾的な葉っぱをマーモセットの周りに配置 */
+        .leaf-accent {
+            position: absolute;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .leaf-accent.leaf1 {
+            top: 20px;
+            left: -30px;
+            width: 40px;
+            height: 40px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><path d="M20,5 Q30,15 25,25 Q20,35 15,25 Q10,15 20,5" fill="%23a8d5ba"/></svg>') no-repeat;
+            background-size: contain;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .leaf-accent.leaf2 {
+            bottom: 30px;
+            right: -20px;
+            width: 35px;
+            height: 35px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35"><path d="M17,3 Q25,10 22,20 Q17,30 12,20 Q9,10 17,3" fill="%23b8e6d3"/></svg>') no-repeat;
+            background-size: contain;
+            animation: float 4s ease-in-out infinite reverse;
+        }
+
+        .leaf-accent.leaf3 {
+            top: 50%;
+            left: -50px;
+            width: 30px;
+            height: 30px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M15,2 Q22,8 20,18 Q15,25 10,18 Q8,8 15,2" fill="%239ed0b8"/></svg>') no-repeat;
+            background-size: contain;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        /* テキスト部分 */
+        .text-section {
+            padding: 2rem 0;
+        }
+
+        .lab-title {
+            font-size: 2rem;
+            color: #666;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .main-title {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        /* 統計カード */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .content-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .marmoset-image {
+                width: 280px;
+                height: 220px;
+            }
+
+            .main-title {
+                font-size: 3rem;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-item">HOME</a>
+            <a href="#" class="nav-item">WORKSHOP</a>
+            <a href="#" class="nav-item">NEWS</a>
+            <a href="#" class="nav-item">MISSION</a>
+            <a href="#" class="nav-item">MEMBER</a>
+            <a href="#" class="nav-item">PUBLICATION</a>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <!-- 背景装飾 -->
+        <div class="plant-decoration top-right"></div>
+        <div class="plant-decoration bottom-left"></div>
+
+        <div class="content-container">
+            <div class="marmoset-section">
+                <div class="marmoset-container">
+                    <div class="marmoset-image"></div>
+                    <!-- 装飾的な葉っぱ -->
+                    <div class="leaf-accent leaf1"></div>
+                    <div class="leaf-accent leaf2"></div>
+                    <div class="leaf-accent leaf3"></div>
+                </div>
+            </div>
+
+            <div class="text-section">
+                <h2 class="lab-title">Nakae Lab,</h2>
+                <h1 class="main-title">Our Team</h1>
+                <p class="description">
+                    Meet the brilliant minds behind Digital Twin Lab - a diverse team of 
+                    researchers, engineers, and students working together to advance the 
+                    frontiers of computational neuroscience.
+                </p>
+            </div>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number">10</div>
+                <div class="stat-label">Team Members</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Research Areas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Students</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2025</div>
+                <div class="stat-label">Lab Established</div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
