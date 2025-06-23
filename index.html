@@ -797,8 +797,9 @@ document.addEventListener('click', function(e) {
     // 跳ねるアニメーション
     marmoset.classList.add('bounce');
     setTimeout(() => {
-      marmoset.classList.remove('bounce');
-    }, 600);
+  marmoset.classList.remove('bounce');
+  marmoset.style.transition = 'all 0.1s ease'; // この行を追加
+　　}, 600);
   }
 });
    
