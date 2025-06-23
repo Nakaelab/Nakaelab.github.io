@@ -590,14 +590,16 @@
       left: 10%;
     }
 
-    .floating-marmoset.waving {
-      width: 70px;
-      height: 70px;
-      background: url('m_4.png') center/contain no-repeat;
-      animation: floatWaving 18s ease-in-out infinite reverse;
-      top: 40%;
-      right: 10%;
-    }
+   .floating-marmoset.waving {
+  width: 100px;           /* 70px → 100px (大きくする) */
+  height: 100px;          /* 70px → 100px */
+  background: url('m_4.png') center/contain no-repeat;
+  animation: none;        /* アニメーション一時停止 */
+  top: 30%;              /* 固定位置 */
+  left: 50%;             /* 画面中央に配置 */
+  opacity: 1;            /* 0.4 → 1 (完全に見える) */
+  border: 2px solid red; /* 赤い枠で確認用 */
+}
 
     @keyframes floatHanging {
       0% { transform: translateX(0px) translateY(0px) rotate(0deg); }
