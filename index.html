@@ -573,51 +573,19 @@
     .contact a:hover {
       text-decoration: underline;
     }
-    /* 動くマーモセット背景 */
-    .floating-marmoset {
-      position: absolute;
-      opacity: 0.4;
-      pointer-events: none;
-      z-index: 1;
-    }
+   .floating-marmoset {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1000;
+  transition: all 0.1s ease;
+}
 
-    .floating-marmoset.hanging {
-      width: 80px;
-      height: 80px;
-      background: url('m_1.png') center/contain no-repeat;
-      animation: floatHanging 15s ease-in-out infinite;
-      top: 20%;
-      left: 10%;
-    }
-
-.floating-marmoset.waving {
-  width: 80px;
-  height: 80px;
+.floating-marmoset.following {
   background: url('m_4.png') center/contain no-repeat;
-  animation: floatWavingGentle 20s ease-in-out infinite; /* アニメーション名変更 */
-  top: 40%;
-  right: 20%;              /* 15% → 20% (画面外に出ないように) */
-  opacity: 0.5;            /* 1 → 0.5 */
-  border: none;            /* 赤枠削除 */
-  z-index: 1;              /* 確実に表示 */
 }
-
-/* 新しい穏やかなアニメーション */
-@keyframes floatWavingGentle {
-  0% { transform: translateX(0px) translateY(0px) rotate(0deg); }
-  25% { transform: translateX(-30px) translateY(10px) rotate(-1deg); }
-  50% { transform: translateX(-60px) translateY(-5px) rotate(1deg); }
-  75% { transform: translateX(-30px) translateY(15px) rotate(-1deg); }
-  100% { transform: translateX(0px) translateY(0px) rotate(0deg); }
-}
-
-    @keyframes floatHanging {
-      0% { transform: translateX(0px) translateY(0px) rotate(0deg); }
-      25% { transform: translateX(50px) translateY(-20px) rotate(2deg); }
-      50% { transform: translateX(100px) translateY(-10px) rotate(-1deg); }
-      75% { transform: translateX(50px) translateY(-25px) rotate(3deg); }
-      100% { transform: translateX(0px) translateY(0px) rotate(0deg); }
-    }
 
 
   </style>
@@ -687,8 +655,7 @@
   <!-- RESEARCH -->
   <section class="research fade-in">
   　 <!-- 動くマーモセット背景 -->
- 　　 <div class="floating-marmoset hanging"></div>
-　　  <div class="floating-marmoset waving"></div>
+    <div class="floating-marmoset following"></div>
     <h2>Our Research Pillars</h2>
     <div class="pillars">
       <div class="pillar">
@@ -797,6 +764,14 @@
     video.addEventListener('mouseleave', function() {
       this.style.transform = 'scale(1)';
     });
+    // マウス追従マーモセット
+document.addEventListener('mousemove', function(e) {
+  const marmoset = document.querySelector('.floating-marmoset.following');
+  if (marmoset) {
+    marmoset.style.left = (e.clientX - 30) + 'px';
+    marmoset.style.top = (e.clientY - 30) + 'px';
+  }
+});
   </script>
 
 </body>
