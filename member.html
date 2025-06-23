@@ -104,8 +104,8 @@
         }
 
         .marmoset-image {
-            width: 350px;
-            height: 280px;
+            width: 525px;
+            height: 420px;
             background: url('marmoset_team.png') center/contain no-repeat;
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
             transition: transform 0.3s ease;
@@ -117,39 +117,7 @@
 
         /* 装飾的な葉っぱをマーモセットの周りに配置 */
         .leaf-accent {
-            position: absolute;
-            opacity: 0.3;
-            pointer-events: none;
-        }
-
-        .leaf-accent.leaf1 {
-            top: 20px;
-            left: -30px;
-            width: 40px;
-            height: 40px;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><path d="M20,5 Q30,15 25,25 Q20,35 15,25 Q10,15 20,5" fill="%23a8d5ba"/></svg>') no-repeat;
-            background-size: contain;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .leaf-accent.leaf2 {
-            bottom: 30px;
-            right: -20px;
-            width: 35px;
-            height: 35px;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35"><path d="M17,3 Q25,10 22,20 Q17,30 12,20 Q9,10 17,3" fill="%23b8e6d3"/></svg>') no-repeat;
-            background-size: contain;
-            animation: float 4s ease-in-out infinite reverse;
-        }
-
-        .leaf-accent.leaf3 {
-            top: 50%;
-            left: -50px;
-            width: 30px;
-            height: 30px;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M15,2 Q22,8 20,18 Q15,25 10,18 Q8,8 15,2" fill="%239ed0b8"/></svg>') no-repeat;
-            background-size: contain;
-            animation: float 5s ease-in-out infinite;
+            display: none;
         }
 
         @keyframes float {
@@ -218,26 +186,26 @@
             opacity: 0.9;
         }
 
-        @media (max-width: 768px) {
-            .content-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                text-align: center;
-            }
+            @media (max-width: 768px) {
+                .content-container {
+                    grid-template-columns: 1fr;
+                    gap: 2rem;
+                    text-align: center;
+                }
 
-            .marmoset-image {
-                width: 280px;
-                height: 220px;
-            }
+                .marmoset-image {
+                    width: 420px;
+                    height: 330px;
+                }
 
-            .main-title {
-                font-size: 3rem;
-            }
+                .main-title {
+                    font-size: 3rem;
+                }
 
-            .stats-container {
-                grid-template-columns: repeat(2, 1fr);
+                .stats-container {
+                    grid-template-columns: repeat(2, 1fr);
+                }
             }
-        }
     </style>
 </head>
 <body>
