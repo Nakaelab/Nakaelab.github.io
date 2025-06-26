@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nakae Lab - Research</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* ナビゲーション基本設定 */
+        nav {
+            background: #333;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 1rem;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10000;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        #navMenu {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+            z-index: 9999;
+        }
+
+        #navMenu li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        #navMenu li a:hover {
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            #navMenu {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
+                background: #333;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: left 0.3s ease;
+                z-index: 9998;
+            }
+            
+            #navMenu.active {
+                left: 0;
+            }
+            
+            #navMenu li {
+                margin: 1rem 0;
+            }
+            
+            #navMenu li a {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* ヒーローセクション */
+        .hero-section {
+            position: relative;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(30, 60, 114, 0.9), rgba(102, 126, 234, 0.8)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400"><defs><linearGradient id="brain-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%23667eea"/><stop offset="50%" stop-color="%23764ba2"/><stop offset="100%" stop-color="%23f093fb"/></linearGradient></defs><g fill="url(%23brain-grad)" opacity="0.3"><circle cx="100" cy="150" r="40"/><circle cx="200" cy="100" r="30"/><circle cx="300" cy="180" r="35"/><circle cx="450" cy="120" r="25"/><circle cx="600" cy="200" r="45"/><circle cx="750" cy="80" r="20"/><circle cx="850" cy="160" r="30"/><path d="M100,150 Q200,100 300,180 Q450,120 600,200 Q750,80 850,160" stroke="url(%23brain-grad)" stroke-width="2" fill="none" opacity="0.5"/></g></svg>') center/cover;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* ミッションセクション */
+        .mission-section {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .mission-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .mission-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .mission-number {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .mission-description {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        /* 研究分野セクション */
+        .research-areas-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .area-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .area-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .area-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .area-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .area-description {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* アプローチセクション */
+        .approach-section {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .approach-timeline {
+            max-width: 800px;
+            margin: 3rem auto 0;
+            position: relative;
+        }
+
+        .approach-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+            transform: translateX(-50%);
+        }
+
+        .approach-step {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .approach-step:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .approach-content {
+            flex: 1;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 0 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .approach-step::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            border: 4px solid white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .approach-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.8rem;
+        }
+
+        .approach-description {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .mission-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .approach-timeline::before {
+                left: 20px;
+            }
+
+            .approach-step,
+            .approach-step:nth-child(even) {
+                flex-direction: row;
+            }
+
+            .approach-content {
+                margin-left: 3rem;
+                margin-right: 0;
+            }
+
+            .approach-step::after {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul id="navMenu">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="research.html" style="background-color: #555; border-radius: 4px;">RESEARCH</a></li>
+            <li><a href="member.html">MEMBERS</a></li>
+            <li><a href="publication.html">PUBLICATIONS</a></li>
+            <li><a href="workshop.html">WORKSHOP</a></li>
+            <li><a href="news.html">NEWS</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <!-- ヒーローセクション -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Research</h1>
+            <p class="hero-subtitle">デジタルツイン研究室の研究活動</p>
+            <p class="hero-description">
+                私たちは計算論的神経科学とデジタルツイン技術を組み合わせ、生体のダイナミクスを数理的に理解し、
+                未来の医療・ヘルスケアに貢献する革新的な研究を行っています。
+            </p>
+        </div>
+    </section>
+
+    <!-- ミッションセクション -->
+    <section class="mission-section">
+        <div class="container">
+            <h2 class="section-title">Research Mission</h2>
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <div class="mission-number">1</div>
+                    <h3 class="mission-title">生体ダイナミクスのデジタルツイン開発</h3>
+                    <p class="mission-description">
+                        生体のマーモセットとの関係性を数理的に理解し、さらには行動変容を解明することにより大きなデータによる機械学習、主成分の分析や統計的統計の分析に応用します。これにより、デジタルツインを基盤とした自然時間に基づく行動を定量化することを可能にし、研究者にとって価値のある情報を提供します。
+                    </p>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-number">2</div>
+                    <h3 class="mission-title">先端的な生体計測技術の活用</h3>
+                    <p class="mission-description">
+                        生体脳波の取得を用い、脳血流の同定および行動解析により行動パターンの推定と実践的な応用を融合し、マーモセットを通じた行動解析的な手法により、優れた解析手法によって分析します。全体的な生体機能評価を平均することにより、実用的な評価技術開発に対応します。
+                    </p>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-number">3</div>
+                    <h3 class="mission-title">行動データ解析による未来予測</h3>
+                    <p class="mission-description">
+                        動物や人の行動データの大規模データベースと機械学習による先進的な数理手法の開発を組み合わせ、現実的な生体の行動規制を評価します。これらにより、本研究の生体機能評価を平均することにより、実際的な評価技術の向上につながります。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 研究分野セクション -->
+    <section class="research-areas-section">
+        <div class="container">
+            <h2 class="section-title">Research Areas</h2>
+            <div class="areas-grid">
+                <div class="area-card">
+                    <div class="area-icon">🧠</div>
+                    <h3 class="area-title">計算論的神経科学</h3>
+                    <p class="area-description">
+                        神経回路の数理モデル化と機械学習を組み合わせ、脳の情報処理メカニズムを解明します。
+                    </p>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-icon">🔬</div>
+                    <h3 class="area-title">デジタルツイン技術</h3>
+                    <p class="area-description">
+                        生体システムのデジタル複製を構築し、リアルタイムでの生体状態の予測と最適化を実現します。
+                    </p>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-icon">📊</div>
+                    <h3 class="area-title">生体信号解析</h3>
+                    <p class="area-description">
+                        脳波・心電図などの生体信号から有用な情報を抽出し、健康状態の評価に活用します。
+                    </p>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-icon">🤖</div>
+                    <h3 class="area-title">機械学習・AI</h3>
+                    <p class="area-description">
+                        深層学習やベイズ統計学を活用し、複雑な生体データから有意義なパターンを発見します。
+                    </p>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-icon">🐒</div>
+                    <h3 class="area-title">動物行動解析</h3>
+                    <p class="area-description">
+                        マーモセットを用いた行動実験により、認知機能と神経活動の関係性を探求します。
+                    </p>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-icon">⚕️</div>
+                    <h3 class="area-title">医療応用</h3>
+                    <p class="area-description">
+                        研究成果を医療診断・治療支援システムに応用し、社会実装を目指します。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- アプローチセクション -->
+    <section class="approach-section">
+        <div class="container">
+            <h2 class="section-title">Research Approach</h2>
+            <div class="approach-timeline">
+                <div class="approach-step">
+                    <div class="approach-content">
+                        <h3 class="approach-title">データ収集・計測</h3>
+                        <p class="approach-description">
+                            高精度な生体計測技術を用いて、脳波・行動・生理指標などの多次元データを収集します。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="approach-step">
+                    <div class="approach-content">
+                        <h3 class="approach-title">数理モデル構築</h3>
+                        <p class="approach-description">
+                            収集したデータを基に、生体システムの数理モデルを構築し、デジタルツインを実現します。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="approach-step">
+                    <div class="approach-content">
+                        <h3 class="approach-title">機械学習による解析</h3>
+                        <p class="approach-description">
+                            深層学習や統計的機械学習手法を適用し、複雑なパターンや因果関係を発見します。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="approach-step">
+                    <div class="approach-content">
+                        <h3 class="approach-title">予測・最適化</h3>
+                        <p class="approach-description">
+                            構築したモデルを用いて生体状態の予測を行い、最適な介入方法を提案します。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="approach-step">
+                    <div class="approach-content">
+                        <h3 class="approach-title">社会実装</h3>
+                        <p class="approach-description">
+                            研究成果を実際の医療現場やヘルスケアシステムに応用し、社会に貢献します。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
