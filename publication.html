@@ -576,7 +576,7 @@
     let filteredPublications = [];
     let currentFilter = 'all';
 
-    // CSVをパースする関数（改良版）
+    // CSVをパースする関数（修正版）
     function parseCSV(csvText) {
       const lines = csvText.trim().split('\n');
       const data = [];
@@ -585,19 +585,34 @@
         const line = lines[i];
         if (!line.trim()) continue;
         
-        // タブ区切りで分割（より確実）
-        const values = line.split('\t');
+        // カンマ区切りで分割（元に戻す）
+        const values = [];
+        let current = '';
+        let inQuotes = false;
+        
+        for (let j = 0; j < line.length; j++) {
+          const char = line[j];
+          if (char === '"') {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            values.push(current.trim());
+            current = '';
+          } else {
+            current += char;
+          }
+        }
+        values.push(current.trim()); // 最後の値を追加
         
         const row = {
-          title: values[0] ? values[0].trim().replace(/"/g, '') : '',
-          authors: values[1] ? values[1].trim().replace(/"/g, '') : '',
-          venue: values[2] ? values[2].trim().replace(/"/g, '') : '',
-          year: values[3] ? values[3].trim() : '',
-          type: values[4] ? values[4].trim() : '',
-          citations: values[5] ? values[5].trim() : '0',
-          doi_url: values[6] ? values[6].trim() : '',
-          scholar_url: values[7] ? values[7].trim() : '',
-          pdf_url: values[8] ? values[8].trim() : ''
+          title: values[0] || '',
+          authors: values[1] || '',
+          venue: values[2] || '',
+          year: values[3] || '',
+          type: values[4] || '',
+          citations: values[5] || '0',
+          doi_url: values[6] || '',
+          scholar_url: values[7] || '',
+          pdf_url: values[8] || ''
         };
         
         // 空のタイトルは除外
