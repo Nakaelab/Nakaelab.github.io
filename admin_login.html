@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研究室管理者ページ</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            color: white;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .login-container h1 {
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 300;
+        }
+
+        .login-container p {
+            margin-bottom: 30px;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        input[type="password"]:focus {
+            border-color: rgba(255, 255, 255, 0.6);
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        input[type="password"]::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .login-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .login-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 5px;
+            display: none;
+        }
+
+        .admin-panel {
+            display: none;
+            background: white;
+            color: #333;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .admin-panel h2 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+        }
+
+        .admin-link {
+            display: block;
+            background: #1e3c72;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            margin-bottom: 15px;
+            transition: background 0.3s ease;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .admin-link:hover {
+            background: #2a4a7a;
+            transform: translateY(-2px);
+        }
+
+        .logout-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .logout-btn:hover {
+            background: #5a6268;
+        }
+
+        .lab-logo {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container" id="loginContainer">
+        <div class="lab-logo">🧬</div>
+        <h1>Digital Twin Lab</h1>
+        <p>研究室管理者専用ページです。<br>パスワードを入力してください。</p>
+        
+        <div class="input-group">
+            <input 
+                type="password" 
+                id="passwordInput" 
+                placeholder="パスワードを入力"
+                onkeypress="handleKeyPress(event)"
+            >
+        </div>
+        
+        <button class="login-btn" onclick="checkPassword()">ログイン</button>
+        
+        <div class="error-message" id="errorMessage">
+            パスワードが正しくありません。
+        </div>
+    </div>
+
+    <div class="admin-panel" id="adminPanel">
+        <h2>🔧 研究室管理ツール</h2>
+        <p>ようこそ、研究室管理者ページへ</p>
+        
+        <a href="data-manager.html" class="admin-link">
+            📊 ニュース・メンバー管理システム
+        </a>
+        
+        <a href="index.html" class="admin-link">
+            🏠 公開サイトを確認
+        </a>
+        
+        <button class="logout-btn" onclick="logout()">ログアウト</button>
+        
+        <div style="margin-top: 30px; padding: 15px; background: #f8f9fa; border-radius: 10px; font-size: 14px; color: #666;">
+            <strong>使い方：</strong><br>
+            1. 「ニュース・メンバー管理システム」でデータを編集<br>
+            2. HTMLコードを生成・コピー<br>
+            3. index.htmlの該当部分に貼り付け<br>
+            4. 変更を保存・公開
+        </div>
+    </div>
+
+    <script>
+        const correctPassword = 'capybara'; // パスワードを設定（変更可能）
+
+        function checkPassword() {
+            const inputPassword = document.getElementById('passwordInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const loginContainer = document.getElementById('loginContainer');
+            const adminPanel = document.getElementById('adminPanel');
+
+            if (inputPassword === correctPassword) {
+                // ログイン成功
+                loginContainer.style.display = 'none';
+                adminPanel.style.display = 'block';
+                errorMessage.style.display = 'none';
+                
+                // セッション保存（ブラウザを閉じるまで有効）
+                sessionStorage.setItem('adminLoggedIn', 'true');
+            } else {
+                // ログイン失敗
+                errorMessage.style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            }
+        }
+
+        function logout() {
+            const loginContainer = document.getElementById('loginContainer');
+            const adminPanel = document.getElementById('adminPanel');
+            
+            loginContainer.style.display = 'block';
+            adminPanel.style.display = 'none';
+            document.getElementById('passwordInput').value = '';
+            
+            // セッション削除
+            sessionStorage.removeItem('adminLoggedIn');
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                checkPassword();
+            }
+        }
+
+        // ページ読み込み時にセッションチェック
+        window.onload = function() {
+            if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+            }
+        };
+    </script>
+</body>
+</html>
