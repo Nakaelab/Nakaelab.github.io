@@ -10,15 +10,22 @@
       font-family: 'Helvetica Neue', sans-serif;
       background-color: #f8f8f8;
       color: #111;
+      padding-top: 90px; /* navの高さ分を確保 */
     }
 
     /* === NAVIGATION === */
     nav {
-      background-color: #333;
-      padding: 10px 0;
-      position: sticky;
+      background-color: rgba(248, 248, 248, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 15px 0;
+      position: fixed;
       top: 0;
-      z-index: 100;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      min-height: 60px;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
 
     nav ul {
@@ -34,16 +41,94 @@
     }
 
     nav a {
-      color: white;
+      color: #333;
       text-decoration: none;
       font-weight: bold;
       padding: 8px 12px;
       transition: background-color 0.3s;
     }
 
-    nav a:hover, nav a.active {
-      background-color: #555;
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.15);
       border-radius: 4px;
+      color: #1e3c72;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 20px 15px;
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      min-height: 60px;
+      min-width: 60px;
+      justify-content: center;
+      align-items: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 4px;
+      background-color: #333;
+      margin: 4px 0;
+      transition: 0.3s;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      nav ul {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #333;
+        flex-direction: column;
+        align-items: center;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+
+      nav ul.active {
+        max-height: 500px;
+      }
+
+      nav li {
+        margin: 0;
+        width: 100%;
+        text-align: center;
+      }
+
+      nav a {
+        display: block;
+        padding: 20px 20px;
+        border-bottom: 1px solid #555;
+        font-size: 16px;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+      }
     }
 
     /* === HERO SECTION === */
@@ -408,11 +493,16 @@
 
 <body>
   <nav>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
     <ul id="navMenu">
         <li><a href="index.html">HOME</a></li>
         <li><a href="research.html">RESEARCH</a></li>
         <li><a href="member.html">MEMBERS</a></li>
-        <li><a href="publication.html" style="background-color: #555; border-radius: 4px;">PUBLICATIONS</a></li>
+        <li><a href="publication.html" style="background-color: #1e3c72; border-radius: 4px; color: white; font-weight: bold;">PUBLICATIONS</a></li>
         <li><a href="workshop.html">WORKSHOP</a></li>
         <li><a href="news.html">NEWS</a></li>
         <li><a href="contact.html">CONTACT</a></li>
@@ -479,25 +569,37 @@
 
   <script>
     // Googleスプレッドシートの設定
-    const SPREADSHEET_ID = '1tTfxn1GpsZjD39wg4LNBwg6OJv98B1MjMLNQysP5GYk'; // メンバーと同じスプレッドシート
-    const PUBLICATIONS_SHEET_ID = '20187670'; // publicationsシートのgid
+    const SPREADSHEET_ID = '1tTfxn1GpsZjD39wg4LNBwg6OJv98B1MjMLNQysP5GYk';
+    const PUBLICATIONS_SHEET_ID = '20187670';
 
     let allPublications = [];
     let filteredPublications = [];
     let currentFilter = 'all';
 
-    // CSVをパースする関数
+    // CSVをパースする関数（改良版）
     function parseCSV(csvText) {
       const lines = csvText.trim().split('\n');
-      const headers = lines[0].split(',').map(h => h.trim());
       const data = [];
       
       for (let i = 1; i < lines.length; i++) {
-        const values = lines[i].split(',');
-        const row = {};
-        headers.forEach((header, index) => {
-          row[header] = values[index] ? values[index].trim().replace(/"/g, '') : '';
-        });
+        const line = lines[i];
+        if (!line.trim()) continue;
+        
+        // タブ区切りで分割（より確実）
+        const values = line.split('\t');
+        
+        const row = {
+          title: values[0] ? values[0].trim().replace(/"/g, '') : '',
+          authors: values[1] ? values[1].trim().replace(/"/g, '') : '',
+          venue: values[2] ? values[2].trim().replace(/"/g, '') : '',
+          year: values[3] ? values[3].trim() : '',
+          type: values[4] ? values[4].trim() : '',
+          citations: values[5] ? values[5].trim() : '0',
+          doi_url: values[6] ? values[6].trim() : '',
+          scholar_url: values[7] ? values[7].trim() : '',
+          pdf_url: values[8] ? values[8].trim() : ''
+        };
+        
         // 空のタイトルは除外
         if (row.title && row.title.trim() !== '') {
           data.push(row);
@@ -508,7 +610,8 @@
 
     // 著者名をハイライト
     function highlightAuthors(authorsString) {
-      return authorsString.replace(/K Nakae/g, '<span class="highlight">K Nakae</span>');
+      return authorsString.replace(/Ken Nakae/g, '<span class="highlight">Ken Nakae</span>')
+                         .replace(/K Nakae/g, '<span class="highlight">K Nakae</span>');
     }
 
     // 論文タイプのクラス取得
@@ -579,7 +682,7 @@
       }
 
       const groupedByYear = groupByYear(publications);
-      const years = Object.keys(groupedByYear).sort((a, b) => b - a); // 新しい年から表示
+      const years = Object.keys(groupedByYear).sort((a, b) => b - a);
 
       let html = '';
       years.forEach(year => {
@@ -590,14 +693,14 @@
           html += `
             <div class="publication-item" data-type="${pub.type}">
               <span class="pub-type ${getTypeClass(pub.type)}">${getTypeLabel(pub.type)}</span>
-              ${pub.citations ? `<span class="citation-count">${pub.citations} citations</span>` : ''}
+              ${pub.citations && parseInt(pub.citations) > 0 ? `<span class="citation-count">${pub.citations} citations</span>` : ''}
               <div class="pub-title">${pub.title}</div>
               <div class="pub-authors">${highlightAuthors(pub.authors)}</div>
               <div class="pub-venue">${pub.venue}</div>
               <div class="pub-links">
-                ${pub.scholar_url ? `<a href="${pub.scholar_url}" class="pub-link scholar" target="_blank">Google Scholar</a>` : ''}
-                ${pub.doi_url ? `<a href="${pub.doi_url}" class="pub-link doi" target="_blank">DOI</a>` : ''}
-                ${pub.pdf_url ? `<a href="${pub.pdf_url}" class="pub-link pdf" target="_blank">PDF</a>` : ''}
+                ${pub.scholar_url && pub.scholar_url.startsWith('http') ? `<a href="${pub.scholar_url}" class="pub-link scholar" target="_blank" rel="noopener">Google Scholar</a>` : ''}
+                ${pub.doi_url && pub.doi_url.startsWith('http') ? `<a href="${pub.doi_url}" class="pub-link doi" target="_blank" rel="noopener">DOI</a>` : ''}
+                ${pub.pdf_url && pub.pdf_url.startsWith('http') ? `<a href="${pub.pdf_url}" class="pub-link pdf" target="_blank" rel="noopener">PDF</a>` : ''}
               </div>
             </div>
           `;
@@ -676,6 +779,15 @@
         const updateBadge = document.getElementById('updateBadge');
         updateBadge.style.display = 'none';
       }
+    }
+
+    // ハンバーガーメニューの機能
+    function toggleMenu() {
+      const navMenu = document.getElementById('navMenu');
+      const hamburger = document.querySelector('.hamburger');
+      
+      navMenu.classList.toggle('active');
+      hamburger.classList.toggle('active');
     }
 
     // イベントリスナー設定
