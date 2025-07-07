@@ -327,6 +327,33 @@
       transform: translateY(-1px);
     }
 
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+      font-style: italic;
+    }
+
+    .auto-update-badge {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      background: rgba(76, 175, 80, 0.9);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      z-index: 1001;
+      display: none;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+      font-style: italic;
+    }
+
     /* === RESPONSIVE === */
     @media screen and (max-width: 768px) {
       .hero-content h1 { font-size: 2em; }
@@ -384,13 +411,18 @@
     <ul id="navMenu">
         <li><a href="index.html">HOME</a></li>
         <li><a href="research.html">RESEARCH</a></li>
-        <li><a href="member.html" style="background-color: #555; border-radius: 4px;">MEMBERS</a></li>
-        <li><a href="publication.html">PUBLICATIONS</a></li>
+        <li><a href="member.html">MEMBERS</a></li>
+        <li><a href="publication.html" style="background-color: #555; border-radius: 4px;">PUBLICATIONS</a></li>
         <li><a href="workshop.html">WORKSHOP</a></li>
         <li><a href="news.html">NEWS</a></li>
         <li><a href="contact.html">CONTACT</a></li>
     </ul>
   </nav>
+
+  <!-- 自動更新バッジ -->
+  <div class="auto-update-badge" id="updateBadge">
+    🔄 Googleスプレッドシートから更新中...
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -405,19 +437,19 @@
     <section class="stats-section fade-in-up">
       <div class="stats-grid">
         <div class="stat-item">
-          <div class="stat-number">52+</div>
+          <div class="stat-number" id="totalPubs">-</div>
           <div class="stat-label">Total Publications</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">1000+</div>
+          <div class="stat-number" id="totalCitations">-</div>
           <div class="stat-label">Total Citations</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">590</div>
+          <div class="stat-number" id="highestCitation">-</div>
           <div class="stat-label">Highest Citations</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">10+</div>
+          <div class="stat-number" id="activeYears">-</div>
           <div class="stat-label">Years Active</div>
         </div>
       </div>
@@ -430,6 +462,7 @@
         <button class="filter-btn" data-filter="journal">Journal Articles</button>
         <button class="filter-btn" data-filter="conference">Conference Papers</button>
         <button class="filter-btn" data-filter="preprint">Preprints</button>
+        <button class="filter-btn" data-filter="book">Books</button>
       </div>
       <div class="search-box">
         <input type="text" id="searchInput" placeholder="Search publications by title, author, or keyword...">
@@ -438,265 +471,235 @@
 
     <!-- PUBLICATIONS -->
     <section class="publications-section fade-in-up">
-      <!-- 2025 -->
-      <div class="year-section">
-        <h2 class="year-header">2025</h2>
-        
-        <div class="publication-item" data-type="journal">
-          <span class="pub-type journal">Journal Article</span>
-          <div class="pub-title">Possible Contribution to Data-Driven Primate Research: Comment on "Kinematic coding: Measuring Information in Naturalistic Behaviour" by Becchio, Pullar, Scaliti, and Panzeri</div>
-          <div class="pub-authors">K Mimura, <span class="highlight">K Nakae</span>, K Doya</div>
-          <div class="pub-venue">Physics of Life Reviews</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-          </div>
-        </div>
-
-        <div class="publication-item" data-type="journal">
-          <span class="pub-type journal">Journal Article</span>
-          <div class="pub-title">Does big data change neuroscience?</div>
-          <div class="pub-authors">R Kobayashi, <span class="highlight">K Nakae</span></div>
-          <div class="pub-venue">Neuroscience research, S0168-0102 (25) 00081-1</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-          </div>
-        </div>
-
-        <div class="publication-item" data-type="journal">
-          <span class="pub-type journal">Journal Article</span>
-          <div class="pub-title">Whether or not to act is determined by distinct signals from motor thalamus and orbitofrontal cortex to secondary motor cortex</div>
-          <div class="pub-authors">E Yoshida, M Kondo, <span class="highlight">K Nakae</span>, R Ako, S Terada, N Hatano, L Liu, ...</div>
-          <div class="pub-venue">Nature Communications 16 (1), 3106</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-            <a href="#" class="pub-link doi">DOI</a>
-          </div>
-        </div>
-
-        <div class="publication-item" data-type="preprint">
-          <span class="pub-type preprint">Preprint</span>
-          <div class="pub-title">A multimodal dataset linking wide-field calcium imaging to behavior changes in mice during an operant lever-pull task</div>
-          <div class="pub-authors">M Kondo, K Sehara, R Harukuni, R Aoki, S Sugimoto, YR Tanaka, ...</div>
-          <div class="pub-venue">bioRxiv, 2025.02. 03.631599</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-          </div>
-        </div>
-
-        <div class="publication-item" data-type="journal">
-          <span class="pub-type journal">Journal Article</span>
-          <div class="pub-title">Integrated Information Theory reveals the potential role of the Posterior Parietal Cortex in Sustaining Conditioning Responses in Classical Conditioning Tasks</div>
-          <div class="pub-authors">TC Phi, S Ishii, M Kondo, M Matsuzaki, <span class="highlight">K Nakae</span></div>
-          <div class="pub-venue">Frontiers in Neuroscience 19, 1512724</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-            <a href="#" class="pub-link doi">DOI</a>
-          </div>
-        </div>
+      <div id="publicationsContainer">
+        <div class="loading">Googleスプレッドシートから論文情報を読み込み中...</div>
       </div>
+    </section>
+  </div>
 
-      <!-- 2024 -->
-      <div class="year-section">
-        <h2 class="year-header">2024</h2>
+  <script>
+    // Googleスプレッドシートの設定
+    const SPREADSHEET_ID = '1tTfxn1GpsZjD39wg4LNBwg6OJv98B1MjMLNQysP5GYk'; // メンバーと同じスプレッドシート
+    const PUBLICATIONS_SHEET_ID = '20187670'; // publicationsシートのgid
+
+    let allPublications = [];
+    let filteredPublications = [];
+    let currentFilter = 'all';
+
+    // CSVをパースする関数
+    function parseCSV(csvText) {
+      const lines = csvText.trim().split('\n');
+      const headers = lines[0].split(',').map(h => h.trim());
+      const data = [];
+      
+      for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(',');
+        const row = {};
+        headers.forEach((header, index) => {
+          row[header] = values[index] ? values[index].trim().replace(/"/g, '') : '';
+        });
+        // 空のタイトルは除外
+        if (row.title && row.title.trim() !== '') {
+          data.push(row);
+        }
+      }
+      return data;
+    }
+
+    // 著者名をハイライト
+    function highlightAuthors(authorsString) {
+      return authorsString.replace(/K Nakae/g, '<span class="highlight">K Nakae</span>');
+    }
+
+    // 論文タイプのクラス取得
+    function getTypeClass(type) {
+      const typeMap = {
+        'journal': 'journal',
+        'conference': 'conference',
+        'preprint': 'preprint',
+        'book': 'book'
+      };
+      return typeMap[type.toLowerCase()] || 'journal';
+    }
+
+    // 論文タイプの表示名取得
+    function getTypeLabel(type) {
+      const labelMap = {
+        'journal': 'Journal Article',
+        'conference': 'Conference Paper',
+        'preprint': 'Preprint',
+        'book': 'Book Chapter'
+      };
+      return labelMap[type.toLowerCase()] || 'Publication';
+    }
+
+    // 年別に論文をグループ化
+    function groupByYear(publications) {
+      const grouped = {};
+      publications.forEach(pub => {
+        const year = pub.year || 'Unknown';
+        if (!grouped[year]) {
+          grouped[year] = [];
+        }
+        grouped[year].push(pub);
+      });
+      return grouped;
+    }
+
+    // 統計を計算
+    function calculateStats(publications) {
+      const totalPubs = publications.length;
+      const totalCitations = publications.reduce((sum, pub) => {
+        const citations = parseInt(pub.citations) || 0;
+        return sum + citations;
+      }, 0);
+      const highestCitation = Math.max(...publications.map(pub => parseInt(pub.citations) || 0));
+      const years = [...new Set(publications.map(pub => pub.year).filter(year => year))];
+      const activeYears = years.length;
+
+      return { totalPubs, totalCitations, highestCitation, activeYears };
+    }
+
+    // 統計を更新
+    function updateStats(publications) {
+      const stats = calculateStats(publications);
+      document.getElementById('totalPubs').textContent = stats.totalPubs;
+      document.getElementById('totalCitations').textContent = stats.totalCitations + '+';
+      document.getElementById('highestCitation').textContent = stats.highestCitation;
+      document.getElementById('activeYears').textContent = stats.activeYears + '+';
+    }
+
+    // 論文を表示
+    function displayPublications(publications) {
+      const container = document.getElementById('publicationsContainer');
+      
+      if (publications.length === 0) {
+        container.innerHTML = '<div class="no-results">該当する論文が見つかりませんでした。</div>';
+        return;
+      }
+
+      const groupedByYear = groupByYear(publications);
+      const years = Object.keys(groupedByYear).sort((a, b) => b - a); // 新しい年から表示
+
+      let html = '';
+      years.forEach(year => {
+        html += `<div class="year-section">`;
+        html += `<h2 class="year-header">${year}</h2>`;
         
-        <div class="publication-item" data-type="journal">
-          <span class="pub-type journal">Journal Article</span>
-          <span class="citation-count">4 citations</span>
-          <div class="pub-title">Commonality and variance of resting-state networks in common marmoset brains</div>
-          <div class="pub-authors">K Muta, Y Haga, J Hata, T Kaneko, K Hagiya, Y Komaki, F Seki, ...</div>
-          <div class="pub-venue">Scientific reports 14 (1), 8316</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-            <a href="#" class="pub-link doi">DOI</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2023 -->
-      <div class="year-section">
-        <h2 class="year-header">2023</h2>
+        groupedByYear[year].forEach(pub => {
+          html += `
+            <div class="publication-item" data-type="${pub.type}">
+              <span class="pub-type ${getTypeClass(pub.type)}">${getTypeLabel(pub.type)}</span>
+              ${pub.citations ? `<span class="citation-count">${pub.citations} citations</span>` : ''}
+              <div class="pub-title">${pub.title}</div>
+              <div class="pub-authors">${highlightAuthors(pub.authors)}</div>
+              <div class="pub-venue">${pub.venue}</div>
+              <div class="pub-links">
+                ${pub.scholar_url ? `<a href="${pub.scholar_url}" class="pub-link scholar" target="_blank">Google Scholar</a>` : ''}
+                ${pub.doi_url ? `<a href="${pub.doi_url}" class="pub-link doi" target="_blank">DOI</a>` : ''}
+                ${pub.pdf_url ? `<a href="${pub.pdf_url}" class="pub-link pdf" target="_blank">PDF</a>` : ''}
+              </div>
+            </div>
+          `;
+        });
         
-        <div class="publication-item" data-type="journal">
-          <span class="pub-type journal">Journal Article</span>
-          <span class="citation-count">41 citations</span>
-          <div class="pub-title">Local and long-distance organization of prefrontal cortex circuits in the marmoset brain</div>
-          <div class="pub-authors">A Watakabe, H Skibbe, <span class="highlight">K Nakae</span>, H Abe, N Ichinohe, MF Rachmadi, ...</div>
-          <div class="pub-venue">Neuron 111 (14), 2258-2273. e10</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-            <a href="#" class="pub-link doi">DOI</a>
-          </div>
-        </div>
+        html += `</div>`;
+      });
 
-        <div class="publication-item" data-type="journal">
-          <span class="pub-type journal">Journal Article</span>
-          <span class="citation-count">22 citations</span>
-          <div class="pub-title">Multi-modal brain magnetic resonance imaging database covering marmosets with a wide age range</div>
-          <div class="pub-authors">J Hata, <span class="highlight">K Nakae</span>, H Tsukada, A Woodward, Y Haga, M Iida, A Uematsu, ...</div>
-          <div class="pub-venue">Scientific Data 10 (1), 221</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-            <a href="#" class="pub-link doi">DOI</a>
-          </div>
-        </div>
+      container.innerHTML = html;
+    }
 
-        <div class="publication-item" data-type="journal">
-          <span class="pub-type journal">Journal Article</span>
-          <span class="citation-count">17 citations</span>
-          <div class="pub-title">The Brain/MINDS Marmoset Connectivity Resource: An open-access platform for cellular-level tracing and tractography in the primate brain</div>
-          <div class="pub-authors">H Skibbe, MF Rachmadi, <span class="highlight">K Nakae</span>, CE Gutierrez, J Hata, H Tsukada, ...</div>
-          <div class="pub-venue">PLoS biology 21 (6), e3002158</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-            <a href="#" class="pub-link doi">DOI</a>
-          </div>
-        </div>
-
-        <div class="publication-item" data-type="journal">
-          <span class="pub-type journal">Journal Article</span>
-          <span class="citation-count">4 citations</span>
-          <div class="pub-title">Group Surrogate Data Generating Models and similarity quantification of multivariate time-series: A resting-state fMRI study</div>
-          <div class="pub-authors">T Okuno, J Hata, Y Haga, K Muta, H Tsukada, <span class="highlight">K Nakae</span>, H Okano, ...</div>
-          <div class="pub-venue">NeuroImage 279, 120329</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-            <a href="#" class="pub-link doi">DOI</a>
-          </div>
-        </div>
-
-        <div class="publication-item" data-type="preprint">
-          <span class="pub-type preprint">Preprint</span>
-          <div class="pub-title">Epileptic responses in marmosets induced by knockdown of CREB Regulated Transcription Coactivator 1 (CRTC1)</div>
-          <div class="pub-authors">Y Nakagami, M Komatsu, <span class="highlight">K Nakae</span>, M Otsuka, J Hata, H Mizukami, ...</div>
-          <div class="pub-venue">bioRxiv, 2023.09. 22.558929</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-          </div>
-        </div>
-
-        <div class="publication-item" data-type="conference">
-          <span class="pub-type conference">Conference Paper</span>
-          <div class="pub-title">A 2D Cortical Flat Map Space for Computationally Efficient Mammalian Brain Simulation</div>
-          <div class="pub-authors">A Woodward, R Gong, <span class="highlight">K Nakae</span>, P Delmas</div>
-          <div class="pub-venue">International Conference on Advanced Concepts for Intelligent Vision Systems</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2022 -->
-      <div class="year-section">
-        <h2 class="year-header">2022</h2>
+    // フィルター処理
+    function filterPublications() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      
+      filteredPublications = allPublications.filter(pub => {
+        const matchesType = currentFilter === 'all' || pub.type.toLowerCase() === currentFilter;
+        const matchesSearch = !searchTerm || 
+          pub.title.toLowerCase().includes(searchTerm) ||
+          pub.authors.toLowerCase().includes(searchTerm) ||
+          pub.venue.toLowerCase().includes(searchTerm);
         
-        <div class="publication-item" data-type="preprint">
-          <span class="pub-type preprint">Preprint</span>
-          <span class="citation-count">6 citations</span>
-          <div class="pub-title">The Brain/MINDS Marmoset Connectivity Atlas: exploring bidirectional tracing and tractography in the same stereotaxic space</div>
-          <div class="pub-authors">H Skibbe, MF Rachmadi, <span class="highlight">K Nakae</span>, CE Gutierrez, J Hata, H Tsukada, ...</div>
-          <div class="pub-venue">bioRxiv, 2022.06. 06.494999</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-          </div>
-        </div>
-      </div>
+        return matchesType && matchesSearch;
+      });
 
-      <!-- 2021 -->
-      <div class="year-section">
-        <h2 class="year-header">2021</h2>
+      displayPublications(filteredPublications);
+      updateStats(filteredPublications);
+    }
+
+    // 論文データを読み込む
+    async function loadPublications() {
+      try {
+        const updateBadge = document.getElementById('updateBadge');
+        updateBadge.style.display = 'block';
         
-        <div class="publication-item" data-type="journal">
-          <span class="pub-type journal">Journal Article</span>
-          <span class="citation-count">18 citations</span>
-          <div class="pub-title">Model-based prediction of spatial gene expression via generative linear mapping</div>
-          <div class="pub-authors">Y Okochi, S Sakaguchi, <span class="highlight">K Nakae</span>, T Kondo, H Naoki</div>
-          <div class="pub-venue">Nature Communications 12 (1), 3731</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-            <a href="#" class="pub-link doi">DOI</a>
-          </div>
-        </div>
-
-        <div class="publication-item" data-type="preprint">
-          <span class="pub-type preprint">Preprint</span>
-          <span class="citation-count">3 citations</span>
-          <div class="pub-title">Connectional architecture of the prefrontal cortex in the marmoset brain</div>
-          <div class="pub-authors">A Watakabe, H Skibbe, <span class="highlight">K Nakae</span>, H Abe, N Ichinohe, J Wang, M Takaji, ...</div>
-          <div class="pub-venue">bioRxiv, 2021</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-          </div>
-        </div>
-
-        <div class="publication-item" data-type="conference">
-          <span class="pub-type conference">Conference Paper</span>
-          <span class="citation-count">2 citations</span>
-          <div class="pub-title">Semi-supervised Image-to-Image translation for robust image registration</div>
-          <div class="pub-authors">TY Henrik Skibbe, Akiya Watakabe, Febrian Rachmadi, Carlos Enrique Gutierrez ...</div>
-          <div class="pub-venue">MIDL 2021</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2020 -->
-      <div class="year-section">
-        <h2 class="year-header">2020</h2>
+        console.log('論文データの読み込み開始...');
         
-        <div class="publication-item" data-type="journal">
-          <span class="pub-type journal">Journal Article</span>
-          <span class="citation-count">25 citations</span>
-          <div class="pub-title">Optimization and validation of diffusion MRI-based fiber tracking with neural tracer data as a reference</div>
-          <div class="pub-authors">CE Gutierrez, H Skibbe, <span class="highlight">K Nakae</span>, H Tsukada, J Lienard, A Watakabe, ...</div>
-          <div class="pub-venue">Scientific reports 10 (1), 21285</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-            <a href="#" class="pub-link doi">DOI</a>
-          </div>
-        </div>
-
-        <div class="publication-item" data-type="journal">
-          <span class="pub-type journal">Journal Article</span>
-          <span class="citation-count">12 citations</span>
-          <div class="pub-title">The NanoZoomer artificial intelligence connectomics pipeline for tracer injection studies of the marmoset brain</div>
-          <div class="pub-authors">A Woodward, R Gong, H Abe, <span class="highlight">K Nakae</span>, J Hata, H Skibbe, Y Yamaguchi, ...</div>
-          <div class="pub-venue">Brain Structure and Function 225, 1225-1243</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-            <a href="#" class="pub-link doi">DOI</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2019 -->
-      <div class="year-section">
-        <h2 class="year-header">2019</h2>
+        const csvUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${PUBLICATIONS_SHEET_ID}`;
+        console.log('CSV URL:', csvUrl);
         
-        <div class="publication-item" data-type="journal">
-          <span class="pub-type journal">Journal Article</span>
-          <span class="citation-count">83 citations</span>
-          <div class="pub-title">Semi-supervised deep learning of brain tissue segmentation</div>
-          <div class="pub-authors">R Ito, <span class="highlight">K Nakae</span>, J Hata, H Okano, S Ishii</div>
-          <div class="pub-venue">Neural Networks 116, 25-34</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-            <a href="#" class="pub-link doi">DOI</a>
+        const response = await fetch(csvUrl);
+        console.log('Response status:', response.status);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const csvText = await response.text();
+        console.log('CSV データを取得しました。最初の200文字:', csvText.substring(0, 200));
+        
+        allPublications = parseCSV(csvText);
+        console.log('パース済み論文データ:', allPublications);
+        
+        filteredPublications = [...allPublications];
+        displayPublications(filteredPublications);
+        updateStats(filteredPublications);
+        
+        updateBadge.style.display = 'none';
+        console.log('論文データの読み込み完了！');
+        
+      } catch (error) {
+        console.error('論文データの読み込みエラー:', error);
+        
+        const container = document.getElementById('publicationsContainer');
+        container.innerHTML = `
+          <div class="loading" style="color: #e74c3c;">
+            エラー: 論文情報を読み込めませんでした。<br>
+            ${error.message}
+            <br><br>
+            <button onclick="loadPublications()" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              再試行
+            </button>
           </div>
-        </div>
+        `;
+        
+        const updateBadge = document.getElementById('updateBadge');
+        updateBadge.style.display = 'none';
+      }
+    }
 
-        <div class="publication-item" data-type="preprint">
-          <span class="pub-type preprint">Preprint</span>
-          <span class="citation-count">12 citations</span>
-          <div class="pub-title">MarmoNet: a pipeline for automated projection mapping of the common marmoset brain from whole-brain serial two-photon tomography</div>
-          <div class="pub-authors">H Skibbe, A Watakabe, <span class="highlight">K Nakae</span>, CE Gutierrez, H Tsukada, J Hata, ...</div>
-          <div class="pub-venue">arXiv preprint arXiv:1908.00876</div>
-          <div class="pub-links">
-            <a href="#" class="pub-link scholar">Google Scholar</a>
-          </div>
-        </div>
+    // イベントリスナー設定
+    document.addEventListener('DOMContentLoaded', function() {
+      // フィルターボタンのイベント
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          currentFilter = this.dataset.filter;
+          filterPublications();
+        });
+      });
 
-        <div class="publication-item" data-type="journal">
-          <span class="pub-type journal">Journal Article</span>
-          <span class="citation-count">7 citations</span>
-          <div class="pub-title">System level analysis of motor-related neural activities
+      // 検索ボックスのイベント
+      document.getElementById('searchInput').addEventListener('input', filterPublications);
+
+      // 論文データを読み込む
+      console.log('ページが読み込まれました。論文データを取得します...');
+      loadPublications();
+    });
+
+    // 定期的にデータを更新（10分ごと）
+    setInterval(loadPublications, 10 * 60 * 1000);
+  </script>
+</body>
+</html>
