@@ -43,7 +43,7 @@
       margin: 0 auto;
       padding: 0 40px;
       gap: 80px;
-      margin-top: 90px; /* navの高さ分を確保 */
+      margin-top: 90px;
       color: #1e293b;
     }
 
@@ -56,15 +56,15 @@
     }
 
    .hero-video-frame {
-  background: transparent;          /* 青い背景削除 */
-  border-radius: 10px;             /* 小さく */
-  padding: 0;                      /* 余白削除 */
-  box-shadow: none;                /* 影削除 */
+  background: transparent;
+  border-radius: 10px;
+  padding: 0;
+  box-shadow: none;
   position: relative;
   overflow: hidden;
 }
 .hero-video-frame::before {
-  display: none;                   /* シマーエフェクト削除 */
+  display: none;
 }
 
     .hero-marmoset-video {
@@ -276,7 +276,7 @@
       position: relative;
       text-align: center;
       padding: 80px 20px;
-      overflow: hidden; /* この行を追加 */
+      overflow: hidden;
     }
 
     .research::before {
@@ -586,6 +586,7 @@
     .contact a:hover {
       text-decoration: underline;
     }
+
    .floating-marmoset {
   position: fixed;
   width: 60px;
@@ -600,7 +601,6 @@
   background: url('m_4.png') center/contain no-repeat;
 }
 
-/* 跳ねるアニメーション */
 .floating-marmoset.bounce {
   animation: bounce 0.6s ease;
 }
@@ -611,6 +611,24 @@
   50% { transform: scale(1.1) translateY(-10px); }
   70% { transform: scale(1.15) translateY(-15px); }
   100% { transform: scale(1) translateY(0); }
+}
+
+.loading {
+  opacity: 0.6;
+  font-style: italic;
+}
+
+.auto-update-badge {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  background: rgba(76, 175, 80, 0.9);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  z-index: 1001;
+  display: none;
 }
   </style>
 </head>
@@ -633,12 +651,15 @@
     </ul>
   </nav>
 
-  <!-- UPDATED HERO SECTION -->
+  <!-- 自動更新バッジ -->
+  <div class="auto-update-badge" id="updateBadge">
+    🔄 Googleスプレッドシートから更新中...
+  </div>
+
+  <!-- HERO SECTION -->
   <section class="hero fade-in">
-    <!-- Left Side - Marmoset Video -->
     <div class="hero-video-container">
       <div class="hero-video-frame">
-        <!-- Video Element -->
         <video 
           class="hero-marmoset-video" 
           autoplay 
@@ -648,7 +669,6 @@
           poster="marmoset-poster.jpg"
         >
           <source src="marmoset_movie.mp4" type="video/mp4">
-          <!-- Fallback for browsers that don't support video -->
           <div class="hero-video-placeholder">
             動画を読み込み中...<br>
             marmoset_movie.mp4<br>
@@ -656,14 +676,12 @@
           </div>
         </video>
         
-        <!-- Progress Bar -->
         <div class="hero-progress-bar">
           <div class="hero-progress-fill"></div>
         </div>
       </div>
     </div>
     
-    <!-- Right Side - Content -->
     <div class="hero-content">
       <div class="hero-lab-name">Nakae Lab,</div>
       <h1>Toward the<br>Digital Brain</h1>
@@ -677,7 +695,6 @@
 
   <!-- RESEARCH -->
   <section class="research fade-in" id="research">
-  　 <!-- 動くマーモセット背景 -->
     <div class="floating-marmoset following"></div>
     <h2>研究の3本柱</h2>
     <div class="pillars">
@@ -699,30 +716,16 @@
   <!-- MEMBERS -->
   <section class="members fade-in">
     <h2>Our Members</h2>
-    <div class="member-grid">
-      <div class="member"><h3>中江 健</h3><p>准教授 / Associate Professor</p></div>
-      <div class="member"><h3>岩田 康希</h3><p>非常勤研究員 / Research Fellow</p></div>
-      <div class="member"><h3>朝日 恵梨菜</h3><p>事務補佐員 / Admin Assistant</p></div>
-      <div class="member"><h3>坂川 篤志</h3><p>技術補佐員 / Technical Assistant</p></div>
-      <div class="member"><h3>吉田 智恵美</h3><p>技術補佐員 / Technical Assistant</p></div>
-      <div class="member"><h3>山内 隆広</h3><p>B4 Student</p></div>
-      <div class="member"><h3>山本 侑玄</h3><p>B4 Student</p></div>
-      <div class="member"><h3>石田 海</h3><p>B4 Student</p></div>
-      <div class="member"><h3>吉野 琴音</h3><p>B4 Student</p></div>
-      <div class="member"><h3>HO THANH HIEU</h3><p>B3 Student</p></div>
-      <div class="member"><h3>犬童 悠李</h3><p>B3 Student</p></div>
+    <div class="member-grid" id="membersContainer">
+      <div class="loading">Googleスプレッドシートからメンバー情報を読み込み中...</div>
     </div>
   </section>
 
   <!-- NEWS -->
   <section class="news fade-in" id="news">
     <h2>News</h2>
-    <ul class="news-list">
-      <li><span class="date">2025.5.26</span> Neuroscience Researchでエディターとして特集公開</li>
-      <li><span class="date">2025.4.7</span> 福井大学で大型予算獲得勉強会を主催・発表</li>
-      <li><span class="date">2025.4.5</span> 神経回路学会誌に特集が掲載</li>
-      <li><span class="date">2025.3.17</span> APPW2025にてシンポジウム開催</li>
-      <li><span class="date">2025.3.1</span> デジタルツイン研究室を福井大学にて立ち上げ</li>
+    <ul class="news-list" id="newsContainer">
+      <li class="loading">Googleスプレッドシートからニュースを読み込み中...</li>
     </ul>
   </section>
 
@@ -744,15 +747,109 @@
         ➤ Graduate Admissions Info (Fukui Univ.)
       </a></p>
       
-      <!-- 目立たない管理者リンク -->
       <div style="margin-top: 50px; text-align: center;">
-        <a href="admin.html" style="color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13px; letter-spacing: 2px;">admin</a>
+        <a href="admin_login.html" style="color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13px; letter-spacing: 2px;">admin</a>
       </div>
     </div>
   </section>
 
-  <!-- JS for fade-in animation -->
   <script>
+    // Googleスプレッドシートの設定
+    const SPREADSHEET_ID = '1tTfxn1GpsZjD39wg4LNBwg6OJv98B1MjMLNQysP5GYk';
+    const NEWS_SHEET_ID = '0'; // newsシートのgid
+    const MEMBERS_SHEET_ID = '802193701'; // membersシートのgid
+
+    // CSVをパースする関数
+    function parseCSV(csvText) {
+      const lines = csvText.trim().split('\n');
+      const headers = lines[0].split(',').map(h => h.trim());
+      const data = [];
+      
+      for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(',');
+        const row = {};
+        headers.forEach((header, index) => {
+          row[header] = values[index] ? values[index].trim() : '';
+        });
+        data.push(row);
+      }
+      return data;
+    }
+
+    // ニュースを表示
+    function displayNews(newsData) {
+      const container = document.getElementById('newsContainer');
+      container.innerHTML = '';
+
+      // 最新順に表示（下に追加して逆順表示）
+      const reversedNews = [...newsData].reverse();
+      
+      reversedNews.forEach(news => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span class="date">${news.date}</span> ${news.title}`;
+        container.appendChild(li);
+      });
+    }
+
+    // メンバーを表示
+    function displayMembers(membersData) {
+      const container = document.getElementById('membersContainer');
+      container.innerHTML = '';
+
+      membersData.forEach(member => {
+        const div = document.createElement('div');
+        div.className = 'member';
+        div.innerHTML = `
+          <h3>${member.name}</h3>
+          <p>${member.position_jp} / ${member.position_en}</p>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // Googleスプレッドシートからデータを読み込み
+    async function loadData() {
+      const updateBadge = document.getElementById('updateBadge');
+      updateBadge.style.display = 'block';
+      
+      try {
+        // ニュースデータ取得
+        const newsResponse = await fetch(
+          `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${NEWS_SHEET_ID}`
+        );
+        const newsCSV = await newsResponse.text();
+        const newsData = parseCSV(newsCSV);
+        displayNews(newsData);
+
+        // メンバーデータ取得
+        const membersResponse = await fetch(
+          `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${MEMBERS_SHEET_ID}`
+        );
+        const membersCSV = await membersResponse.text();
+        const membersData = parseCSV(membersCSV);
+        displayMembers(membersData);
+
+        console.log('✅ データ更新完了');
+        
+      } catch (error) {
+        console.error('❌ データの読み込みに失敗:', error);
+        
+        // エラー時はフォールバック表示
+        document.getElementById('newsContainer').innerHTML = 
+          '<li>データの読み込みに失敗しました。しばらく後に再度お試しください。</li>';
+        document.getElementById('membersContainer').innerHTML = 
+          '<div class="member">データの読み込みに失敗しました。</div>';
+      } finally {
+        updateBadge.style.display = 'none';
+      }
+    }
+
+    // 初期化
+    document.addEventListener('DOMContentLoaded', function() {
+      loadData();
+    });
+
+    // フェードインアニメーション
     const fadeEls = document.querySelectorAll('.fade-in');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -793,33 +890,30 @@
     video.addEventListener('mouseleave', function() {
       this.style.transform = 'scale(1)';
     });
+
     // クリックした場所に飛んでいくマーモセット
-document.addEventListener('click', function(e) {
-  const marmoset = document.querySelector('.floating-marmoset.following');
-  if (marmoset) {
-   // ランダムな範囲で移動（クリック位置の周辺）
-　const randomX = e.clientX + (Math.random() - 0.5) * 200; // ±100pxの範囲
-　const randomY = e.clientY + (Math.random() - 0.5) * 200; // ±100pxの範囲
+    document.addEventListener('click', function(e) {
+      const marmoset = document.querySelector('.floating-marmoset.following');
+      if (marmoset) {
+        const randomX = e.clientX + (Math.random() - 0.5) * 200;
+        const randomY = e.clientY + (Math.random() - 0.5) * 200;
 
-　　// 画面外に出ないように調整
-　const maxX = window.innerWidth - 60;
-　const maxY = window.innerHeight - 60;
-　const finalX = Math.max(30, Math.min(randomX, maxX));
-　const finalY = Math.max(30, Math.min(randomY, maxY));
+        const maxX = window.innerWidth - 60;
+        const maxY = window.innerHeight - 60;
+        const finalX = Math.max(30, Math.min(randomX, maxX));
+        const finalY = Math.max(30, Math.min(randomY, maxY));
 
-　　// スムーズに移動
-　marmoset.style.transition = 'all 0.5s ease-out';
-　marmoset.style.left = finalX + 'px';
-　marmoset.style.top = finalY + 'px';
-    
-    // 跳ねるアニメーション
-    marmoset.classList.add('bounce');
-    setTimeout(() => {
-  marmoset.classList.remove('bounce');
-  marmoset.style.transition = 'all 0.1s ease'; // この行を追加
-　　}, 600);
-  }
-});
+        marmoset.style.transition = 'all 0.5s ease-out';
+        marmoset.style.left = finalX + 'px';
+        marmoset.style.top = finalY + 'px';
+        
+        marmoset.classList.add('bounce');
+        setTimeout(() => {
+          marmoset.classList.remove('bounce');
+          marmoset.style.transition = 'all 0.1s ease';
+        }, 600);
+      }
+    });
    
   </script>
 
