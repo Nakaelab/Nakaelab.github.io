@@ -730,3 +730,100 @@
                         <div class="extra-info">
                             ${member.research ? `
                                 <div class="research-topic">
+                                    <strong>研究テーマ:</strong> ${member.research}
+                                </div>
+                            ` : ''}
+                            <div class="hobby-tags">
+                                ${member.hobby1 ? `<span class="hobby-tag">${member.hobby1}</span>` : ''}
+                                ${member.hobby2 ? `<span class="hobby-tag">${member.hobby2}</span>` : ''}
+                                ${member.specialty ? `<span class="hobby-tag">${member.specialty}</span>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                memberCard.innerHTML = cardHTML;
+                container.appendChild(memberCard);
+            });
+
+            // 統計を更新
+            document.getElementById('totalMembers').textContent = membersData.length;
+            document.getElementById('studentCount').textContent = studentCount;
+        }
+
+        // メンバーデータを読み込む
+        async function loadMembers() {
+            try {
+                const updateBadge = document.getElementById('updateBadge');
+                updateBadge.style.display = 'block';
+                
+                console.log('メンバーデータの読み込み開始...');
+                
+                const csvUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${MEMBERS_SHEET_ID}`;
+                console.log('CSV URL:', csvUrl);
+                
+                const response = await fetch(csvUrl);
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const csvText = await response.text();
+                console.log('CSV データを取得しました。最初の200文字:', csvText.substring(0, 200));
+                
+                const membersData = parseCSV(csvText);
+                console.log('パース済みメンバーデータ:', membersData);
+                
+                // 空の名前やnameが空白のデータを除外
+                const validMembers = membersData.filter(member => 
+                    member.name && member.name.trim() !== '' && member.name.trim() !== 'NO NAME'
+                );
+                
+                console.log('有効なメンバー数:', validMembers.length);
+                
+                displayMembers(validMembers);
+                
+                updateBadge.style.display = 'none';
+                console.log('メンバーデータの読み込み完了！');
+                
+            } catch (error) {
+                console.error('メンバーデータの読み込みエラー:', error);
+                
+                const container = document.getElementById('membersContainer');
+                container.innerHTML = `
+                    <div class="loading" style="color: #e74c3c;">
+                        エラー: メンバー情報を読み込めませんでした。<br>
+                        ${error.message}
+                        <br><br>
+                        <button onclick="loadMembers()" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                            再試行
+                        </button>
+                    </div>
+                `;
+                
+                const updateBadge = document.getElementById('updateBadge');
+                updateBadge.style.display = 'none';
+            }
+        }
+
+        // ハンバーガーメニューの機能
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // ページ読み込み時にメンバーデータを読み込む
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('ページが読み込まれました。メンバーデータを取得します...');
+            loadMembers();
+        });
+
+        // 定期的にデータを更新（5分ごと）
+        setInterval(loadMembers, 5 * 60 * 1000);
+    </script>
+</body>
+</html>
