@@ -443,7 +443,8 @@
 
     /* === NAVIGATION STYLES === */
     nav {
-      background-color: transparent;
+      background-color: rgba(248, 248, 248, 0.95);
+      backdrop-filter: blur(10px);
       padding: 15px 0;
       position: fixed;
       top: 0;
@@ -451,6 +452,8 @@
       right: 0;
       z-index: 1000;
       min-height: 60px;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
 
     nav ul {
