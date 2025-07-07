@@ -15,92 +15,123 @@
             font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
+            padding-top: 90px; /* navの高さ分を確保 */
         }
 
-        /* ナビゲーション基本設定 */
+        /* === NAVIGATION STYLES === */
         nav {
-            background: #333;
-            padding: 1rem 0;
-            position: sticky;
+            background-color: rgba(248, 248, 248, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: fixed;
             top: 0;
-            z-index: 9999;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            min-height: 60px;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        /* ハンバーガーボタン（最初は非表示） */
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav li {
+            margin: 0 20px;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 12px;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            color: #1e3c72;
+        }
+
         .hamburger {
             display: none;
             flex-direction: column;
             cursor: pointer;
-            padding: 1rem;
+            padding: 20px 15px;
             position: absolute;
-            right: 1rem;
+            right: 15px;
             top: 50%;
             transform: translateY(-50%);
-            z-index: 10000;
+            min-height: 60px;
+            min-width: 60px;
+            justify-content: center;
+            align-items: center;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .hamburger span {
             width: 25px;
-            height: 3px;
-            background: white;
-            margin: 3px 0;
+            height: 4px;
+            background-color: #333;
+            margin: 4px 0;
             transition: 0.3s;
         }
 
-        /* デスクトップ用ナビ（横並び） */
-        #navMenu {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            list-style: none;
-            z-index: 9999;
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
         }
 
-        #navMenu li a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            font-weight: bold;
-            transition: background 0.3s;
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
         }
 
-        #navMenu li a:hover {
-            background: rgba(255,255,255,0.1);
-            border-radius: 4px;
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
         }
 
-        /* 768px以下の画面サイズの時だけハンバーガーメニュー */
         @media (max-width: 768px) {
             .hamburger {
                 display: flex;
             }
-            
-            #navMenu {
-                position: fixed;
-                top: 0;
-                left: -100%;
-                width: 100%;
-                height: 100vh;
-                background: #333;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                transition: left 0.3s ease;
-                z-index: 9998;
-            }
-            
-            #navMenu.active {
+
+            nav ul {
+                position: absolute;
+                top: 100%;
                 left: 0;
+                right: 0;
+                background-color: #333;
+                flex-direction: column;
+                align-items: center;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
             }
-            
-            #navMenu li {
-                margin: 1rem 0;
+
+            nav ul.active {
+                max-height: 500px;
             }
-            
-            #navMenu li a {
-                font-size: 1.5rem;
+
+            nav li {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            nav a {
+                display: block;
+                padding: 20px 20px;
+                border-bottom: 1px solid #555;
+                font-size: 16px;
+                min-height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
             }
         }
 
@@ -460,6 +491,7 @@
         .hobby-tag:nth-child(1) { transition-delay: 0.3s; }
         .hobby-tag:nth-child(2) { transition-delay: 0.4s; }
         .hobby-tag:nth-child(3) { transition-delay: 0.5s; }
+        
         @media (max-width: 768px) {
             .content-container {
                 grid-template-columns: 1fr;
@@ -507,7 +539,7 @@
         <ul id="navMenu">
             <li><a href="index.html">HOME</a></li>
             <li><a href="research.html">RESEARCH</a></li>
-            <li><a href="member.html" style="background-color: #555; border-radius: 4px;">MEMBERS</a></li>
+            <li><a href="member.html" style="background-color: #1e3c72; border-radius: 4px; color: white; font-weight: bold;">MEMBERS</a></li>
             <li><a href="publication.html">PUBLICATIONS</a></li>
             <li><a href="workshop.html">WORKSHOP</a></li>
             <li><a href="news.html">NEWS</a></li>
@@ -540,7 +572,7 @@
 
         <div class="stats-container">
             <div class="stat-card">
-                <div class="stat-number">10</div>
+                <div class="stat-number">11</div>
                 <div class="stat-label">Team Members</div>
             </div>
             <div class="stat-card">
@@ -568,7 +600,7 @@
                 <div class="member-avatar">
                     <div class="member-avatar-img faculty-avatar"></div>
                 </div>
-                <h3 class="member-name">Ken Nakae</h3>
+                <h3 class="member-name">中江 健</h3>
                 <p class="member-title">准教授 / Associate Professor</p>
                 <div class="member-info">
                     <span class="member-badge faculty">Faculty</span>
@@ -576,15 +608,15 @@
                 <div class="member-details">
                     <div class="detail-item">
                         <span class="detail-label">研究分野:</span>
-                        <span class="detail-value"><!-- 研究分野を入力 --></span>
+                        <span class="detail-value">計算神経科学</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">専門:</span>
-                        <span class="detail-value"><!-- 専門分野を入力 --></span>
+                        <span class="detail-value">デジタルツイン技術</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">連絡先:</span>
-                        <span class="detail-value"><!-- メールアドレスを入力 --></span>
+                        <span class="detail-value">nakae@u-fukui.ac.jp</span>
                     </div>
                 </div>
             </div>
@@ -594,7 +626,7 @@
                 <div class="member-avatar">
                     <div class="member-avatar-img staff-avatar"></div>
                 </div>
-                <h3 class="member-name">Koki Iwata</h3>
+                <h3 class="member-name">岩田 康希</h3>
                 <p class="member-title">非常勤研究員 / Research Fellow</p>
                 <div class="member-info">
                     <span class="member-badge staff">Staff</span>
@@ -602,90 +634,15 @@
                 <div class="member-details">
                     <div class="detail-item">
                         <span class="detail-label">専門技術:</span>
-                        <span class="detail-value"><!-- 専門技術を入力 --></span>
+                        <span class="detail-value">ウェブ開発</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">サポート:</span>
-                        <span class="detail-value"><!-- サポート内容を入力 --></span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">学位:</span>
-                        <span class="detail-value"><!-- 学位を入力 --></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="member-card faculty-staff-card">
-                <div class="member-avatar">
-                    <div class="member-avatar-img staff-avatar"></div>
-                </div>
-                <h3 class="member-name">Erina Asahi</h3>
-                <p class="member-title">事務補佐員 / Admin Assistant</p>
-                <div class="member-info">
-                    <span class="member-badge staff">Staff</span>
-                </div>
-                <div class="member-details">
-                    <div class="detail-item">
-                        <span class="detail-label">担当業務:</span>
-                        <span class="detail-value"><!-- 担当業務を入力 --></span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">サポート:</span>
-                        <span class="detail-value"><!-- サポート内容を入力 --></span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">連絡先:</span>
-                        <span class="detail-value"><!-- メールアドレスを入力 --></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="member-card faculty-staff-card">
-                <div class="member-avatar">
-                    <div class="member-avatar-img staff-avatar"></div>
-                </div>
-                <h3 class="member-name">Atsushi Sakagawa</h3>
-                <p class="member-title">技術補佐員 / Technical Assistant</p>
-                <div class="member-info">
-                    <span class="member-badge staff">Staff</span>
-                </div>
-                <div class="member-details">
-                    <div class="detail-item">
-                        <span class="detail-label">専門技術:</span>
-                        <span class="detail-value"><!-- 専門技術を入力 --></span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">サポート:</span>
-                        <span class="detail-value"><!-- サポート内容を入力 --></span>
+                        <span class="detail-value">技術支援</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">得意分野:</span>
-                        <span class="detail-value"><!-- 得意分野を入力 --></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="member-card faculty-staff-card">
-                <div class="member-avatar">
-                    <div class="member-avatar-img staff-avatar"></div>
-                </div>
-                <h3 class="member-name">Chiemi Yoshida</h3>
-                <p class="member-title">技術補佐員 / Technical Assistant</p>
-                <div class="member-info">
-                    <span class="member-badge staff">Staff</span>
-                </div>
-                <div class="member-details">
-                    <div class="detail-item">
-                        <span class="detail-label">専門技術:</span>
-                        <span class="detail-value"><!-- 専門技術を入力 --></span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">サポート:</span>
-                        <span class="detail-value"><!-- サポート内容を入力 --></span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">得意分野:</span>
-                        <span class="detail-value"><!-- 得意分野を入力 --></span>
+                        <span class="detail-value">UI/UX デザイン</span>
                     </div>
                 </div>
             </div>
@@ -695,7 +652,7 @@
                 <div class="member-avatar">
                     <div class="member-avatar-img student-avatar"></div>
                 </div>
-                <h3 class="member-name">Takahi Yamauchi</h3>
+                <h3 class="member-name">山内 隆広</h3>
                 <p class="member-title">B4 Student</p>
                 <div class="member-info">
                     <span class="member-badge student">Student</span>
@@ -703,10 +660,11 @@
                 <div class="extra-info">
                     <div class="research-topic">
                         <strong>🔬 研究テーマ</strong><br>
-                        <!-- 研究テーマを入力 -->
+                        神経回路モデリング
                     </div>
                     <div class="hobby-tags">
-                        <!-- 趣味タグを追加（例：<span class="hobby-tag">🎮 ゲーム</span>） -->
+                        <span class="hobby-tag">🎮 ゲーム</span>
+                        <span class="hobby-tag">🏀 バスケ</span>
                     </div>
                 </div>
             </div>
@@ -715,7 +673,7 @@
                 <div class="member-avatar">
                     <div class="member-avatar-img student-avatar"></div>
                 </div>
-                <h3 class="member-name">Yuto Yamamoto</h3>
+                <h3 class="member-name">山本 侑玄</h3>
                 <p class="member-title">B4 Student</p>
                 <div class="member-info">
                     <span class="member-badge student">Student</span>
@@ -723,10 +681,11 @@
                 <div class="extra-info">
                     <div class="research-topic">
                         <strong>🔬 研究テーマ</strong><br>
-                        <!-- 研究テーマを入力 -->
+                        機械学習応用
                     </div>
                     <div class="hobby-tags">
-                        <!-- 趣味タグを追加（例：<span class="hobby-tag">🎵 音楽</span>） -->
+                        <span class="hobby-tag">🎵 音楽</span>
+                        <span class="hobby-tag">🎸 ギター</span>
                     </div>
                 </div>
             </div>
@@ -735,7 +694,7 @@
                 <div class="member-avatar">
                     <div class="member-avatar-img student-avatar"></div>
                 </div>
-                <h3 class="member-name">Kai Ishida</h3>
+                <h3 class="member-name">石田 海</h3>
                 <p class="member-title">B4 Student</p>
                 <div class="member-info">
                     <span class="member-badge student">Student</span>
@@ -743,10 +702,11 @@
                 <div class="extra-info">
                     <div class="research-topic">
                         <strong>🔬 研究テーマ</strong><br>
-                        <!-- 研究テーマを入力 -->
+                        画像解析技術
                     </div>
                     <div class="hobby-tags">
-                        <!-- 趣味タグを追加（例：<span class="hobby-tag">📷 写真</span>） -->
+                        <span class="hobby-tag">📷 写真</span>
+                        <span class="hobby-tag">🏃‍♂️ ランニング</span>
                     </div>
                 </div>
             </div>
@@ -755,7 +715,7 @@
                 <div class="member-avatar">
                     <div class="member-avatar-img student-avatar"></div>
                 </div>
-                <h3 class="member-name">Kotone Yoshino</h3>
+                <h3 class="member-name">吉野 琴音</h3>
                 <p class="member-title">B4 Student</p>
                 <div class="member-info">
                     <span class="member-badge student">Student</span>
@@ -763,10 +723,11 @@
                 <div class="extra-info">
                     <div class="research-topic">
                         <strong>🔬 研究テーマ</strong><br>
-                        <!-- 研究テーマを入力 -->
+                        生体信号処理
                     </div>
                     <div class="hobby-tags">
-                        <!-- 趣味タグを追加（例：<span class="hobby-tag">🎤 カラオケ</span>） -->
+                        <span class="hobby-tag">🎤 カラオケ</span>
+                        <span class="hobby-tag">🎭 演劇</span>
                     </div>
                 </div>
             </div>
@@ -775,7 +736,7 @@
                 <div class="member-avatar">
                     <div class="member-avatar-img student-avatar"></div>
                 </div>
-                <h3 class="member-name">Ho Thanh Hieu</h3>
+                <h3 class="member-name">HO THANH HIEU</h3>
                 <p class="member-title">B3 Student</p>
                 <div class="member-info">
                     <span class="member-badge student">Student</span>
@@ -783,10 +744,11 @@
                 <div class="extra-info">
                     <div class="research-topic">
                         <strong>🔬 研究テーマ</strong><br>
-                        <!-- 研究テーマを入力 -->
+                        国際共同研究
                     </div>
                     <div class="hobby-tags">
-                        <!-- 趣味タグを追加（例：<span class="hobby-tag">🌏 言語学習</span>） -->
+                        <span class="hobby-tag">🌏 言語学習</span>
+                        <span class="hobby-tag">🍜 料理</span>
                     </div>
                 </div>
             </div>
@@ -795,7 +757,7 @@
                 <div class="member-avatar">
                     <div class="member-avatar-img student-avatar"></div>
                 </div>
-                <h3 class="member-name">Yuri Inudo</h3>
+                <h3 class="member-name">犬童 悠李</h3>
                 <p class="member-title">B3 Student</p>
                 <div class="member-info">
                     <span class="member-badge student">Student</span>
@@ -803,10 +765,11 @@
                 <div class="extra-info">
                     <div class="research-topic">
                         <strong>🔬 研究テーマ</strong><br>
-                        <!-- 研究テーマを入力 -->
+                        データ可視化
                     </div>
                     <div class="hobby-tags">
-                        <!-- 趣味タグを追加（例：<span class="hobby-tag">🎹 ピアノ</span>） -->
+                        <span class="hobby-tag">🎹 ピアノ</span>
+                        <span class="hobby-tag">🎨 アート</span>
                     </div>
                 </div>
             </div>
@@ -815,9 +778,87 @@
 
     <script>
         function toggleMenu() {
+            const hamburger = document.querySelector('.hamburger');
             const navMenu = document.getElementById('navMenu');
+            
+            hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
         }
     </script>
 </body>
 </html>
+                        <span class="detail-value">データ解析</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">サポート:</span>
+                        <span class="detail-value">研究支援</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">学位:</span>
+                        <span class="detail-value">博士（工学）</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="member-card faculty-staff-card">
+                <div class="member-avatar">
+                    <div class="member-avatar-img staff-avatar"></div>
+                </div>
+                <h3 class="member-name">朝日 恵梨菜</h3>
+                <p class="member-title">事務補佐員 / Admin Assistant</p>
+                <div class="member-info">
+                    <span class="member-badge staff">Staff</span>
+                </div>
+                <div class="member-details">
+                    <div class="detail-item">
+                        <span class="detail-label">担当業務:</span>
+                        <span class="detail-value">事務全般</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">サポート:</span>
+                        <span class="detail-value">研究室運営</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">連絡先:</span>
+                        <span class="detail-value">asahi@u-fukui.ac.jp</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="member-card faculty-staff-card">
+                <div class="member-avatar">
+                    <div class="member-avatar-img staff-avatar"></div>
+                </div>
+                <h3 class="member-name">坂川 篤志</h3>
+                <p class="member-title">技術補佐員 / Technical Assistant</p>
+                <div class="member-info">
+                    <span class="member-badge staff">Staff</span>
+                </div>
+                <div class="member-details">
+                    <div class="detail-item">
+                        <span class="detail-label">専門技術:</span>
+                        <span class="detail-value">システム開発</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">サポート:</span>
+                        <span class="detail-value">技術支援</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">得意分野:</span>
+                        <span class="detail-value">プログラミング</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="member-card faculty-staff-card">
+                <div class="member-avatar">
+                    <div class="member-avatar-img staff-avatar"></div>
+                </div>
+                <h3 class="member-name">吉田 智恵美</h3>
+                <p class="member-title">技術補佐員 / Technical Assistant</p>
+                <div class="member-info">
+                    <span class="member-badge staff">Staff</span>
+                </div>
+                <div class="member-details">
+                    <div class="detail-item">
+                        <span class="detail-label">専門技術:</span
