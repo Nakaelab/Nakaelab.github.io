@@ -626,201 +626,107 @@
     </div>
 
     <script>
-    // Googleスプレッドシートの設定
-const SPREADSHEET_ID = '1tTfxn1GpsZjD39wg4LNBwg6OJv98B1MjMLNQysP5GYk';
-const MEMBERS_SHEET_ID = '926336242'; // members_detailシートのgid
+        // Googleスプレッドシートの設定
+        const SPREADSHEET_ID = '1tTfxn1GpsZjD39wg4LNBwg6OJv98B1MjMLNQysP5GYk';
+        const MEMBERS_SHEET_ID = '926336242'; // members_detailシートのgid
 
-// CSVをパースする関数
-function parseCSV(csvText) {
-    const lines = csvText.trim().split('\n');
-    const headers = lines[0].split(',').map(h => h.trim());
-    const data = [];
-    
-    for (let i = 1; i < lines.length; i++) {
-        const values = lines[i].split(',');
-        const row = {};
-        headers.forEach((header, index) => {
-            row[header] = values[index] ? values[index].trim() : '';
-        });
-        data.push(row);
-    }
-    return data;
-}
-
-// 役職に応じたアバタークラスを取得
-function getAvatarClass(role) {
-    if (role === 'faculty') return 'faculty-avatar';
-    if (role === 'staff') return 'staff-avatar';
-    return 'student-avatar';
-}
-
-// 役職に応じたバッジクラスを取得
-function getBadgeClass(role) {
-    if (role === 'faculty') return 'faculty';
-    if (role === 'staff') return 'staff';
-    return 'student';
-}
-
-// 役職に応じたカードクラスを取得
-function getCardClass(role) {
-    if (role === 'faculty' || role === 'staff') return 'faculty-staff-card';
-    return 'student-card';
-}
-
-// 役職に応じたバッジテキストを取得
-function getBadgeText(role) {
-    if (role === 'faculty') return 'Faculty';
-    if (role === 'staff') return 'Staff';
-    return 'Student';
-}
-
-// メンバーを表示
-function displayMembers(membersData) {
-    const container = document.getElementById('membersContainer');
-    container.innerHTML = '';
-
-    let studentCount = 0;
-    
-    membersData.forEach(member => {
-        if (member.role === 'student') studentCount++;
-        
-        const memberCard = document.createElement('div');
-        memberCard.className = `member-card ${getCardClass(member.role)}`;
-        
-        let cardHTML = `
-            <div class="member-avatar">
-                <div class="member-avatar-img ${getAvatarClass(member.role)}"></div>
-            </div>
-            <h3 class="member-name">${member.name}</h3>
-            <p class="member-title">${member.position_jp} / ${member.position_en}</p>
-            <div class="member-info">
-                <span class="member-badge ${getBadgeClass(member.role)}">${getBadgeText(member.role)}</span>
-            </div>
-        `;
-
-        // 教員・スタッフ用の詳細情報
-        if (member.role === 'faculty' || member.role === 'staff') {
-            cardHTML += `
-                <div class="member-details">
-                    ${member.research ? `
-                        <div class="detail-item">
-                            <span class="detail-label">研究分野:</span>
-                            <span class="detail-value">${member.research}</span>
-                        </div>
-                    ` : ''}
-                    ${member.specialty ? `
-                        <div class="detail-item">
-                            <span class="detail-label">専門:</span>
-                            <span class="detail-value">${member.specialty}</span>
-                        </div>
-                    ` : ''}
-                    ${member.email ? `
-                        <div class="detail-item">
-                            <span class="detail-label">連絡先:</span>
-                            <span class="detail-value">${member.email}</span>
-                        </div>
-                    ` : ''}
-                </div>
-            `;
+        // CSVをパースする関数
+        function parseCSV(csvText) {
+            const lines = csvText.trim().split('\n');
+            const headers = lines[0].split(',').map(h => h.trim());
+            const data = [];
+            
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(',');
+                const row = {};
+                headers.forEach((header, index) => {
+                    row[header] = values[index] ? values[index].trim() : '';
+                });
+                data.push(row);
+            }
+            return data;
         }
 
-        // 学生用の詳細情報
-        if (member.role === 'student') {
-            cardHTML += `
-                <div class="extra-info">
-                    ${member.research ? `
-                        <div class="research-topic">
-                            <strong>研究テーマ:</strong> ${member.research}
-                        </div>
-                    ` : ''}
-                    <div class="hobby-tags">
-                        ${member.hobby1 ? `<span class="hobby-tag">${member.hobby1}</span>` : ''}
-                        ${member.hobby2 ? `<span class="hobby-tag">${member.hobby2}</span>` : ''}
-                        ${member.specialty ? `<span class="hobby-tag">${member.specialty}</span>` : ''}
+        // 役職に応じたアバタークラスを取得
+        function getAvatarClass(role) {
+            if (role === 'faculty') return 'faculty-avatar';
+            if (role === 'staff') return 'staff-avatar';
+            return 'student-avatar';
+        }
+
+        // 役職に応じたバッジクラスを取得
+        function getBadgeClass(role) {
+            if (role === 'faculty') return 'faculty';
+            if (role === 'staff') return 'staff';
+            return 'student';
+        }
+
+        // 役職に応じたカードクラスを取得
+        function getCardClass(role) {
+            if (role === 'faculty' || role === 'staff') return 'faculty-staff-card';
+            return 'student-card';
+        }
+
+        // 役職に応じたバッジテキストを取得
+        function getBadgeText(role) {
+            if (role === 'faculty') return 'Faculty';
+            if (role === 'staff') return 'Staff';
+            return 'Student';
+        }
+
+        // メンバーを表示
+        function displayMembers(membersData) {
+            const container = document.getElementById('membersContainer');
+            container.innerHTML = '';
+
+            let studentCount = 0;
+            
+            membersData.forEach(member => {
+                if (member.role === 'student') studentCount++;
+                
+                const memberCard = document.createElement('div');
+                memberCard.className = `member-card ${getCardClass(member.role)}`;
+                
+                let cardHTML = `
+                    <div class="member-avatar">
+                        <div class="member-avatar-img ${getAvatarClass(member.role)}"></div>
                     </div>
-                </div>
-            `;
-        }
+                    <h3 class="member-name">${member.name}</h3>
+                    <p class="member-title">${member.position_jp} / ${member.position_en}</p>
+                    <div class="member-info">
+                        <span class="member-badge ${getBadgeClass(member.role)}">${getBadgeText(member.role)}</span>
+                    </div>
+                `;
 
-        memberCard.innerHTML = cardHTML;
-        container.appendChild(memberCard);
-    });
+                // 教員・スタッフ用の詳細情報
+                if (member.role === 'faculty' || member.role === 'staff') {
+                    cardHTML += `
+                        <div class="member-details">
+                            ${member.research ? `
+                                <div class="detail-item">
+                                    <span class="detail-label">研究分野:</span>
+                                    <span class="detail-value">${member.research}</span>
+                                </div>
+                            ` : ''}
+                            ${member.specialty ? `
+                                <div class="detail-item">
+                                    <span class="detail-label">専門:</span>
+                                    <span class="detail-value">${member.specialty}</span>
+                                </div>
+                            ` : ''}
+                            ${member.email ? `
+                                <div class="detail-item">
+                                    <span class="detail-label">連絡先:</span>
+                                    <span class="detail-value">${member.email}</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                }
 
-    // 統計を更新
-    document.getElementById('totalMembers').textContent = membersData.length;
-    document.getElementById('studentCount').textContent = studentCount;
-}
-
-// メンバーデータを読み込む
-async function loadMembers() {
-    try {
-        const updateBadge = document.getElementById('updateBadge');
-        updateBadge.style.display = 'block';
-        
-        console.log('メンバーデータの読み込み開始...');
-        
-        const csvUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${MEMBERS_SHEET_ID}`;
-        console.log('CSV URL:', csvUrl);
-        
-        const response = await fetch(csvUrl);
-        console.log('Response status:', response.status);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const csvText = await response.text();
-        console.log('CSV データを取得しました。最初の200文字:', csvText.substring(0, 200));
-        
-        const membersData = parseCSV(csvText);
-        console.log('パース済みメンバーデータ:', membersData);
-        
-        // 空の名前やnameが空白のデータを除外
-        const validMembers = membersData.filter(member => 
-            member.name && member.name.trim() !== '' && member.name.trim() !== 'NO NAME'
-        );
-        
-        console.log('有効なメンバー数:', validMembers.length);
-        
-        displayMembers(validMembers);
-        
-        updateBadge.style.display = 'none';
-        console.log('メンバーデータの読み込み完了！');
-        
-    } catch (error) {
-        console.error('メンバーデータの読み込みエラー:', error);
-        
-        const container = document.getElementById('membersContainer');
-        container.innerHTML = `
-            <div class="loading" style="color: #e74c3c;">
-                エラー: メンバー情報を読み込めませんでした。<br>
-                ${error.message}
-                <br><br>
-                <button onclick="loadMembers()" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                    再試行
-                </button>
-            </div>
-        `;
-        
-        const updateBadge = document.getElementById('updateBadge');
-        updateBadge.style.display = 'none';
-    }
-}
-
-// ハンバーガーメニューの機能
-function toggleMenu() {
-    const navMenu = document.getElementById('navMenu');
-    const hamburger = document.querySelector('.hamburger');
-    
-    navMenu.classList.toggle('active');
-    hamburger.classList.toggle('active');
-}
-
-// ページ読み込み時にメンバーデータを読み込む
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('ページが読み込まれました。メンバーデータを取得します...');
-    loadMembers();
-});
-
-// 定期的にデータを更新（5分ごと）
-setInterval(loadMembers, 5 * 60 * 1000);
+                // 学生用の詳細情報
+                if (member.role === 'student') {
+                    cardHTML += `
+                        <div class="extra-info">
+                            ${member.research ? `
+                                <div class="research-topic">
