@@ -491,6 +491,27 @@
         .hobby-tag:nth-child(1) { transition-delay: 0.3s; }
         .hobby-tag:nth-child(2) { transition-delay: 0.4s; }
         .hobby-tag:nth-child(3) { transition-delay: 0.5s; }
+
+        .loading {
+            opacity: 0.6;
+            font-style: italic;
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .auto-update-badge {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: rgba(76, 175, 80, 0.9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            z-index: 1001;
+            display: none;
+        }
         
         @media (max-width: 768px) {
             .content-container {
@@ -547,6 +568,11 @@
         </ul>
     </nav>
 
+    <!-- 自動更新バッジ -->
+    <div class="auto-update-badge" id="updateBadge">
+        🔄 Googleスプレッドシートから更新中...
+    </div>
+
     <section class="hero-section">
         <!-- 背景装飾 -->
         <div class="plant-decoration top-right"></div>
@@ -572,7 +598,7 @@
 
         <div class="stats-container">
             <div class="stat-card">
-                <div class="stat-number">11</div>
+                <div class="stat-number" id="totalMembers">-</div>
                 <div class="stat-label">Team Members</div>
             </div>
             <div class="stat-card">
@@ -580,7 +606,7 @@
                 <div class="stat-label">Research Areas</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">6</div>
+                <div class="stat-number" id="studentCount">-</div>
                 <div class="stat-label">Students</div>
             </div>
             <div class="stat-card">
@@ -594,271 +620,113 @@
     <div class="members-section">
         <h2 class="section-title">Meet Our Team</h2>
         
-        <div class="member-grid">
-            <!-- Ken Nakae - Faculty (スライド効果) -->
-            <div class="member-card faculty-staff-card">
-                <div class="member-avatar">
-                    <div class="member-avatar-img faculty-avatar"></div>
-                </div>
-                <h3 class="member-name">中江 健</h3>
-                <p class="member-title">准教授 / Associate Professor</p>
-                <div class="member-info">
-                    <span class="member-badge faculty">Faculty</span>
-                </div>
-                <div class="member-details">
-                    <div class="detail-item">
-                        <span class="detail-label">研究分野:</span>
-                        <span class="detail-value">計算神経科学</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">専門:</span>
-                        <span class="detail-value">デジタルツイン技術</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">連絡先:</span>
-                        <span class="detail-value">nakae@u-fukui.ac.jp</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Staff Members (スライド効果) -->
-            <div class="member-card faculty-staff-card">
-                <div class="member-avatar">
-                    <div class="member-avatar-img staff-avatar"></div>
-                </div>
-                <h3 class="member-name">岩田 康希</h3>
-                <p class="member-title">非常勤研究員 / Research Fellow</p>
-                <div class="member-info">
-                    <span class="member-badge staff">Staff</span>
-                </div>
-                <div class="member-details">
-                    <div class="detail-item">
-                        <span class="detail-label">専門技術:</span>
-                        <span class="detail-value">ウェブ開発</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">サポート:</span>
-                        <span class="detail-value">技術支援</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">得意分野:</span>
-                        <span class="detail-value">UI/UX デザイン</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Students (回転効果) -->
-            <div class="member-card student-card">
-                <div class="member-avatar">
-                    <div class="member-avatar-img student-avatar"></div>
-                </div>
-                <h3 class="member-name">山内 隆広</h3>
-                <p class="member-title">B4 Student</p>
-                <div class="member-info">
-                    <span class="member-badge student">Student</span>
-                </div>
-                <div class="extra-info">
-                    <div class="research-topic">
-                        <strong>🔬 研究テーマ</strong><br>
-                        神経回路モデリング
-                    </div>
-                    <div class="hobby-tags">
-                        <span class="hobby-tag">🎮 ゲーム</span>
-                        <span class="hobby-tag">🏀 バスケ</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="member-card student-card">
-                <div class="member-avatar">
-                    <div class="member-avatar-img student-avatar"></div>
-                </div>
-                <h3 class="member-name">山本 侑玄</h3>
-                <p class="member-title">B4 Student</p>
-                <div class="member-info">
-                    <span class="member-badge student">Student</span>
-                </div>
-                <div class="extra-info">
-                    <div class="research-topic">
-                        <strong>🔬 研究テーマ</strong><br>
-                        機械学習応用
-                    </div>
-                    <div class="hobby-tags">
-                        <span class="hobby-tag">🎵 音楽</span>
-                        <span class="hobby-tag">🎸 ギター</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="member-card student-card">
-                <div class="member-avatar">
-                    <div class="member-avatar-img student-avatar"></div>
-                </div>
-                <h3 class="member-name">石田 海</h3>
-                <p class="member-title">B4 Student</p>
-                <div class="member-info">
-                    <span class="member-badge student">Student</span>
-                </div>
-                <div class="extra-info">
-                    <div class="research-topic">
-                        <strong>🔬 研究テーマ</strong><br>
-                        画像解析技術
-                    </div>
-                    <div class="hobby-tags">
-                        <span class="hobby-tag">📷 写真</span>
-                        <span class="hobby-tag">🏃‍♂️ ランニング</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="member-card student-card">
-                <div class="member-avatar">
-                    <div class="member-avatar-img student-avatar"></div>
-                </div>
-                <h3 class="member-name">吉野 琴音</h3>
-                <p class="member-title">B4 Student</p>
-                <div class="member-info">
-                    <span class="member-badge student">Student</span>
-                </div>
-                <div class="extra-info">
-                    <div class="research-topic">
-                        <strong>🔬 研究テーマ</strong><br>
-                        生体信号処理
-                    </div>
-                    <div class="hobby-tags">
-                        <span class="hobby-tag">🎤 カラオケ</span>
-                        <span class="hobby-tag">🎭 演劇</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="member-card student-card">
-                <div class="member-avatar">
-                    <div class="member-avatar-img student-avatar"></div>
-                </div>
-                <h3 class="member-name">HO THANH HIEU</h3>
-                <p class="member-title">B3 Student</p>
-                <div class="member-info">
-                    <span class="member-badge student">Student</span>
-                </div>
-                <div class="extra-info">
-                    <div class="research-topic">
-                        <strong>🔬 研究テーマ</strong><br>
-                        国際共同研究
-                    </div>
-                    <div class="hobby-tags">
-                        <span class="hobby-tag">🌏 言語学習</span>
-                        <span class="hobby-tag">🍜 料理</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="member-card student-card">
-                <div class="member-avatar">
-                    <div class="member-avatar-img student-avatar"></div>
-                </div>
-                <h3 class="member-name">犬童 悠李</h3>
-                <p class="member-title">B3 Student</p>
-                <div class="member-info">
-                    <span class="member-badge student">Student</span>
-                </div>
-                <div class="extra-info">
-                    <div class="research-topic">
-                        <strong>🔬 研究テーマ</strong><br>
-                        データ可視化
-                    </div>
-                    <div class="hobby-tags">
-                        <span class="hobby-tag">🎹 ピアノ</span>
-                        <span class="hobby-tag">🎨 アート</span>
-                    </div>
-                </div>
-            </div>
+        <div class="member-grid" id="membersContainer">
+            <div class="loading">Googleスプレッドシートからメンバー情報を読み込み中...</div>
         </div>
     </div>
 
     <script>
-        function toggleMenu() {
-            const hamburger = document.querySelector('.hamburger');
-            const navMenu = document.getElementById('navMenu');
+        // Googleスプレッドシートの設定
+        const SPREADSHEET_ID = '1tTfxn1GpsZjD39wg4LNBwg6OJv98B1MjMLNQysP5GYk';
+        const MEMBERS_SHEET_ID = '926336242'; // members_detailシートのgid
+
+        // CSVをパースする関数
+        function parseCSV(csvText) {
+            const lines = csvText.trim().split('\n');
+            const headers = lines[0].split(',').map(h => h.trim());
+            const data = [];
             
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(',');
+                const row = {};
+                headers.forEach((header, index) => {
+                    row[header] = values[index] ? values[index].trim() : '';
+                });
+                data.push(row);
+            }
+            return data;
         }
-    </script>
-</body>
-</html>
-                        <span class="detail-value">データ解析</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">サポート:</span>
-                        <span class="detail-value">研究支援</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">学位:</span>
-                        <span class="detail-value">博士（工学）</span>
-                    </div>
-                </div>
-            </div>
 
-            <div class="member-card faculty-staff-card">
-                <div class="member-avatar">
-                    <div class="member-avatar-img staff-avatar"></div>
-                </div>
-                <h3 class="member-name">朝日 恵梨菜</h3>
-                <p class="member-title">事務補佐員 / Admin Assistant</p>
-                <div class="member-info">
-                    <span class="member-badge staff">Staff</span>
-                </div>
-                <div class="member-details">
-                    <div class="detail-item">
-                        <span class="detail-label">担当業務:</span>
-                        <span class="detail-value">事務全般</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">サポート:</span>
-                        <span class="detail-value">研究室運営</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">連絡先:</span>
-                        <span class="detail-value">asahi@u-fukui.ac.jp</span>
-                    </div>
-                </div>
-            </div>
+        // 役職に応じたアバタークラスを取得
+        function getAvatarClass(role) {
+            if (role === 'faculty') return 'faculty-avatar';
+            if (role === 'staff') return 'staff-avatar';
+            return 'student-avatar';
+        }
 
-            <div class="member-card faculty-staff-card">
-                <div class="member-avatar">
-                    <div class="member-avatar-img staff-avatar"></div>
-                </div>
-                <h3 class="member-name">坂川 篤志</h3>
-                <p class="member-title">技術補佐員 / Technical Assistant</p>
-                <div class="member-info">
-                    <span class="member-badge staff">Staff</span>
-                </div>
-                <div class="member-details">
-                    <div class="detail-item">
-                        <span class="detail-label">専門技術:</span>
-                        <span class="detail-value">システム開発</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">サポート:</span>
-                        <span class="detail-value">技術支援</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">得意分野:</span>
-                        <span class="detail-value">プログラミング</span>
-                    </div>
-                </div>
-            </div>
+        // 役職に応じたバッジクラスを取得
+        function getBadgeClass(role) {
+            if (role === 'faculty') return 'faculty';
+            if (role === 'staff') return 'staff';
+            return 'student';
+        }
 
-            <div class="member-card faculty-staff-card">
-                <div class="member-avatar">
-                    <div class="member-avatar-img staff-avatar"></div>
-                </div>
-                <h3 class="member-name">吉田 智恵美</h3>
-                <p class="member-title">技術補佐員 / Technical Assistant</p>
-                <div class="member-info">
-                    <span class="member-badge staff">Staff</span>
-                </div>
-                <div class="member-details">
-                    <div class="detail-item">
-                        <span class="detail-label">専門技術:</span
+        // 役職に応じたカードクラスを取得
+        function getCardClass(role) {
+            if (role === 'faculty' || role === 'staff') return 'faculty-staff-card';
+            return 'student-card';
+        }
+
+        // 役職に応じたバッジテキストを取得
+        function getBadgeText(role) {
+            if (role === 'faculty') return 'Faculty';
+            if (role === 'staff') return 'Staff';
+            return 'Student';
+        }
+
+        // メンバーを表示
+        function displayMembers(membersData) {
+            const container = document.getElementById('membersContainer');
+            container.innerHTML = '';
+
+            let studentCount = 0;
+            
+            membersData.forEach(member => {
+                if (member.role === 'student') studentCount++;
+                
+                const memberCard = document.createElement('div');
+                memberCard.className = `member-card ${getCardClass(member.role)}`;
+                
+                let cardHTML = `
+                    <div class="member-avatar">
+                        <div class="member-avatar-img ${getAvatarClass(member.role)}"></div>
+                    </div>
+                    <h3 class="member-name">${member.name}</h3>
+                    <p class="member-title">${member.position_jp} / ${member.position_en}</p>
+                    <div class="member-info">
+                        <span class="member-badge ${getBadgeClass(member.role)}">${getBadgeText(member.role)}</span>
+                    </div>
+                `;
+
+                // 教員・スタッフ用の詳細情報
+                if (member.role === 'faculty' || member.role === 'staff') {
+                    cardHTML += `
+                        <div class="member-details">
+                            ${member.research ? `
+                                <div class="detail-item">
+                                    <span class="detail-label">研究分野:</span>
+                                    <span class="detail-value">${member.research}</span>
+                                </div>
+                            ` : ''}
+                            ${member.specialty ? `
+                                <div class="detail-item">
+                                    <span class="detail-label">専門:</span>
+                                    <span class="detail-value">${member.specialty}</span>
+                                </div>
+                            ` : ''}
+                            ${member.email ? `
+                                <div class="detail-item">
+                                    <span class="detail-label">連絡先:</span>
+                                    <span class="detail-value">${member.email}</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                }
+
+                // 学生用の詳細情報
+                if (member.role === 'student') {
+                    cardHTML += `
+                        <div class="extra-info">
+                            ${member.research ? `
+                                <div class
