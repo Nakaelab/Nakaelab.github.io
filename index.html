@@ -432,6 +432,12 @@
       padding: 12px 0;
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       font-size: 1em;
+      transition: background-color 0.3s ease;
+    }
+
+    .news-list li:hover {
+      background-color: rgba(255, 255, 255, 0.8);
+      cursor: pointer;
     }
 
     .news-list .date {
@@ -691,7 +697,7 @@
       <p>Reconstructing behavior and cognition through the eyes of the marmoset.</p>
       <div class="hero-cta-buttons">
         <a href="#research" class="hero-btn">研究について</a>
-        <a href="#news" class="hero-btn">NEWS</a>
+        <a href="news.html" class="hero-btn">NEWS</a>
       </div>
     </div>
   </section>
@@ -789,7 +795,14 @@
       
       reversedNews.forEach(news => {
         const li = document.createElement('li');
+        li.style.cursor = 'pointer'; // マウスカーソルを手の形に
         li.innerHTML = `<span class="date">${news.date}</span> ${news.title}`;
+        
+        // クリックでnews.htmlに移動
+        li.addEventListener('click', function() {
+          window.location.href = 'news.html';
+        });
+        
         container.appendChild(li);
       });
     }
