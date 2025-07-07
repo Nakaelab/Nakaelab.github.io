@@ -43,7 +43,7 @@
       margin: 0 auto;
       padding: 0 40px;
       gap: 80px;
-      margin-top: 60px; /* navの高さ分を確保 */
+      margin-top: 90px; /* navの高さ分を確保 */
       color: #1e293b;
     }
 
@@ -443,13 +443,14 @@
 
     /* === NAVIGATION STYLES === */
     nav {
-      background-color: #333;
-      padding: 10px 0;
+      background-color: transparent;
+      padding: 15px 0;
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 1000;
+      min-height: 60px;
     }
 
     nav ul {
@@ -465,14 +466,14 @@
     }
 
     nav a {
-      color: white;
+      color: #333;
       text-decoration: none;
       font-weight: bold;
       padding: 8px 12px;
     }
 
     nav a:hover {
-      background-color: #555;
+      background-color: rgba(0, 0, 0, 0.1);
       border-radius: 4px;
     }
 
@@ -480,19 +481,22 @@
       display: none;
       flex-direction: column;
       cursor: pointer;
-      padding: 15px 10px;
+      padding: 20px 15px;
       position: absolute;
-      right: 20px;
+      right: 15px;
       top: 50%;
       transform: translateY(-50%);
-      min-height: 50px;
+      min-height: 60px;
+      min-width: 60px;
       justify-content: center;
+      align-items: center;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .hamburger span {
       width: 25px;
       height: 4px;
-      background-color: white;
+      background-color: #333;
       margin: 4px 0;
       transition: 0.3s;
     }
@@ -546,6 +550,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        color: white;
       }
     }
 
@@ -663,14 +668,14 @@
       <h1>Toward the<br>Digital Brain</h1>
       <p>Reconstructing behavior and cognition through the eyes of the marmoset.</p>
       <div class="hero-cta-buttons">
+        <a href="#research" class="hero-btn">研究について</a>
         <a href="#news" class="hero-btn">NEWS</a>
-        <a href="#about" class="hero-btn">About</a>
       </div>
     </div>
   </section>
 
   <!-- RESEARCH -->
-  <section class="research fade-in">
+  <section class="research fade-in" id="research">
   　 <!-- 動くマーモセット背景 -->
     <div class="floating-marmoset following"></div>
     <h2>研究の3本柱</h2>
@@ -709,7 +714,7 @@
   </section>
 
   <!-- NEWS -->
-  <section class="news fade-in">
+  <section class="news fade-in" id="news">
     <h2>News</h2>
     <ul class="news-list">
       <li><span class="date">2025.5.26</span> Neuroscience Researchでエディターとして特集公開</li>
