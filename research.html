@@ -17,91 +17,123 @@
             min-height: 100vh;
         }
 
-        /* ナビゲーション基本設定 */
+        /* ===== NAVIGATION (新デザイン) ===== */
         nav {
-            background: #333;
-            padding: 1rem 0;
-            position: sticky;
+            background-color: rgba(248, 248, 248, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: fixed;
             top: 0;
-            z-index: 9999;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            min-height: 60px;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav li {
+            margin: 0 20px;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 12px;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            color: #1e3c72;
         }
 
         .hamburger {
             display: none;
             flex-direction: column;
             cursor: pointer;
-            padding: 1rem;
+            padding: 20px 15px;
             position: absolute;
-            right: 1rem;
+            right: 15px;
             top: 50%;
             transform: translateY(-50%);
-            z-index: 10000;
+            min-height: 60px;
+            min-width: 60px;
+            justify-content: center;
+            align-items: center;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .hamburger span {
             width: 25px;
-            height: 3px;
-            background: white;
-            margin: 3px 0;
+            height: 4px;
+            background-color: #333;
+            margin: 4px 0;
             transition: 0.3s;
         }
 
-        #navMenu {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            list-style: none;
-            z-index: 9999;
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
         }
-
-        #navMenu li a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            font-weight: bold;
-            transition: background 0.3s;
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
         }
-
-        #navMenu li a:hover {
-            background: rgba(255,255,255,0.1);
-            border-radius: 4px;
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
         }
 
         @media (max-width: 768px) {
             .hamburger {
                 display: flex;
             }
-            
-            #navMenu {
-                position: fixed;
-                top: 0;
-                left: -100%;
-                width: 100%;
-                height: 100vh;
-                background: #333;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                transition: left 0.3s ease;
-                z-index: 9998;
-            }
-            
-            #navMenu.active {
+
+            nav ul {
+                position: absolute;
+                top: 100%;
                 left: 0;
+                right: 0;
+                background-color: #333;
+                flex-direction: column;
+                align-items: center;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
             }
-            
-            #navMenu li {
-                margin: 1rem 0;
+
+            nav ul.active {
+                max-height: 500px;
             }
-            
-            #navMenu li a {
-                font-size: 1.5rem;
+
+            nav li {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            nav a {
+                display: block;
+                padding: 20px 20px;
+                border-bottom: 1px solid #555;
+                font-size: 16px;
+                min-height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
             }
         }
 
-        /* ヒーローセクション */
+        /* ===== 以下、元のスタイル続き ===== */
+
         .hero-section {
             position: relative;
             padding: 4rem 2rem;
@@ -110,6 +142,7 @@
             color: white;
             text-align: center;
             overflow: hidden;
+            margin-top: 90px; /* nav高さ分の余白 */
         }
 
         .hero-content {
@@ -370,23 +403,23 @@
     </style>
 </head>
 <body>
+    <!-- ===== 新しいナビゲーションバー ===== -->
     <nav>
-  <div class="hamburger" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <ul id="navMenu">
-    <li><a href="index.html">HOME</a></li>
-    <li><a href="research.html" style="background-color: #1e3c72; border-radius: 4px; color: white; font-weight: bold;">RESEARCH</a></li>
-    <li><a href="member.html">MEMBERS</a></li>
-    <li><a href="publication.html">PUBLICATIONS</a></li>
-    <li><a href="workshop.html">WORKSHOP</a></li>
-    <li><a href="news.html">NEWS</a></li>
-    <li><a href="contact.html">CONTACT</a></li>
-  </ul>
-</nav>
-
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul id="navMenu">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="research.html" style="background-color: #1e3c72; border-radius: 4px; color: white; font-weight: bold;">RESEARCH</a></li>
+            <li><a href="member.html">MEMBERS</a></li>
+            <li><a href="publication.html">PUBLICATIONS</a></li>
+            <li><a href="workshop.html">WORKSHOP</a></li>
+            <li><a href="news.html">NEWS</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+    </nav>
 
     <!-- ヒーローセクション -->
     <section class="hero-section">
@@ -543,7 +576,9 @@
 
     <script>
         function toggleMenu() {
+            const hamburger = document.querySelector('.hamburger');
             const navMenu = document.getElementById('navMenu');
+            hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
         }
     </script>
