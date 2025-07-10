@@ -458,12 +458,12 @@
                 const imageUrl = member.image_url;
                 
                 let avatarContent = '';
-                if (imageUrl && imageUrl.trim() && imageUrl.includes('drive.google.com')) {
-                    // Googleドライブの画像の場合
+                if (imageUrl && imageUrl.trim()) {
+                    // 画像URLがある場合（Googleドライブまたは相対パス）
                     console.log('🖼️ 画像URL検出:', member.name, imageUrl);
                     avatarContent = `
                         <img src="${imageUrl}" alt="${member.name}" 
-                             onload="console.log('✅ 画像読み込み成功:', '${member.name}'); this.style.opacity='1';"
+                             onload="console.log('✅ 画像読み込み成功:', '${member.name}'); this.style.opacity='1'; this.parentNode.classList.remove('no-image');"
                              onerror="console.log('❌ 画像読み込み失敗:', '${member.name}'); this.parentNode.classList.add('no-image'); this.style.display='none';"
                              style="opacity: 0; transition: opacity 0.3s;">
                         <div class="initial">${initial}</div>
