@@ -188,6 +188,9 @@
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .member-avatar .initial {
@@ -195,11 +198,16 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            display: none;
+            z-index: 1;
+            transition: opacity 0.3s ease;
         }
 
         .member-avatar.no-image .initial {
-            display: block;
+            opacity: 1;
+        }
+
+        .member-avatar:not(.no-image) .initial {
+            opacity: 0;
         }
 
         .member-name {
@@ -450,15 +458,19 @@
                 const imageUrl = member.image_url;
                 
                 let avatarContent = '';
-                if (imageUrl && imageUrl.includes('drive.google.com')) {
+                if (imageUrl && imageUrl.trim() && imageUrl.includes('drive.google.com')) {
                     // Googleドライブの画像の場合
+                    console.log('🖼️ 画像URL検出:', member.name, imageUrl);
                     avatarContent = `
                         <img src="${imageUrl}" alt="${member.name}" 
-                             onerror="this.parentNode.classList.add('no-image'); this.style.display='none';">
+                             onload="console.log('✅ 画像読み込み成功:', '${member.name}'); this.style.opacity='1';"
+                             onerror="console.log('❌ 画像読み込み失敗:', '${member.name}'); this.parentNode.classList.add('no-image'); this.style.display='none';"
+                             style="opacity: 0; transition: opacity 0.3s;">
                         <div class="initial">${initial}</div>
                     `;
                 } else {
                     // 画像がない場合は文字のみ
+                    console.log('📝 文字アバター:', member.name, 'URL:', imageUrl);
                     avatarContent = `<div class="initial">${initial}</div>`;
                 }
 
