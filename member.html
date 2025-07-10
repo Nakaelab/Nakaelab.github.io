@@ -179,6 +179,27 @@
             color: white;
             font-size: 2rem;
             font-weight: bold;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .member-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .member-avatar .initial {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        .member-avatar.no-image .initial {
+            display: block;
         }
 
         .member-name {
@@ -311,38 +332,74 @@
         const SPREADSHEET_ID = '1tTfxn1GpsZjD39wg4LNBwg6OJv98B1MjMLNQysP5GYk';
         const SHEET_ID = '926336242';
 
-        // テストデータ（フォールバック用）
+        // テストデータ（フォールバック用）- 画像URL追加
         const testMembers = [
             {
                 name: '中江健',
-                position_jp: '教授',
-                position_en: 'Professor',
+                position_jp: '准教授',
+                position_en: 'Associate Professor',
                 role: 'faculty',
                 research: 'コンピュータ神経科学',
                 hobby1: '読書',
                 hobby2: '映画鑑賞',
                 specialty: 'AI研究',
-                email: 'nakae@example.com'
+                email: 'nakae@example.com',
+                image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID1'
             },
             {
-                name: '田中太郎',
-                position_jp: '学生',
-                position_en: 'Student',
+                name: '岩田康希',
+                position_jp: '非常勤研究員',
+                position_en: 'Research Fellow',
+                role: 'staff',
+                research: 'データ解析',
+                hobby1: '登山',
+                hobby2: '猫',
+                specialty: 'Webページ制作',
+                image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID2'
+            },
+            {
+                name: '朝日恵梨菜',
+                position_jp: '事務補佐員',
+                position_en: 'Admin Assistant',
+                role: 'staff',
+                research: '事務サポート',
+                hobby1: '子供のお世話',
+                hobby2: '猫と遊ぶ',
+                specialty: '秘書',
+                image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID3'
+            },
+            {
+                name: '坂川篤志',
+                position_jp: '技術補佐員',
+                position_en: 'Technical Assistant',
+                role: 'staff',
+                research: '技術サポート',
+                hobby1: 'プログラミング',
+                hobby2: 'ゲーム',
+                specialty: 'システム管理',
+                image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID4'
+            },
+            {
+                name: '吉田智恵美',
+                position_jp: '技術補佐員',
+                position_en: 'Technical Assistant',
+                role: 'staff',
+                research: '地域幸福と文化の関係性探求',
+                hobby1: '登山',
+                hobby2: '猫',
+                specialty: 'Webページ制作',
+                image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID5'
+            },
+            {
+                name: '山内隆広',
+                position_jp: 'B4学生',
+                position_en: 'B4 Student',
                 role: 'student',
                 research: '機械学習',
                 hobby1: '音楽',
                 hobby2: 'ゲーム',
-                specialty: 'データサイエンス'
-            },
-            {
-                name: '佐藤花子',
-                position_jp: '技術補佐員',
-                position_en: 'Technical Assistant',
-                role: 'staff',
-                research: 'データ解析',
-                hobby1: 'スポーツ',
-                hobby2: '料理',
-                specialty: '統計学'
+                specialty: 'データサイエンス',
+                image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID6'
             }
         ];
 
@@ -388,11 +445,25 @@
                     `<span class="hobby-tag">${hobby}</span>`
                 ).join('');
 
-                // アバター（名前の最初の文字）
+                // アバター（画像または名前の最初の文字）
                 const initial = member.name ? member.name.charAt(0) : '?';
+                const imageUrl = member.image_url;
+                
+                let avatarContent = '';
+                if (imageUrl && imageUrl.includes('drive.google.com')) {
+                    // Googleドライブの画像の場合
+                    avatarContent = `
+                        <img src="${imageUrl}" alt="${member.name}" 
+                             onerror="this.parentNode.classList.add('no-image'); this.style.display='none';">
+                        <div class="initial">${initial}</div>
+                    `;
+                } else {
+                    // 画像がない場合は文字のみ
+                    avatarContent = `<div class="initial">${initial}</div>`;
+                }
 
                 card.innerHTML = `
-                    <div class="member-avatar">${initial}</div>
+                    <div class="member-avatar${!imageUrl ? ' no-image' : ''}">${avatarContent}</div>
                     <h3 class="member-name">${member.name || 'Unknown'}</h3>
                     <p class="member-title">${member.position_jp || ''} / ${member.position_en || ''}</p>
                     ${member.research ? `<p style="color: #666; font-size: 0.9rem; margin: 0.5rem 0;">🔬 ${member.research}</p>` : ''}
