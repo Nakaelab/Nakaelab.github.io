@@ -296,11 +296,12 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
-            min-height: 350px;
+            min-height: 400px;
+            cursor: pointer;
         }
 
         .member-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             box-shadow: 0 15px 35px rgba(0,0,0,0.15);
         }
 
@@ -314,6 +315,17 @@
             background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
             background-size: 200% 100%;
             animation: shimmer 2s linear infinite;
+        }
+
+        /* ホバー状態を維持するための調整 */
+        .member-card::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            pointer-events: none;
         }
 
         @keyframes shimmer {
@@ -406,6 +418,7 @@
             margin-top: 1rem;
             justify-content: center;
             padding: 0 1rem;
+            min-height: 35px;
         }
 
         .hobby-tag {
@@ -415,19 +428,20 @@
             border-radius: 12px;
             font-size: 0.75rem;
             font-weight: 500;
-            transition: all 0.3s ease;
-            opacity: 0;
-            transform: scale(0);
+            transition: all 0.6s ease;
+            opacity: 0.3;
+            transform: translateY(10px);
         }
 
         .member-card:hover .hobby-tag {
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0);
         }
 
-        .hobby-tag:nth-child(1) { transition-delay: 0.1s; }
-        .hobby-tag:nth-child(2) { transition-delay: 0.2s; }
-        .hobby-tag:nth-child(3) { transition-delay: 0.3s; }
+        /* トランジション遅延を調整 */
+        .hobby-tag:nth-child(1) { transition-delay: 0.05s; }
+        .hobby-tag:nth-child(2) { transition-delay: 0.1s; }
+        .hobby-tag:nth-child(3) { transition-delay: 0.15s; }
 
         /* 専門性別の色分け */
         .hobby-tag.research { background: linear-gradient(135deg, #ff6b6b, #ee5a52); }
@@ -699,7 +713,7 @@
             }
             
             return hobbies.map((hobby, index) => 
-                `<span class="hobby-tag ${hobby.type}" style="transition-delay: ${0.1 + index * 0.1}s">${hobby.text}</span>`
+                `<span class="hobby-tag ${hobby.type}" style="transition-delay: ${0.05 + index * 0.05}s">${hobby.text}</span>`
             ).join('');
         }
 
@@ -717,141 +731,4 @@
                 memberCard.className = `member-card ${getCardClass(member.role)}`;
                 
                 let cardHTML = `
-                    <div class="member-avatar">
-                        <div class="member-avatar-img ${getAvatarClass(member.role)}"></div>
-                    </div>
-                    <h3 class="member-name">${member.name}</h3>
-                    <p class="member-title">${member.position_jp} / ${member.position_en}</p>
-                    <div class="member-info">
-                        <span class="member-badge ${getBadgeClass(member.role)}">${getBadgeText(member.role)}</span>
-                    </div>
-                `;
-
-                // 趣味タグ - 全メンバーに表示
-                const hobbyTags = generateHobbyTags(member);
-                if (hobbyTags) {
-                    cardHTML += `
-                        <div class="hobby-tags">
-                            ${hobbyTags}
-                        </div>
-                    `;
-                }
-
-                // 教員・スタッフ用の詳細情報
-                if (member.role === 'faculty' || member.role === 'staff') {
-                    cardHTML += `
-                        <div class="member-details">
-                            ${member.research ? `
-                                <div class="detail-item">
-                                    <span class="detail-label">研究分野:</span>
-                                    <span class="detail-value">${member.research}</span>
-                                </div>
-                            ` : ''}
-                            ${member.email ? `
-                                <div class="detail-item">
-                                    <span class="detail-label">連絡先:</span>
-                                    <span class="detail-value">${member.email}</span>
-                                </div>
-                            ` : ''}
-                        </div>
-                    `;
-                }
-
-                // 学生用の詳細情報
-                if (member.role === 'student') {
-                    cardHTML += `
-                        <div class="extra-info">
-                            ${member.research ? `
-                                <div class="research-topic">
-                                    <strong>研究テーマ:</strong> ${member.research}
-                                </div>
-                            ` : ''}
-                        </div>
-                    `;
-                }
-
-                memberCard.innerHTML = cardHTML;
-                container.appendChild(memberCard);
-            });
-
-            // 統計を更新
-            document.getElementById('totalMembers').textContent = membersData.length;
-            document.getElementById('studentCount').textContent = studentCount;
-        }
-
-        // メンバーデータを読み込む
-        async function loadMembers() {
-            try {
-                const updateBadge = document.getElementById('updateBadge');
-                updateBadge.style.display = 'block';
-                
-                console.log('メンバーデータの読み込み開始...');
-                
-                const csvUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${MEMBERS_SHEET_ID}`;
-                console.log('CSV URL:', csvUrl);
-                
-                const response = await fetch(csvUrl);
-                console.log('Response status:', response.status);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const csvText = await response.text();
-                console.log('CSV データを取得しました。最初の200文字:', csvText.substring(0, 200));
-                
-                const membersData = parseCSV(csvText);
-                console.log('パース済みメンバーデータ:', membersData);
-                
-                // 空の名前やnameが空白のデータを除外
-                const validMembers = membersData.filter(member => 
-                    member.name && member.name.trim() !== '' && member.name.trim() !== 'NO NAME'
-                );
-                
-                console.log('有効なメンバー数:', validMembers.length);
-                
-                displayMembers(validMembers);
-                
-                updateBadge.style.display = 'none';
-                console.log('メンバーデータの読み込み完了！');
-                
-            } catch (error) {
-                console.error('メンバーデータの読み込みエラー:', error);
-                
-                const container = document.getElementById('membersContainer');
-                container.innerHTML = `
-                    <div class="loading" style="color: #e74c3c;">
-                        エラー: メンバー情報を読み込めませんでした。<br>
-                        ${error.message}
-                        <br><br>
-                        <button onclick="loadMembers()" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                            再試行
-                        </button>
-                    </div>
-                `;
-                
-                const updateBadge = document.getElementById('updateBadge');
-                updateBadge.style.display = 'none';
-            }
-        }
-
-        // ハンバーガーメニューの機能
-        function toggleMenu() {
-            const navMenu = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            
-            navMenu.classList.toggle('active');
-            hamburger.classList.toggle('active');
-        }
-
-        // ページ読み込み時にメンバーデータを読み込む
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('ページが読み込まれました。メンバーデータを取得します...');
-            loadMembers();
-        });
-
-        // 定期的にデータを更新（5分ごと）
-        setInterval(loadMembers, 5 * 60 * 1000);
-    </script>
-</body>
-</html>
+                    <div class="member
