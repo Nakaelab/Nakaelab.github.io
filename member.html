@@ -290,6 +290,17 @@
 
     <div class="members-section">
         <h2 class="section-title">Meet Our Team</h2>
+        
+        <!-- デバッグ用ボタン -->
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <button onclick="displayMembers(testMembers)" style="background: #4ecdc4; color: white; border: none; padding: 10px 20px; border-radius: 5px; margin: 0 5px; cursor: pointer;">
+                🧪 テストデータ表示
+            </button>
+            <button onclick="loadMembersFromSpreadsheet()" style="background: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 5px; margin: 0 5px; cursor: pointer;">
+                🔄 スプレッドシート再読み込み
+            </button>
+        </div>
+        
         <div class="member-grid" id="membersContainer">
             <div class="loading">メンバー情報を読み込み中...</div>
         </div>
@@ -444,8 +455,92 @@
             }
         }
 
-        // ページ読み込み時に実行
-        document.addEventListener('DOMContentLoaded', loadMembers);
+        // ページ読み込み時に実行 - まずテストデータで確実に表示
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('ページ読み込み完了');
+            
+            // まずテストデータで表示（即座に表示）
+            displayMembers(testMembers);
+            
+            // その後、スプレッドシートから読み込みを試行
+            setTimeout(() => {
+                loadMembersFromSpreadsheet();
+            }, 1000);
+        });
+
+        // スプレッドシートから読み込む関数（別名に変更）
+        async function loadMembersFromSpreadsheet() {
+            try {
+                console.log('📡 スプレッドシートから読み込み開始...');
+                
+                const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${SHEET_ID}`;
+                console.log('🔗 URL:', url);
+                
+                const response = await fetch(url);
+                console.log('📊 レスポンス:', response.status, response.ok);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const csvText = await response.text();
+                console.log('📄 CSV取得成功, 長さ:', csvText.length);
+                console.log('📄 最初の200文字:', csvText.substring(0, 200));
+                
+                const members = parseCSV(csvText);
+                console.log('🔍 パース結果:', members);
+                
+                if (members.length === 0) {
+                    throw new Error('有効なメンバーデータが見つかりません');
+                }
+                
+                // スプレッドシートからの読み込みが成功した場合のみ更新
+                displayMembers(members);
+                console.log('✅ スプレッドシートからの読み込み完了:', members.length, 'メンバー');
+                
+                // 成功メッセージを表示
+                showMessage('✅ スプレッドシートから最新データを読み込みました', 'success');
+                
+            } catch (error) {
+                console.error('❌ スプレッドシート読み込みエラー:', error);
+                showMessage(`⚠️ スプレッドシート読み込み失敗: ${error.message}`, 'warning');
+                // エラー時はテストデータのままにする（既に表示済み）
+            }
+        }
+
+        // メッセージ表示関数
+        function showMessage(text, type) {
+            const container = document.querySelector('.members-section');
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = `
+                margin: 1rem auto;
+                padding: 1rem;
+                border-radius: 8px;
+                text-align: center;
+                max-width: 600px;
+                font-size: 0.9rem;
+                ${type === 'success' ? 'background: #d4edda; color: #155724; border: 1px solid #c3e6cb;' : 
+                  type === 'warning' ? 'background: #fff3cd; color: #856404; border: 1px solid #ffeaa7;' : 
+                  'background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;'}
+            `;
+            messageDiv.innerHTML = text;
+            
+            // 既存のメッセージを削除
+            const existingMessage = container.querySelector('.status-message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            messageDiv.className = 'status-message';
+            container.insertBefore(messageDiv, container.firstChild);
+            
+            // 5秒後に自動削除
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.remove();
+                }
+            }, 5000);
+        }
     </script>
 </body>
 </html>
