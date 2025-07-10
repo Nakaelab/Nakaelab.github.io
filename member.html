@@ -296,6 +296,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
+            min-height: 350px;
         }
 
         .member-card:hover {
@@ -397,6 +398,42 @@
         .staff { background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%); }
         .student { background: linear-gradient(135deg, #45b7d1 0%, #96c93d 100%); }
 
+        /* 趣味タグ - 全メンバーに表示 */
+        .hobby-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            justify-content: center;
+            padding: 0 1rem;
+        }
+
+        .hobby-tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        .member-card:hover .hobby-tag {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .hobby-tag:nth-child(1) { transition-delay: 0.1s; }
+        .hobby-tag:nth-child(2) { transition-delay: 0.2s; }
+        .hobby-tag:nth-child(3) { transition-delay: 0.3s; }
+
+        /* 専門性別の色分け */
+        .hobby-tag.research { background: linear-gradient(135deg, #ff6b6b, #ee5a52); }
+        .hobby-tag.hobby { background: linear-gradient(135deg, #4ecdc4, #44a08d); }
+        .hobby-tag.specialty { background: linear-gradient(135deg, #45b7d1, #96c93d); }
+
         /* ホバー効果 - 教員・スタッフ用（下からスライド） */
         .faculty-staff-card .member-details {
             position: absolute;
@@ -462,35 +499,8 @@
         .research-topic {
             font-size: 0.9rem;
             line-height: 1.4;
+            text-align: left;
         }
-
-        .hobby-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.8rem;
-            justify-content: center;
-        }
-
-        .hobby-tag {
-            background: #667eea;
-            color: white;
-            padding: 0.2rem 0.6rem;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            opacity: 0;
-            transform: scale(0);
-            transition: all 0.3s ease;
-        }
-
-        .student-card:hover .hobby-tag {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .hobby-tag:nth-child(1) { transition-delay: 0.3s; }
-        .hobby-tag:nth-child(2) { transition-delay: 0.4s; }
-        .hobby-tag:nth-child(3) { transition-delay: 0.5s; }
 
         .loading {
             opacity: 0.6;
@@ -551,23 +561,22 @@
     </style>
 </head>
 <body>
-   <nav>
-  <div class="hamburger" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <ul id="navMenu">
-    <li><a href="index.html">HOME</a></li>
-    <li><a href="research.html" style="background-color: #1e3c72; border-radius: 4px; color: white; font-weight: bold;">RESEARCH</a></li>
-    <li><a href="member.html">MEMBERS</a></li>
-    <li><a href="publication.html">PUBLICATIONS</a></li>
-    <li><a href="workshop.html">WORKSHOP</a></li>
-    <li><a href="news.html">NEWS</a></li>
-    <li><a href="contact.html">CONTACT</a></li>
-  </ul>
-</nav>
-
+    <nav>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul id="navMenu">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="research.html">RESEARCH</a></li>
+            <li><a href="member.html" style="background-color: #1e3c72; border-radius: 4px; color: white; font-weight: bold;">MEMBERS</a></li>
+            <li><a href="publication.html">PUBLICATIONS</a></li>
+            <li><a href="workshop.html">WORKSHOP</a></li>
+            <li><a href="news.html">NEWS</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+    </nav>
 
     <!-- 自動更新バッジ -->
     <div class="auto-update-badge" id="updateBadge">
@@ -675,6 +684,25 @@
             return 'Student';
         }
 
+        // 趣味タグを生成
+        function generateHobbyTags(member) {
+            const hobbies = [];
+            
+            if (member.hobby1 && member.hobby1.trim()) {
+                hobbies.push({ text: member.hobby1, type: 'hobby' });
+            }
+            if (member.hobby2 && member.hobby2.trim()) {
+                hobbies.push({ text: member.hobby2, type: 'hobby' });
+            }
+            if (member.specialty && member.specialty.trim()) {
+                hobbies.push({ text: member.specialty, type: 'specialty' });
+            }
+            
+            return hobbies.map((hobby, index) => 
+                `<span class="hobby-tag ${hobby.type}" style="transition-delay: ${0.1 + index * 0.1}s">${hobby.text}</span>`
+            ).join('');
+        }
+
         // メンバーを表示
         function displayMembers(membersData) {
             const container = document.getElementById('membersContainer');
@@ -699,6 +727,16 @@
                     </div>
                 `;
 
+                // 趣味タグ - 全メンバーに表示
+                const hobbyTags = generateHobbyTags(member);
+                if (hobbyTags) {
+                    cardHTML += `
+                        <div class="hobby-tags">
+                            ${hobbyTags}
+                        </div>
+                    `;
+                }
+
                 // 教員・スタッフ用の詳細情報
                 if (member.role === 'faculty' || member.role === 'staff') {
                     cardHTML += `
@@ -707,12 +745,6 @@
                                 <div class="detail-item">
                                     <span class="detail-label">研究分野:</span>
                                     <span class="detail-value">${member.research}</span>
-                                </div>
-                            ` : ''}
-                            ${member.specialty ? `
-                                <div class="detail-item">
-                                    <span class="detail-label">専門:</span>
-                                    <span class="detail-value">${member.specialty}</span>
                                 </div>
                             ` : ''}
                             ${member.email ? `
@@ -734,11 +766,6 @@
                                     <strong>研究テーマ:</strong> ${member.research}
                                 </div>
                             ` : ''}
-                            <div class="hobby-tags">
-                                ${member.hobby1 ? `<span class="hobby-tag">${member.hobby1}</span>` : ''}
-                                ${member.hobby2 ? `<span class="hobby-tag">${member.hobby2}</span>` : ''}
-                                ${member.specialty ? `<span class="hobby-tag">${member.specialty}</span>` : ''}
-                            </div>
                         </div>
                     `;
                 }
