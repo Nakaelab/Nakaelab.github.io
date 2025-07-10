@@ -15,7 +15,7 @@
             font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            padding-top: 90px; /* navの高さ分を確保 */
+            padding-top: 90px;
         }
 
         /* === NAVIGATION STYLES === */
@@ -143,31 +143,6 @@
             overflow: hidden;
         }
 
-        /* 背景の植物装飾 */
-        .plant-decoration {
-            position: absolute;
-            opacity: 0.1;
-            z-index: 1;
-        }
-
-        .plant-decoration.top-right {
-            top: 10%;
-            right: 5%;
-            width: 300px;
-            height: 300px;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><g fill="%23a8d5ba"><circle cx="20" cy="30" r="8"/><circle cx="35" cy="25" r="6"/><circle cx="50" cy="35" r="7"/><circle cx="65" cy="20" r="5"/><circle cx="80" cy="40" r="9"/><circle cx="95" cy="15" r="6"/><circle cx="110" cy="45" r="8"/><circle cx="125" cy="25" r="7"/><circle cx="140" cy="35" r="6"/><circle cx="155" cy="30" r="8"/><circle cx="170" cy="20" r="5"/><circle cx="185" cy="40" r="7"/></g></svg>') no-repeat;
-            background-size: contain;
-        }
-
-        .plant-decoration.bottom-left {
-            bottom: 10%;
-            left: 5%;
-            width: 250px;
-            height: 250px;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><g fill="%23b8e6d3"><path d="M20,100 Q40,80 60,100 Q80,120 100,100 Q120,80 140,100 Q160,120 180,100"/><path d="M30,110 Q50,90 70,110 Q90,130 110,110 Q130,90 150,110 Q170,130 190,110"/><path d="M15,120 Q35,100 55,120 Q75,140 95,120 Q115,100 135,120 Q155,140 175,120"/></g></svg>') no-repeat;
-            background-size: contain;
-        }
-
         .content-container {
             position: relative;
             z-index: 10;
@@ -179,7 +154,6 @@
             align-items: center;
         }
 
-        /* マーモセット画像部分 */
         .marmoset-section {
             position: relative;
             display: flex;
@@ -204,7 +178,6 @@
             transform: scale(1.05);
         }
 
-        /* テキスト部分 */
         .text-section {
             padding: 2rem 0;
         }
@@ -231,7 +204,6 @@
             margin-bottom: 3rem;
         }
 
-        /* 統計カード */
         .stats-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -265,7 +237,6 @@
             opacity: 0.9;
         }
 
-        /* メンバーセクション */
         .members-section {
             max-width: 1200px;
             margin: 0 auto;
@@ -290,14 +261,13 @@
         .member-card {
             background: white;
             border-radius: 20px;
+            padding: 2rem;
             text-align: center;
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
-            min-height: 400px;
-            cursor: pointer;
-            perspective: 1000px;
+            min-height: 350px;
         }
 
         .member-card:hover {
@@ -315,17 +285,6 @@
             background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
             background-size: 200% 100%;
             animation: shimmer 2s linear infinite;
-        }
-
-        /* ホバー状態を維持するための調整 */
-        .member-card::after {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            pointer-events: none;
         }
 
         @keyframes shimmer {
@@ -361,7 +320,6 @@
             transform: scale(1.1);
         }
 
-        /* 役職別マーモセットのスタイル */
         .faculty-avatar {
             background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><g fill="%23654321"><ellipse cx="100" cy="120" rx="60" ry="80"/><circle cx="100" cy="70" r="45"/><circle cx="85" cy="60" r="12" fill="%23000"/><circle cx="115" cy="60" r="12" fill="%23000"/><ellipse cx="100" cy="80" rx="8" ry="6" fill="%23000"/><path d="M92 88 Q100 95 108 88" stroke="%23000" stroke-width="2" fill="none"/><ellipse cx="65" cy="55" rx="15" ry="20" fill="%23D2B48C"/><ellipse cx="135" cy="55" rx="15" ry="20" fill="%23D2B48C"/><path d="M40 120 Q30 100 45 90 Q60 85 70 95" fill="%23654321"/><path d="M130 95 Q140 85 155 90 Q170 100 160 120" fill="%23654321"/><path d="M70 180 Q60 200 80 210 Q100 205 100 185" fill="%23654321"/><path d="M100 185 Q100 205 120 210 Q140 200 130 180" fill="%23654321"/><circle cx="160" cy="140" r="8" fill="%23654321"/><path d="M160 140 Q180 130 190 150 Q185 170 160 165 Q150 155 160 140" fill="%23654321"/></g></svg>');
         }
@@ -392,8 +350,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
             border-top: 1px solid #eee;
         }
 
@@ -410,188 +368,29 @@
         .staff { background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%); }
         .student { background: linear-gradient(135deg, #45b7d1 0%, #96c93d 100%); }
 
-        /* カード裏返し効果 */
-        .member-card {
-            perspective: 1000px;
-        }
-
-        .card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-        }
-
-        .member-card:hover .card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .card-front, .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 20px;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .card-front {
-            background: white;
-        }
-
-        .card-back {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            transform: rotateY(180deg);
-        }
-
-        /* 裏面の趣味・詳細情報 */
-        .hobby-section {
-            margin-bottom: 2rem;
-        }
-
-        .hobby-section h4 {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: #fff;
-            opacity: 0.9;
-        }
-
+        /* 趣味タグ - シンプル版 */
         .hobby-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.8rem;
+            gap: 0.5rem;
+            margin-top: 1rem;
             justify-content: center;
-            margin-bottom: 1.5rem;
+            padding: 0 1rem;
         }
 
         .hobby-tag {
-            background: rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
             font-weight: 500;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .hobby-tag.research { 
-            background: rgba(255, 107, 107, 0.3);
-            border-color: rgba(255, 107, 107, 0.5);
-        }
-        .hobby-tag.hobby { 
-            background: rgba(78, 205, 196, 0.3);
-            border-color: rgba(78, 205, 196, 0.5);
-        }
-        .hobby-tag.specialty { 
-            background: rgba(69, 183, 209, 0.3);
-            border-color: rgba(69, 183, 209, 0.5);
-        }
-
-        .back-details {
-            text-align: left;
-            width: 100%;
-        }
-
-        .back-detail-item {
-            margin-bottom: 1rem;
-            padding: 0.8rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            border-left: 3px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .back-detail-label {
-            font-weight: bold;
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-bottom: 0.3rem;
-        }
-
-        .back-detail-value {
-            font-size: 0.95rem;
-            line-height: 1.4;
-        }
-
-        /* 専門性別の色分け */
-        .hobby-tag.research { background: linear-gradient(135deg, #ff6b6b, #ee5a52); }
-        .hobby-tag.hobby { background: linear-gradient(135deg, #4ecdc4, #44a08d); }
-        .hobby-tag.specialty { background: linear-gradient(135deg, #45b7d1, #96c93d); }
-
-        /* ホバー効果 - 教員・スタッフ用（下からスライド） */
-        .faculty-staff-card .member-details {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1.5rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-            border-radius: 0 0 20px 20px;
-        }
-
-        .faculty-staff-card:hover .member-details {
-            transform: translateY(0);
-        }
-
-        .detail-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            align-items: center;
-        }
-
-        .detail-label {
-            font-weight: bold;
             opacity: 0.9;
         }
 
-        .detail-value {
-            text-align: right;
-            flex: 1;
-            margin-left: 1rem;
-        }
-
-        /* ホバー効果 - 学生用（回転 + 追加情報） */
-        .student-card .member-avatar {
-            transition: transform 0.5s ease;
-        }
-
-        .student-card:hover .member-avatar {
-            transform: rotateY(360deg);
-        }
-
-        .student-card .extra-info {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s ease 0.2s;
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 10px;
-            margin-top: 1rem;
-            border-left: 4px solid #667eea;
-        }
-
-        .student-card:hover .extra-info {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .research-topic {
-            font-size: 0.9rem;
-            line-height: 1.4;
-            text-align: left;
-        }
+        .hobby-tag.research { background: linear-gradient(135deg, #ff6b6b, #ee5a52); }
+        .hobby-tag.hobby { background: linear-gradient(135deg, #4ecdc4, #44a08d); }
+        .hobby-tag.specialty { background: linear-gradient(135deg, #45b7d1, #96c93d); }
 
         .loading {
             opacity: 0.6;
@@ -612,6 +411,18 @@
             font-size: 12px;
             z-index: 1001;
             display: none;
+        }
+
+        .debug-info {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            font-size: 0.85rem;
+            max-height: 200px;
+            overflow-y: auto;
         }
         
         @media (max-width: 768px) {
@@ -646,7 +457,6 @@
             .member-avatar {
                 width: 100px;
                 height: 100px;
-                font-size: 2.5rem;
             }
         }
     </style>
@@ -669,16 +479,11 @@
         </ul>
     </nav>
 
-    <!-- 自動更新バッジ -->
     <div class="auto-update-badge" id="updateBadge">
         🔄 Googleスプレッドシートから更新中...
     </div>
 
     <section class="hero-section">
-        <!-- 背景装飾 -->
-        <div class="plant-decoration top-right"></div>
-        <div class="plant-decoration bottom-left"></div>
-
         <div class="content-container">
             <div class="marmoset-section">
                 <div class="marmoset-container">
@@ -717,7 +522,6 @@
         </div>
     </section>
 
-    <!-- メンバーセクション -->
     <div class="members-section">
         <h2 class="section-title">Meet Our Team</h2>
         
@@ -727,81 +531,71 @@
     </div>
 
     <script>
+        // デバッグ情報表示
+        console.log('🚀 Nakae Lab メンバーページ デバッグ開始');
+        console.log('現在時刻:', new Date().toLocaleString());
+
         // Googleスプレッドシートの設定
         const SPREADSHEET_ID = '1tTfxn1GpsZjD39wg4LNBwg6OJv98B1MjMLNQysP5GYk';
-        const MEMBERS_SHEET_ID = '926336242'; // members_detailシートのgid
+        const MEMBERS_SHEET_ID = '926336242';
 
-        // CSVをパースする関数 - より堅牢に
+        console.log('📊 設定情報:');
+        console.log('  - スプレッドシートID:', SPREADSHEET_ID);
+        console.log('  - シートID:', MEMBERS_SHEET_ID);
+
+        // シンプルなCSVパーサー
         function parseCSV(csvText) {
-            try {
-                console.log('🔍 CSV パース開始...');
-                const lines = csvText.trim().split('\n');
-                console.log('📄 行数:', lines.length);
-                
-                if (lines.length < 2) {
-                    throw new Error('CSVデータが不足しています（ヘッダーとデータが必要）');
-                }
-                
-                // ヘッダー行の処理 - より安全に
-                const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-                console.log('📋 ヘッダー:', headers);
-                
-                const data = [];
-                
-                for (let i = 1; i < lines.length; i++) {
-                    const line = lines[i].trim();
-                    if (!line) continue; // 空行をスキップ
-                    
-                    // CSVの値を適切に分割（カンマ区切り、クォート考慮）
-                    const values = line.split(',').map(v => v.trim().replace(/^"|"$/g, ''));
-                    
-                    const row = {};
-                    headers.forEach((header, index) => {
-                        row[header] = values[index] || '';
-                    });
-                    
-                    // デバッグ用：各行の内容を表示
-                    console.log(`📝 行${i}:`, row);
-                    data.push(row);
-                }
-                
-                console.log('✅ CSV パース完了。データ件数:', data.length);
-                return data;
-                
-            } catch (error) {
-                console.error('❌ CSV パースエラー:', error);
-                throw new Error(`CSV解析エラー: ${error.message}`);
+            console.log('🔍 CSV パース開始...');
+            console.log('📄 受信データの最初の500文字:', csvText.substring(0, 500));
+            
+            const lines = csvText.trim().split('\n');
+            console.log('📝 行数:', lines.length);
+            
+            if (lines.length < 2) {
+                throw new Error('CSVデータが不十分です');
             }
+            
+            const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+            console.log('📋 ヘッダー:', headers);
+            
+            const data = [];
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i].trim()) continue;
+                
+                const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
+                const row = {};
+                headers.forEach((header, index) => {
+                    row[header] = values[index] || '';
+                });
+                
+                console.log(`📝 行${i}:`, row);
+                data.push(row);
+            }
+            
+            console.log('✅ パース完了。データ件数:', data.length);
+            return data;
         }
 
-        // 役職に応じたアバタークラスを取得
+        // 役職に応じた関数群
         function getAvatarClass(role) {
             if (role === 'faculty') return 'faculty-avatar';
             if (role === 'staff') return 'staff-avatar';
             return 'student-avatar';
         }
 
-        // 役職に応じたバッジクラスを取得
         function getBadgeClass(role) {
             if (role === 'faculty') return 'faculty';
             if (role === 'staff') return 'staff';
             return 'student';
         }
 
-        // 役職に応じたカードクラスを取得
-        function getCardClass(role) {
-            if (role === 'faculty' || role === 'staff') return 'faculty-staff-card';
-            return 'student-card';
-        }
-
-        // 役職に応じたバッジテキストを取得
         function getBadgeText(role) {
             if (role === 'faculty') return 'Faculty';
             if (role === 'staff') return 'Staff';
             return 'Student';
         }
 
-        // 趣味タグを生成
+        // 趣味タグ生成 - シンプル版
         function generateHobbyTags(member) {
             const hobbies = [];
             
@@ -815,23 +609,103 @@
                 hobbies.push({ text: member.specialty, type: 'specialty' });
             }
             
-            return hobbies.map((hobby, index) => 
-                `<span class="hobby-tag ${hobby.type}" style="transition-delay: ${0.05 + index * 0.05}s">${hobby.text}</span>`
+            return hobbies.map(hobby => 
+                `<span class="hobby-tag ${hobby.type}">${hobby.text}</span>`
             ).join('');
         }
 
-        // メンバーを表示
+        // メンバー表示 - シンプル版
         function displayMembers(membersData) {
+            console.log('👥 メンバー表示開始...');
             const container = document.getElementById('membersContainer');
             container.innerHTML = '';
 
             let studentCount = 0;
             
-            membersData.forEach(member => {
+            membersData.forEach((member, index) => {
+                console.log(`👤 メンバー${index + 1}を処理中:`, member.name);
+                
                 if (member.role === 'student') studentCount++;
                 
                 const memberCard = document.createElement('div');
-                memberCard.className = `member-card ${getCardClass(member.role)}`;
+                memberCard.className = 'member-card';
                 
-                let cardHTML = `
-                    <div class="member
+                const hobbyTags = generateHobbyTags(member);
+                
+                memberCard.innerHTML = `
+                    <div class="member-avatar">
+                        <div class="member-avatar-img ${getAvatarClass(member.role)}"></div>
+                    </div>
+                    <h3 class="member-name">${member.name || 'Unknown'}</h3>
+                    <p class="member-title">${member.position_jp || ''}<br>${member.position_en || ''}</p>
+                    ${hobbyTags ? `<div class="hobby-tags">${hobbyTags}</div>` : ''}
+                    ${member.research ? `<p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">🔬 ${member.research}</p>` : ''}
+                    <div class="member-info">
+                        <span class="member-badge ${getBadgeClass(member.role)}">${getBadgeText(member.role)}</span>
+                    </div>
+                `;
+
+                container.appendChild(memberCard);
+            });
+
+            // 統計更新
+            document.getElementById('totalMembers').textContent = membersData.length;
+            document.getElementById('studentCount').textContent = studentCount;
+            
+            console.log('✅ メンバー表示完了');
+        }
+
+        // データ読み込み - シンプル版
+        async function loadMembers() {
+            const updateBadge = document.getElementById('updateBadge');
+            
+            try {
+                updateBadge.style.display = 'block';
+                console.log('📡 データ読み込み開始...');
+                
+                const csvUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${MEMBERS_SHEET_ID}`;
+                console.log('🔗 URL:', csvUrl);
+                
+                const response = await fetch(csvUrl);
+                console.log('📊 レスポンス:', response.status, response.statusText);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const csvText = await response.text();
+                const membersData = parseCSV(csvText);
+                
+                const validMembers = membersData.filter(member => 
+                    member.name && member.name.trim() && member.name.trim() !== 'NO NAME'
+                );
+                
+                console.log('📊 統計:', {
+                    total: membersData.length,
+                    valid: validMembers.length
+                });
+                
+                if (validMembers.length === 0) {
+                    throw new Error('有効なメンバーが見つかりません');
+                }
+                
+                displayMembers(validMembers);
+                updateBadge.style.display = 'none';
+                console.log('🎉 成功！');
+                
+            } catch (error) {
+                console.error('❌ エラー:', error);
+                
+                const container = document.getElementById('membersContainer');
+                container.innerHTML = `
+                    <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto;">
+                        <h3 style="color: #e74c3c; text-align: center; margin-bottom: 1rem;">⚠️ エラーが発生しました</h3>
+                        <div class="debug-info">
+                            <strong>エラー:</strong> ${error.message}<br>
+                            <strong>URL:</strong> https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${MEMBERS_SHEET_ID}
+                        </div>
+                        <div style="text-align: center; margin-top: 1rem;">
+                            <button onclick="loadMembers()" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; margin-right: 10px;">🔄 再試行</button>
+                            <button onclick="loadTestData()" style="padding: 10px 20px; background: #4ecdc4; color: white; border: none; border-radius: 5px; cursor: pointer;">🧪 テストデータ</button>
+                        </div>
+                    </div
