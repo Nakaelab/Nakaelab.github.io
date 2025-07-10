@@ -731,21 +731,47 @@
         const SPREADSHEET_ID = '1tTfxn1GpsZjD39wg4LNBwg6OJv98B1MjMLNQysP5GYk';
         const MEMBERS_SHEET_ID = '926336242'; // members_detailシートのgid
 
-        // CSVをパースする関数
+        // CSVをパースする関数 - より堅牢に
         function parseCSV(csvText) {
-            const lines = csvText.trim().split('\n');
-            const headers = lines[0].split(',').map(h => h.trim());
-            const data = [];
-            
-            for (let i = 1; i < lines.length; i++) {
-                const values = lines[i].split(',');
-                const row = {};
-                headers.forEach((header, index) => {
-                    row[header] = values[index] ? values[index].trim() : '';
-                });
-                data.push(row);
+            try {
+                console.log('🔍 CSV パース開始...');
+                const lines = csvText.trim().split('\n');
+                console.log('📄 行数:', lines.length);
+                
+                if (lines.length < 2) {
+                    throw new Error('CSVデータが不足しています（ヘッダーとデータが必要）');
+                }
+                
+                // ヘッダー行の処理 - より安全に
+                const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+                console.log('📋 ヘッダー:', headers);
+                
+                const data = [];
+                
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (!line) continue; // 空行をスキップ
+                    
+                    // CSVの値を適切に分割（カンマ区切り、クォート考慮）
+                    const values = line.split(',').map(v => v.trim().replace(/^"|"$/g, ''));
+                    
+                    const row = {};
+                    headers.forEach((header, index) => {
+                        row[header] = values[index] || '';
+                    });
+                    
+                    // デバッグ用：各行の内容を表示
+                    console.log(`📝 行${i}:`, row);
+                    data.push(row);
+                }
+                
+                console.log('✅ CSV パース完了。データ件数:', data.length);
+                return data;
+                
+            } catch (error) {
+                console.error('❌ CSV パースエラー:', error);
+                throw new Error(`CSV解析エラー: ${error.message}`);
             }
-            return data;
         }
 
         // 役職に応じたアバタークラスを取得
