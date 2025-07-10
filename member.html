@@ -290,7 +290,6 @@
         .member-card {
             background: white;
             border-radius: 20px;
-            padding: 2rem;
             text-align: center;
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -298,6 +297,7 @@
             overflow: hidden;
             min-height: 400px;
             cursor: pointer;
+            perspective: 1000px;
         }
 
         .member-card:hover {
@@ -410,38 +410,115 @@
         .staff { background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%); }
         .student { background: linear-gradient(135deg, #45b7d1 0%, #96c93d 100%); }
 
-        /* 趣味タグ - 全メンバーに表示 */
+        /* カード裏返し効果 */
+        .member-card {
+            perspective: 1000px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .member-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-front {
+            background: white;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        /* 裏面の趣味・詳細情報 */
+        .hobby-section {
+            margin-bottom: 2rem;
+        }
+
+        .hobby-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            opacity: 0.9;
+        }
+
         .hobby-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
+            gap: 0.8rem;
             justify-content: center;
-            padding: 0 1rem;
-            min-height: 35px;
+            margin-bottom: 1.5rem;
         }
 
         .hobby-tag {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: rgba(255, 255, 255, 0.2);
             color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 12px;
-            font-size: 0.75rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: 500;
-            transition: all 0.6s ease;
-            opacity: 0.3;
-            transform: translateY(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
         }
 
-        .member-card:hover .hobby-tag {
-            opacity: 1;
-            transform: translateY(0);
+        .hobby-tag.research { 
+            background: rgba(255, 107, 107, 0.3);
+            border-color: rgba(255, 107, 107, 0.5);
+        }
+        .hobby-tag.hobby { 
+            background: rgba(78, 205, 196, 0.3);
+            border-color: rgba(78, 205, 196, 0.5);
+        }
+        .hobby-tag.specialty { 
+            background: rgba(69, 183, 209, 0.3);
+            border-color: rgba(69, 183, 209, 0.5);
         }
 
-        /* トランジション遅延を調整 */
-        .hobby-tag:nth-child(1) { transition-delay: 0.05s; }
-        .hobby-tag:nth-child(2) { transition-delay: 0.1s; }
-        .hobby-tag:nth-child(3) { transition-delay: 0.15s; }
+        .back-details {
+            text-align: left;
+            width: 100%;
+        }
+
+        .back-detail-item {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border-left: 3px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .back-detail-label {
+            font-weight: bold;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.3rem;
+        }
+
+        .back-detail-value {
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
 
         /* 専門性別の色分け */
         .hobby-tag.research { background: linear-gradient(135deg, #ff6b6b, #ee5a52); }
