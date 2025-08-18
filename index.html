@@ -698,7 +698,6 @@
     // Googleスプレッドシートの設定
     const SPREADSHEET_ID = '1tTfxn1GpsZjD39wg4LNBwg6OJv98B1MjMLNQysP5GYk';
     const NEWS_SHEET_ID = '0'; // newsシートのgid
-    const MEMBERS_SHEET_ID = '802193701'; // membersシートのgid
 
     // CSVをパースする関数
     function parseCSV(csvText) {
@@ -756,8 +755,6 @@
         // エラー時はフォールバック表示
         document.getElementById('newsContainer').innerHTML = 
           '<li>データの読み込みに失敗しました。しばらく後に再度お試しください。</li>';
-        document.getElementById('membersContainer').innerHTML = 
-          '<div class="member">データの読み込みに失敗しました。</div>';
       } finally {
         updateBadge.style.display = 'none';
       }
