@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nakae Lab - Our Team</title>
+    <title>Digital Twin Lab - メンバー</title>
     <style>
         * {
             margin: 0;
@@ -60,7 +60,7 @@
         /* Hero Section */
         .hero-section {
             padding: 4rem 2rem;
-            min-height: 80vh;
+            min-height: 70vh;
             background: url('member_back.png') center/cover no-repeat;
         }
 
@@ -79,13 +79,6 @@
             height: 420px;
             background: url('marmoset_team.png') center/contain no-repeat;
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
-        }
-
-        .lab-title {
-            font-size: 2rem;
-            color: #666;
-            margin-bottom: 1rem;
-            font-weight: 300;
         }
 
         .main-title {
@@ -108,7 +101,8 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
-            margin-top: 4rem;
+            margin-top: 3rem;
+            margin-bottom: 2rem;
         }
 
         .stat-card {
@@ -135,7 +129,7 @@
         .members-section {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 5rem 2rem;
+            padding: 3rem 2rem 5rem;
         }
 
         .section-title {
@@ -316,16 +310,6 @@
     <div class="members-section">
         <h2 class="section-title">メンバー紹介</h2>
         
-        <!-- デバッグ用ボタン -->
-        <div style="text-align: center; margin-bottom: 2rem;">
-            <button onclick="displayMembers(testMembers)" style="background: #4ecdc4; color: white; border: none; padding: 10px 20px; border-radius: 5px; margin: 0 5px; cursor: pointer;">
-                🧪 テストデータ表示
-            </button>
-            <button onclick="loadMembersFromSpreadsheet()" style="background: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 5px; margin: 0 5px; cursor: pointer;">
-                🔄 スプレッドシート再読み込み
-            </button>
-        </div>
-        
         <div class="member-grid" id="membersContainer">
             <div class="loading">メンバー情報を読み込み中...</div>
         </div>
@@ -335,6 +319,77 @@
         // 設定
         const SPREADSHEET_ID = '1tTfxn1GpsZjD39wg4LNBwg6OJv98B1MjMLNQysP5GYk';
         const SHEET_ID = '926336242';
+
+        // テストデータ（フォールバック用）
+        const testMembers = [
+            {
+                name: '中江健',
+                position_jp: '准教授',
+                position_en: 'Associate Professor',
+                role: 'faculty',
+                research: 'コンピュータ神経科学',
+                hobby1: '読書',
+                hobby2: '映画鑑賞',
+                specialty: 'AI研究',
+                email: 'nakae@example.com',
+                image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID1'
+            },
+            {
+                name: '岩田康希',
+                position_jp: '非常勤研究員',
+                position_en: 'Research Fellow',
+                role: 'staff',
+                research: 'データ解析',
+                hobby1: '登山',
+                hobby2: '猫',
+                specialty: 'Webページ制作',
+                image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID2'
+            },
+            {
+                name: '朝日恵梨菜',
+                position_jp: '事務補佐員',
+                position_en: 'Admin Assistant',
+                role: 'staff',
+                research: '事務サポート',
+                hobby1: '子供のお世話',
+                hobby2: '猫と遊ぶ',
+                specialty: '秘書',
+                image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID3'
+            },
+            {
+                name: '坂川篤志',
+                position_jp: '技術補佐員',
+                position_en: 'Technical Assistant',
+                role: 'staff',
+                research: '技術サポート',
+                hobby1: 'プログラミング',
+                hobby2: 'ゲーム',
+                specialty: 'システム管理',
+                image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID4'
+            },
+            {
+                name: '吉田智恵美',
+                position_jp: '技術補佐員',
+                position_en: 'Technical Assistant',
+                role: 'staff',
+                research: '地域幸福と文化の関係性探求',
+                hobby1: '登山',
+                hobby2: '猫',
+                specialty: 'Webページ制作',
+                image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID5'
+            },
+            {
+                name: '山内隆広',
+                position_jp: 'B4学生',
+                position_en: 'B4 Student',
+                role: 'student',
+                research: '機械学習',
+                hobby1: '音楽',
+                hobby2: 'ゲーム',
+                specialty: 'データサイエンス',
+                image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID6'
+            }
+        ];
 
         // 簡単なCSVパーサー
         function parseCSV(text) {
@@ -384,18 +439,14 @@
                 
                 let avatarContent = '';
                 if (imageUrl && imageUrl.trim()) {
-                    // 画像URLがある場合（Googleドライブまたは相対パス）
-                    console.log('🖼️ 画像URL検出:', member.name, imageUrl);
                     avatarContent = `
                         <img src="${imageUrl}" alt="${member.name}" 
-                             onload="console.log('✅ 画像読み込み成功:', '${member.name}'); this.style.opacity='1'; this.parentNode.classList.remove('no-image');"
-                             onerror="console.log('❌ 画像読み込み失敗:', '${member.name}'); this.parentNode.classList.add('no-image'); this.style.display='none';"
+                             onload="this.style.opacity='1'; this.parentNode.classList.remove('no-image');"
+                             onerror="this.parentNode.classList.add('no-image'); this.style.display='none';"
                              style="opacity: 0; transition: opacity 0.3s;">
                         <div class="initial">${initial}</div>
                     `;
                 } else {
-                    // 画像がない場合は文字のみ
-                    console.log('📝 文字アバター:', member.name, 'URL:', imageUrl);
                     avatarContent = `<div class="initial">${initial}</div>`;
                 }
 
@@ -407,7 +458,7 @@
                     ${hobbyTags ? `<div class="hobby-tags">${hobbyTags}</div>` : ''}
                     <div class="member-info">
                         <span style="background: #667eea; color: white; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">
-                            ${member.role === 'faculty' ? 'Faculty' : member.role === 'staff' ? 'Staff' : 'Student'}
+                            ${member.role === 'faculty' ? '教員' : member.role === 'staff' ? 'スタッフ' : '学生'}
                         </span>
                     </div>
                 `;
@@ -423,8 +474,6 @@
         // データ読み込み
         async function loadMembers() {
             try {
-                console.log('データ読み込み開始...');
-                
                 const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${SHEET_ID}`;
                 const response = await fetch(url);
                 
@@ -433,8 +482,6 @@
                 }
                 
                 const csvText = await response.text();
-                console.log('データ取得成功');
-                
                 const members = parseCSV(csvText);
                 
                 if (members.length === 0) {
@@ -442,113 +489,24 @@
                 }
                 
                 displayMembers(members);
-                console.log('表示完了:', members.length, 'メンバー');
                 
             } catch (error) {
-                console.error('エラー:', error);
-                
+                console.error('スプレッドシート読み込みエラー:', error);
                 // エラー時はテストデータを表示
-                console.log('テストデータで表示します');
                 displayMembers(testMembers);
-                
-                // エラーメッセージも表示
-                const container = document.getElementById('membersContainer');
-                const errorDiv = document.createElement('div');
-                errorDiv.style.cssText = 'background: #ffe6e6; color: #d63031; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; text-align: center;';
-                errorDiv.innerHTML = `
-                    ⚠️ スプレッドシートからの読み込みに失敗しました。テストデータを表示しています。<br>
-                    <small>エラー: ${error.message}</small>
-                `;
-                container.parentNode.insertBefore(errorDiv, container);
             }
         }
 
-        // ページ読み込み時に実行 - まずテストデータで確実に表示
+        // ページ読み込み時に実行
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('ページ読み込み完了');
-            
             // まずテストデータで表示（即座に表示）
             displayMembers(testMembers);
             
             // その後、スプレッドシートから読み込みを試行
             setTimeout(() => {
-                loadMembersFromSpreadsheet();
+                loadMembers();
             }, 1000);
         });
-
-        // スプレッドシートから読み込む関数（別名に変更）
-        async function loadMembersFromSpreadsheet() {
-            try {
-                console.log('📡 スプレッドシートから読み込み開始...');
-                
-                const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${SHEET_ID}`;
-                console.log('🔗 URL:', url);
-                
-                const response = await fetch(url);
-                console.log('📊 レスポンス:', response.status, response.ok);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-                
-                const csvText = await response.text();
-                console.log('📄 CSV取得成功, 長さ:', csvText.length);
-                console.log('📄 最初の200文字:', csvText.substring(0, 200));
-                
-                const members = parseCSV(csvText);
-                console.log('🔍 パース結果:', members);
-                
-                if (members.length === 0) {
-                    throw new Error('有効なメンバーデータが見つかりません');
-                }
-                
-                // スプレッドシートからの読み込みが成功した場合のみ更新
-                displayMembers(members);
-                console.log('✅ スプレッドシートからの読み込み完了:', members.length, 'メンバー');
-                
-                // 成功メッセージを表示
-                showMessage('✅ スプレッドシートから最新データを読み込みました', 'success');
-                
-            } catch (error) {
-                console.error('❌ スプレッドシート読み込みエラー:', error);
-                showMessage(`⚠️ スプレッドシート読み込み失敗: ${error.message}`, 'warning');
-                // エラー時はテストデータのままにする（既に表示済み）
-            }
-        }
-
-        // メッセージ表示関数
-        function showMessage(text, type) {
-            const container = document.querySelector('.members-section');
-            const messageDiv = document.createElement('div');
-            messageDiv.style.cssText = `
-                margin: 1rem auto;
-                padding: 1rem;
-                border-radius: 8px;
-                text-align: center;
-                max-width: 600px;
-                font-size: 0.9rem;
-                ${type === 'success' ? 'background: #d4edda; color: #155724; border: 1px solid #c3e6cb;' : 
-                  type === 'warning' ? 'background: #fff3cd; color: #856404; border: 1px solid #ffeaa7;' : 
-                  'background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;'}
-            `;
-            messageDiv.innerHTML = text;
-            
-            // 既存のメッセージを削除
-            const existingMessage = container.querySelector('.status-message');
-            if (existingMessage) {
-                existingMessage.remove();
-            }
-            
-            messageDiv.className = 'status-message';
-            container.insertBefore(messageDiv, container.firstChild);
-            
-            // 5秒後に自動削除
-            setTimeout(() => {
-                if (messageDiv.parentNode) {
-                    messageDiv.remove();
-                }
-            }, 5000);
-        }
     </script>
 </body>
 </html>
