@@ -286,12 +286,9 @@
         <div class="content-container">
             <div class="marmoset-image"></div>
             <div>
-                <h2 class="lab-title">Nakae Lab,</h2>
-                <h1 class="main-title">Our Team</h1>
+                <h1 class="main-title">メンバー</h1>
                 <p class="description">
-                    Meet the brilliant minds behind Digital Twin Lab - a diverse team of 
-                    researchers, engineers, and students working together to advance the 
-                    frontiers of computational neuroscience.
+                    デジタルツイン研究室の優秀な研究者、学生、スタッフたちが一丸となって計算論的神経科学の最前線を切り拓いています。
                 </p>
             </div>
         </div>
@@ -299,25 +296,25 @@
         <div class="stats-container">
             <div class="stat-card">
                 <div class="stat-number" id="totalMembers">-</div>
-                <div class="stat-label">Team Members</div>
+                <div class="stat-label">チームメンバー</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number">3</div>
-                <div class="stat-label">Research Areas</div>
+                <div class="stat-label">研究分野</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number" id="studentCount">-</div>
-                <div class="stat-label">Students</div>
+                <div class="stat-label">学生</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number">2025</div>
-                <div class="stat-label">Lab Established</div>
+                <div class="stat-label">研究室設立</div>
             </div>
         </div>
     </section>
 
     <div class="members-section">
-        <h2 class="section-title">Meet Our Team</h2>
+        <h2 class="section-title">メンバー紹介</h2>
         
         <!-- デバッグ用ボタン -->
         <div style="text-align: center; margin-bottom: 2rem;">
@@ -338,77 +335,6 @@
         // 設定
         const SPREADSHEET_ID = '1tTfxn1GpsZjD39wg4LNBwg6OJv98B1MjMLNQysP5GYk';
         const SHEET_ID = '926336242';
-
-        // テストデータ（フォールバック用）- 画像URL追加
-        const testMembers = [
-            {
-                name: '中江健',
-                position_jp: '准教授',
-                position_en: 'Associate Professor',
-                role: 'faculty',
-                research: 'コンピュータ神経科学',
-                hobby1: '読書',
-                hobby2: '映画鑑賞',
-                specialty: 'AI研究',
-                email: 'nakae@example.com',
-                image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID1'
-            },
-            {
-                name: '岩田康希',
-                position_jp: '非常勤研究員',
-                position_en: 'Research Fellow',
-                role: 'staff',
-                research: 'データ解析',
-                hobby1: '登山',
-                hobby2: '猫',
-                specialty: 'Webページ制作',
-                image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID2'
-            },
-            {
-                name: '朝日恵梨菜',
-                position_jp: '事務補佐員',
-                position_en: 'Admin Assistant',
-                role: 'staff',
-                research: '事務サポート',
-                hobby1: '子供のお世話',
-                hobby2: '猫と遊ぶ',
-                specialty: '秘書',
-                image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID3'
-            },
-            {
-                name: '坂川篤志',
-                position_jp: '技術補佐員',
-                position_en: 'Technical Assistant',
-                role: 'staff',
-                research: '技術サポート',
-                hobby1: 'プログラミング',
-                hobby2: 'ゲーム',
-                specialty: 'システム管理',
-                image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID4'
-            },
-            {
-                name: '吉田智恵美',
-                position_jp: '技術補佐員',
-                position_en: 'Technical Assistant',
-                role: 'staff',
-                research: '地域幸福と文化の関係性探求',
-                hobby1: '登山',
-                hobby2: '猫',
-                specialty: 'Webページ制作',
-                image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID5'
-            },
-            {
-                name: '山内隆広',
-                position_jp: 'B4学生',
-                position_en: 'B4 Student',
-                role: 'student',
-                research: '機械学習',
-                hobby1: '音楽',
-                hobby2: 'ゲーム',
-                specialty: 'データサイエンス',
-                image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID6'
-            }
-        ];
 
         // 簡単なCSVパーサー
         function parseCSV(text) {
