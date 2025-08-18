@@ -471,9 +471,9 @@
           ご興味がある方は、遠慮なく中江までご連絡ください。
         </p>
         
-        <a href="mailto:nakae@u-fukui.ac.jp" class="recruitment-link" style="font-size: 1.1em; margin-top: 20px;">
-          ✉️ メールでお問い合わせ
-        </a>
+       <button onclick="copyEmail()" class="recruitment-link" style="font-size: 1.1em; margin-top: 20px; border: none; cursor: pointer;">
+          📋 メールアドレスをコピー
+        </button>
       </div>
     </section>
   </div>
@@ -517,6 +517,11 @@
       section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
       observer.observe(section);
     });
+    function copyEmail() {
+  navigator.clipboard.writeText('nakae@u-fukui.ac.jp').then(() => {
+    alert('メールアドレス「nakae@u-fukui.ac.jp」をコピーしました！\n\nお使いのメールアプリに貼り付けてご連絡ください。');
+  });
+}
   </script>
 </body>
 </html>
