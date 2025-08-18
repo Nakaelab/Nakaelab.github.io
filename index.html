@@ -743,23 +743,26 @@
       const updateBadge = document.getElementById('updateBadge');
       updateBadge.style.display = 'block';
       
-      try {
-        // ニュースデータ取得
-        const newsResponse = await fetch(
-          `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${NEWS_SHEET_ID}`
-        );
-        const newsCSV = await newsResponse.text();
-        const newsData = parseCSV(newsCSV);
-        displayNews(newsData);
-        
-        // エラー時はフォールバック表示
-        document.getElementById('newsContainer').innerHTML = 
-          '<li>データの読み込みに失敗しました。しばらく後に再度お試しください。</li>';
-      } finally {
-        updateBadge.style.display = 'none';
-      }
-    }
-
+      // 修正後
+    try {
+      // ニュースデータ取得
+      const newsResponse = await fetch(...);
+      const newsCSV = await newsResponse.text();
+      const newsData = parseCSV(newsCSV);
+      displayNews(newsData);
+  
+      console.log('✅ データ更新完了');
+  
+    } catch (error) {
+      console.error('❌ データの読み込みに失敗:', error);
+  
+      // エラー時はフォールバック表示
+      document.getElementById('newsContainer').innerHTML = 
+        '<li>データの読み込みに失敗しました。しばらく後に再度お試しください。</li>';
+          } finally {
+      updateBadge.style.display = 'none';
+  }
+      
     // 初期化
     document.addEventListener('DOMContentLoaded', function() {
       loadData();
