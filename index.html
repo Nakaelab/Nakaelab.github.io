@@ -761,14 +761,15 @@ displayNews(newsData);
       // エラー時はフォールバック表示
       document.getElementById('newsContainer').innerHTML = 
         '<li>データの読み込みに失敗しました。しばらく後に再度お試しください。</li>';
-          } finally {
-      updateBadge.style.display = 'none';
+    } finally {
+    updateBadge.style.display = 'none';
   }
-      
-    // 初期化
-    document.addEventListener('DOMContentLoaded', function() {
-      loadData();
-    });
+}
+
+// ここに移動
+document.addEventListener('DOMContentLoaded', function() {
+  loadData();
+});
 
     // フェードインアニメーション
     const fadeEls = document.querySelectorAll('.fade-in');
