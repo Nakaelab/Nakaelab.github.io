@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>News - Digital Twin Lab</title>
+  <title>ニュース - Digital Twin Lab</title>
   <style>
     body {
       margin: 0;
@@ -11,10 +11,10 @@
       background-color: #f8f8f8;
       color: #111;
       line-height: 1.7;
-      padding-top: 90px; /* navの高さ分を確保 */
+      padding-top: 90px;
     }
 
-    /* === NAVIGATION STYLES === */
+    /* Navigation */
     nav {
       background-color: rgba(248, 248, 248, 0.95);
       backdrop-filter: blur(10px);
@@ -131,7 +131,7 @@
       }
     }
 
-    /* === UPDATED HERO SECTION === */
+    /* Hero Section */
     .hero {
       position: relative;
       height: 60vh;
@@ -147,7 +147,6 @@
       overflow: hidden;
     }
 
-    /* Left Side - Marmoset Image */
     .hero-image-container {
       position: relative;
       display: flex;
@@ -167,21 +166,11 @@
       transform: scale(1.02);
     }
 
-    /* Right Side - Content */
     .hero-content {
       position: relative;
       z-index: 2;
       animation: heroFadeIn 1.5s ease forwards;
       padding-left: 40px;
-    }
-
-    .hero-lab-name {
-      font-size: 28px;
-      color: #666;
-      margin-bottom: 15px;
-      font-weight: 400;
-      opacity: 0;
-      animation: slideUpFade 1s ease 0.5s forwards;
     }
 
     .hero-content h1 {
@@ -191,8 +180,6 @@
       font-weight: 700;
       color: #333;
       line-height: 1.1;
-      opacity: 0;
-      animation: slideUpFade 1s ease 0.7s forwards;
     }
 
     .hero-content p {
@@ -201,19 +188,6 @@
       text-shadow: none;
       font-weight: 400;
       color: #666;
-      max-width: none;
-      opacity: 0;
-      animation: slideUpFade 1s ease 0.9s forwards;
-    }
-
-    /* Add subtle floating animation to the hero */
-    .hero {
-      animation: heroBreath 4s ease-in-out infinite;
-    }
-
-    @keyframes heroBreath {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.01); }
     }
 
     @keyframes heroFadeIn {
@@ -221,25 +195,14 @@
       to { opacity: 1; }
     }
 
-    @keyframes slideUpFade {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* === MAIN CONTENT === */
+    /* Main Content */
     .container {
       max-width: 1000px;
       margin: 0 auto;
       padding: 60px 20px;
     }
 
-    /* === FILTER SECTION === */
+    /* Filter Section */
     .filter-section {
       background: white;
       border-radius: 15px;
@@ -294,7 +257,7 @@
       border-color: #1e3c72;
     }
 
-    /* === NEWS SECTION === */
+    /* News Section */
     .news-section {
       background: white;
       border-radius: 15px;
@@ -457,85 +420,34 @@
       margin-bottom: 15px;
     }
 
-    .news-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .news-link {
-      padding: 6px 15px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 0.9em;
-      font-weight: 500;
-      transition: all 0.3s;
-      border: 2px solid;
-    }
-
-    .news-link.external {
-      background: #fff;
-      color: #007bff;
-      border-color: #007bff;
-    }
-
-    .news-link.pdf {
-      background: #fff;
-      color: #dc3545;
-      border-color: #dc3545;
-    }
-
-    .news-link.more {
-      background: #fff;
-      color: #28a745;
-      border-color: #28a745;
-    }
-
-    .news-link:hover {
-      background: currentColor;
-      color: white;
-      transform: translateY(-1px);
-    }
-
-    /* === ARCHIVE SECTION === */
-    .archive-section {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 15px;
-      padding: 40px;
+    .loading {
       text-align: center;
+      padding: 40px;
+      color: #666;
+      font-style: italic;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+      font-style: italic;
+    }
+
+    .auto-update-badge {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      background: rgba(76, 175, 80, 0.9);
       color: white;
-      margin-top: 40px;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      z-index: 1001;
+      display: none;
     }
 
-    .archive-section h3 {
-      font-size: 1.8em;
-      margin-bottom: 15px;
-      font-weight: 300;
-    }
-
-    .archive-section p {
-      font-size: 1.1em;
-      margin-bottom: 25px;
-      opacity: 0.9;
-    }
-
-    .archive-btn {
-      display: inline-block;
-      background: white;
-      color: #667eea;
-      padding: 12px 30px;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.3s;
-    }
-
-    .archive-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    }
-
-    /* === RESPONSIVE === */
+    /* Responsive */
     @media screen and (max-width: 1024px) {
       .hero {
         grid-template-columns: 1fr;
@@ -599,40 +511,6 @@
         font-size: 0.9em;
       }
     }
-
-    /* === ANIMATIONS === */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .fade-in-up {
-      animation: fadeInUp 0.8s ease forwards;
-    }
-
-    /* === LOADING STATE FOR IMAGE === */
-    .hero-image-loading {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 16px;
-      z-index: 1;
-      opacity: 0;
-      animation: pulseLoading 2s ease-in-out infinite;
-    }
-
-    @keyframes pulseLoading {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.7; }
-    }
   </style>
 </head>
 
@@ -653,12 +531,16 @@
     </ul>
   </nav>
 
-  <!-- HERO WITH MARMOSET NEWS IMAGE -->
+  <!-- 自動更新バッジ -->
+  <div class="auto-update-badge" id="updateBadge">
+    🔄 Googleスプレッドシートから更新中...
+  </div>
+
+  <!-- Hero Section -->
   <section class="hero">
-    <!-- Left Side - Marmoset Image -->
     <div class="hero-image-container">
       <img 
-        src="marmoset_news.png" 
+        src="../images/news/marmoset_news.png" 
         alt="Marmoset reading news" 
         class="hero-marmoset-image"
         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
@@ -668,16 +550,15 @@
       </div>
     </div>
     
-    <!-- Right Side - Content -->
     <div class="hero-content">
-      <h1>What's New</h1>
+      <h1>ニュース</h1>
       <p>Digital Twin Labの最新のニュース、研究成果、イベント情報をお届けします</p>
     </div>
   </section>
 
   <div class="container">
-    <!-- FILTERS -->
-    <section class="filter-section fade-in-up">
+    <!-- Filter Section -->
+    <section class="filter-section">
       <div class="filter-buttons">
         <button class="filter-btn active" data-filter="all">すべて</button>
         <button class="filter-btn" data-filter="publication">論文・出版</button>
@@ -690,195 +571,205 @@
       </div>
     </section>
 
-    <!-- NEWS SECTION -->
-    <section class="news-section fade-in-up">
+    <!-- News Section -->
+    <section class="news-section">
       <h2 class="section-title">最新ニュース</h2>
       
-      <div class="news-timeline">
-        <div class="news-item publication" data-category="publication">
-          <span class="news-date">2025.5.26</span>
-          <span class="news-category publication">論文・出版</span>
-          <h3 class="news-title">Neuroscience Researchで特集エディターを担当</h3>
-          <div class="news-description">
-            Neuroscience Researchでエディターとして「Will BigData change Neuroscience?」特集を企画・編集し、公開されました。ビッグデータが神経科学研究に与える影響について、最新の研究動向をまとめています。
-          </div>
-          <div class="news-links">
-            <a href="#" class="news-link external">特集ページ</a>
-            <a href="#" class="news-link pdf">PDF</a>
-          </div>
-        </div>
-
-        <div class="news-item event" data-category="event">
-          <span class="news-date">2025.4.7</span>
-          <span class="news-category event">イベント</span>
-          <h3 class="news-title">福井大学で大型予算獲得勉強会を主催</h3>
-          <div class="news-description">
-            福井大学において大型予算獲得に向けた勉強会を主催し、研究戦略と申請書作成のノウハウについて発表を行いました。多くの研究者にとって有益な情報共有の機会となりました。
-          </div>
-          <div class="news-links">
-            <a href="#" class="news-link more">詳細情報</a>
-          </div>
-        </div>
-
-        <div class="news-item publication" data-category="publication">
-          <span class="news-date">2025.4.5</span>
-          <span class="news-category publication">論文・出版</span>
-          <h3 class="news-title">神経回路学会誌で「デジタル脳」特集を公開</h3>
-          <div class="news-description">
-            神経回路学会誌でエディターとして「デジタル脳」特集を企画・編集し、公開されました。デジタル技術を活用した脳研究の最前線について包括的に紹介しています。
-          </div>
-          <div class="news-links">
-            <a href="#" class="news-link external">学会誌</a>
-            <a href="#" class="news-link pdf">PDF</a>
-          </div>
-        </div>
-
-        <div class="news-item publication" data-category="publication">
-          <span class="news-date">2025.4.4</span>
-          <span class="news-category publication">論文・出版</span>
-          <h3 class="news-title">Nature Communicationに共著論文が掲載</h3>
-          <div class="news-description">
-            国際的な権威ある学術誌Nature Communicationに共著者として参加した論文が掲載されました。この研究は神経科学分野における重要な発見として注目を集めています。
-          </div>
-          <div class="news-links">
-            <a href="#" class="news-link external">Nature Communications</a>
-            <a href="#" class="news-link pdf">論文PDF</a>
-          </div>
-        </div>
-
-        <div class="news-item event" data-category="event">
-          <span class="news-date">2025.3.17</span>
-          <span class="news-category event">イベント</span>
-          <h3 class="news-title">APPW2025でシンポジウム開催</h3>
-          <div class="news-description">
-            APPW2025において"The Future of AI and the Co-Creation of Life"をテーマとしたシンポジウムを開催し、AIと生命の共創について研究発表を行いました。国内外から多くの研究者が参加し、活発な議論が交わされました。
-          </div>
-          <div class="news-links">
-            <a href="#" class="news-link external">APPW2025</a>
-            <a href="#" class="news-link more">発表資料</a>
-          </div>
-        </div>
-
-        <div class="news-item milestone" data-category="milestone">
-          <span class="news-date">2025.3.1</span>
-          <span class="news-category milestone">マイルストーン</span>
-          <h3 class="news-title">デジタルツイン研究室を福井大学にて立ち上げ</h3>
-          <div class="news-description">
-            福井大学工学研究科にデジタルツイン研究室を正式に立ち上げました。最先端のデジタルツイン技術と計算神経科学の融合により、生命現象のデジタル再現という新たな研究分野の開拓を目指します。
-          </div>
-          <div class="news-links">
-            <a href="#" class="news-link more">研究室紹介</a>
-            <a href="member.html" class="news-link external">メンバー紹介</a>
-          </div>
-        </div>
+      <div class="news-timeline" id="newsContainer">
+        <div class="loading">Googleスプレッドシートからニュースを読み込み中...</div>
       </div>
-    </section>
-
-    <!-- ARCHIVE SECTION -->
-    <section class="archive-section fade-in-up">
-      <h3>📰 過去のニュース</h3>
-      <p>2024年以前のニュースやアーカイブをご覧いただけます</p>
-      <a href="#" class="archive-btn">アーカイブを見る</a>
     </section>
   </div>
 
   <script>
-    // Filter functionality
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const newsItems = document.querySelectorAll('.news-item');
-    const searchInput = document.getElementById('searchInput');
+    // Googleスプレッドシートの設定
+    const SPREADSHEET_ID = '1tTfxn1GpsZjD39wg4LNBwg6OJv98B1MjMLNQysP5GYk';
+    const NEWS_SHEET_ID = '0'; // newsシートのgid
 
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Update active button
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    let allNews = [];
+    let filteredNews = [];
+    let currentFilter = 'all';
 
-        const filter = btn.dataset.filter;
+    // CSVをパースする関数
+    function parseCSV(csvText) {
+      const lines = csvText.trim().split('\n');
+      const data = [];
+      
+      for (let i = 1; i < lines.length; i++) {
+        const line = lines[i];
+        if (!line.trim()) continue;
         
-        newsItems.forEach((item, index) => {
-          if (filter === 'all' || item.dataset.category === filter) {
-            item.style.display = 'block';
-            // Re-apply stagger animation
-            item.style.animation = `slideInLeft 0.8s ease forwards`;
-            item.style.animationDelay = `${index * 0.1}s`;
+        // カンマ区切りで分割（引用符を考慮）
+        const values = [];
+        let current = '';
+        let inQuotes = false;
+        
+        for (let j = 0; j < line.length; j++) {
+          const char = line[j];
+          if (char === '"') {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            values.push(current.trim());
+            current = '';
           } else {
-            item.style.display = 'none';
+            current += char;
           }
+        }
+        values.push(current.trim());
+        
+        const row = {
+          date: values[0] || '',
+          title: values[1] || '',
+          detail: values[2] || '',
+          category: values[3] || 'event'
+        };
+        
+        // 空のタイトルは除外
+        if (row.title && row.title.trim() !== '') {
+          data.push(row);
+        }
+      }
+      return data;
+    }
+
+    // カテゴリの日本語表示名を取得
+    function getCategoryLabel(category) {
+      const labelMap = {
+        'publication': '論文・出版',
+        'event': 'イベント',
+        'award': '受賞・表彰',
+        'milestone': 'マイルストーン'
+      };
+      return labelMap[category] || 'その他';
+    }
+
+    // ニュースを表示
+    function displayNews(newsArray) {
+      const container = document.getElementById('newsContainer');
+      
+      if (newsArray.length === 0) {
+        container.innerHTML = '<div class="no-results">該当するニュースが見つかりませんでした。</div>';
+        return;
+      }
+
+      let html = '';
+      newsArray.forEach((news, index) => {
+        const categoryClass = news.category || 'event';
+        const categoryLabel = getCategoryLabel(news.category);
+        
+        html += `
+          <div class="news-item ${categoryClass}" data-category="${categoryClass}" style="animation-delay: ${index * 0.1}s;">
+            <span class="news-date">${news.date}</span>
+            <span class="news-category ${categoryClass}">${categoryLabel}</span>
+            <h3 class="news-title">${news.title}</h3>
+            ${news.detail ? `<div class="news-description">${news.detail}</div>` : ''}
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    // フィルター処理
+    function filterNews() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      
+      filteredNews = allNews.filter(news => {
+        const matchesCategory = currentFilter === 'all' || news.category === currentFilter;
+        const matchesSearch = !searchTerm || 
+          news.title.toLowerCase().includes(searchTerm) ||
+          (news.detail && news.detail.toLowerCase().includes(searchTerm));
+        
+        return matchesCategory && matchesSearch;
+      });
+
+      displayNews(filteredNews);
+    }
+
+    // ニュースデータを読み込む
+    async function loadNews() {
+      try {
+        const updateBadge = document.getElementById('updateBadge');
+        updateBadge.style.display = 'block';
+        
+        console.log('ニュースデータの読み込み開始...');
+        
+        const csvUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${NEWS_SHEET_ID}`;
+        console.log('CSV URL:', csvUrl);
+        
+        const response = await fetch(csvUrl);
+        console.log('Response status:', response.status);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const csvText = await response.text();
+        console.log('CSV データを取得しました。最初の200文字:', csvText.substring(0, 200));
+        
+        allNews = parseCSV(csvText);
+        console.log('パース済みニュースデータ:', allNews);
+        
+        // 日付でソート（新しい順）
+        allNews.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        filteredNews = [...allNews];
+        displayNews(filteredNews);
+        
+        updateBadge.style.display = 'none';
+        console.log('ニュースデータの読み込み完了！');
+        
+      } catch (error) {
+        console.error('ニュースデータの読み込みエラー:', error);
+        
+        const container = document.getElementById('newsContainer');
+        container.innerHTML = `
+          <div class="loading" style="color: #e74c3c;">
+            エラー: ニュース情報を読み込めませんでした。<br>
+            ${error.message}
+            <br><br>
+            <button onclick="loadNews()" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              再試行
+            </button>
+          </div>
+        `;
+        
+        const updateBadge = document.getElementById('updateBadge');
+        updateBadge.style.display = 'none';
+      }
+    }
+
+    // ハンバーガーメニューの機能
+    function toggleMenu() {
+      const navMenu = document.getElementById('navMenu');
+      const hamburger = document.querySelector('.hamburger');
+      
+      navMenu.classList.toggle('active');
+      hamburger.classList.toggle('active');
+    }
+
+    // イベントリスナー設定
+    document.addEventListener('DOMContentLoaded', function() {
+      // フィルターボタンのイベント
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          currentFilter = this.dataset.filter;
+          filterNews();
         });
       });
+
+      // 検索ボックスのイベント
+      document.getElementById('searchInput').addEventListener('input', filterNews);
+
+      // ニュースデータを読み込む
+      console.log('ページが読み込まれました。ニュースデータを取得します...');
+      loadNews();
     });
 
-    // Search functionality
-    searchInput.addEventListener('input', (e) => {
-      const searchTerm = e.target.value.toLowerCase();
-      
-      newsItems.forEach(item => {
-        const title = item.querySelector('.news-title').textContent.toLowerCase();
-        const description = item.querySelector('.news-description').textContent.toLowerCase();
-        
-        if (title.includes(searchTerm) || description.includes(searchTerm)) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-    });
-
-    // Intersection Observer for animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in-up');
-        }
-      });
-    }, observerOptions);
-
-    // Observe elements for animation
-    document.querySelectorAll('.filter-section, .news-section, .archive-section').forEach(el => {
-      observer.observe(el);
-    });
-
-    // Enhanced hover effects for news items
-    newsItems.forEach(item => {
-      item.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateX(15px) scale(1.02)';
-        this.style.boxShadow = '0 15px 35px rgba(0,0,0,0.15)';
-      });
-      
-      item.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateX(0) scale(1)';
-        this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
-      });
-    });
-
-    // Add smooth scrolling for internal links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-
-    // Hamburger menu toggle function
-    function toggleMenu() {
-      const hamburger = document.querySelector('.hamburger');
-      const navMenu = document.getElementById('navMenu');
-      
-      hamburger.classList.toggle('active');
-      navMenu.classList.toggle('active');
-    }
+    // 定期的にデータを更新（10分ごと）
+    setInterval(loadNews, 10 * 60 * 1000);
   </script>
 </body>
 </html>
