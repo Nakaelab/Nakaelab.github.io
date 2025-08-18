@@ -332,66 +332,6 @@
       color: #333;
     }
 
-    /* === MEMBERS SECTION === */
-    .members {
-      background: url('images/members/lab_member.jpg') center/cover no-repeat, #eef2f5;
-      position: relative;
-      text-align: center;
-      padding: 80px 20px;
-      color: #111;
-    }
-
-    .members::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(255, 255, 255, 0.4);
-      z-index: 1;
-    }
-
-    .members h2,
-    .member-grid {
-      position: relative;
-      z-index: 2;
-    }
-
-    .members h2 {
-      font-size: 2.5em;
-      margin-bottom: 40px;
-      color: #1e3c72;
-    }
-
-    .member-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .member {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      padding: 20px;
-      max-width: 220px;
-      flex: 1 1 180px;
-      transition: transform 0.3s;
-    }
-
-    .member:hover {
-      transform: translateY(-4px);
-    }
-
-    .member h3 {
-      font-size: 1.1em;
-      margin-bottom: 5px;
-    }
-
-    .member p {
-      font-size: 0.95em;
-      color: #555;
-    }
-
     /* === NEWS SECTION === */
     .news {
       background: url('images/news/news.jpg') center/cover no-repeat, #f4f4f4;
@@ -722,14 +662,6 @@
     </div>
   </section>
 
-  <!-- MEMBERS -->
-  <section class="members fade-in">
-    <h2>Our Members</h2>
-    <div class="member-grid" id="membersContainer">
-      <div class="loading">Googleスプレッドシートからメンバー情報を読み込み中...</div>
-    </div>
-  </section>
-
   <!-- NEWS -->
   <section class="news fade-in" id="news">
     <h2>News</h2>
@@ -807,22 +739,6 @@
       });
     }
 
-    // メンバーを表示
-    function displayMembers(membersData) {
-      const container = document.getElementById('membersContainer');
-      container.innerHTML = '';
-
-      membersData.forEach(member => {
-        const div = document.createElement('div');
-        div.className = 'member';
-        div.innerHTML = `
-          <h3>${member.name}</h3>
-          <p>${member.position_jp} / ${member.position_en}</p>
-        `;
-        container.appendChild(div);
-      });
-    }
-
     // Googleスプレッドシートからデータを読み込み
     async function loadData() {
       const updateBadge = document.getElementById('updateBadge');
@@ -836,19 +752,6 @@
         const newsCSV = await newsResponse.text();
         const newsData = parseCSV(newsCSV);
         displayNews(newsData);
-
-        // メンバーデータ取得
-        const membersResponse = await fetch(
-          `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${MEMBERS_SHEET_ID}`
-        );
-        const membersCSV = await membersResponse.text();
-        const membersData = parseCSV(membersCSV);
-        displayMembers(membersData);
-
-        console.log('✅ データ更新完了');
-        
-      } catch (error) {
-        console.error('❌ データの読み込みに失敗:', error);
         
         // エラー時はフォールバック表示
         document.getElementById('newsContainer').innerHTML = 
