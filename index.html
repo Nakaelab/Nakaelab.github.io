@@ -746,7 +746,10 @@
       // 修正後
     try {
       // ニュースデータ取得
-      const newsResponse = await fetch(...);
+     // 修正後（正しい）
+      const newsResponse = await fetch(
+      `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${NEWS_SHEET_ID}`
+    );
       const newsCSV = await newsResponse.text();
       const newsData = parseCSV(newsCSV);
       displayNews(newsData);
