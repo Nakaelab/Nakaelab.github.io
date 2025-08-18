@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Publications - Digital Twin Lab</title>
+  <title>研究成果 - Digital Twin Lab</title>
   <style>
     body {
       margin: 0;
       font-family: 'Helvetica Neue', sans-serif;
       background-color: #f8f8f8;
       color: #111;
-      padding-top: 90px; /* navの高さ分を確保 */
+      padding-top: 90px;
     }
 
-    /* === NAVIGATION === */
+    /* Navigation */
     nav {
       background-color: rgba(248, 248, 248, 0.95);
       backdrop-filter: blur(10px);
@@ -131,7 +131,7 @@
       }
     }
 
-    /* === HERO SECTION === */
+    /* Hero Section */
     .hero {
       position: relative;
       height: 60vh;
@@ -158,14 +158,14 @@
       text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
 
-    /* === MAIN CONTENT === */
+    /* Main Content */
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 40px 20px;
     }
 
-    /* === FILTER SECTION === */
+    /* Filter Section */
     .filter-section {
       background: white;
       border-radius: 15px;
@@ -219,7 +219,7 @@
       border-color: #1e3c72;
     }
 
-    /* === STATS SECTION === */
+    /* Stats Section */
     .stats-section {
       background: white;
       border-radius: 15px;
@@ -258,7 +258,7 @@
       opacity: 0.9;
     }
 
-    /* === PUBLICATIONS SECTION === */
+    /* Publications Section */
     .publications-section {
       background: white;
       border-radius: 15px;
@@ -334,7 +334,7 @@
     .pub-type.journal { background: #28a745; }
     .pub-type.conference { background: #007bff; }
     .pub-type.preprint { background: #ffc107; color: #333; }
-    .pub-type.book { background: #6f42c1; }
+    .pub-type.misc { background: #6f42c1; }
 
     .citation-count {
       float: right;
@@ -439,7 +439,7 @@
       font-style: italic;
     }
 
-    /* === RESPONSIVE === */
+    /* Responsive */
     @media screen and (max-width: 768px) {
       .hero-content h1 { font-size: 2em; }
       .hero-content p { font-size: 1.1em; }
@@ -453,15 +453,6 @@
         font-size: 0.9em;
       }
       
-      nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      
-      nav li {
-        margin: 5px 10px;
-      }
-      
       .pub-links {
         justify-content: flex-start;
       }
@@ -473,7 +464,7 @@
       }
     }
 
-    /* === ANIMATIONS === */
+    /* Animations */
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -513,52 +504,52 @@
     🔄 Googleスプレッドシートから更新中...
   </div>
 
-  <!-- HERO -->
+  <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
-      <h1>Publications</h1>
-      <p>Research outputs advancing our understanding of neural computation, digital twins, and computational neuroscience through innovative methodologies.</p>
+      <h1>研究成果</h1>
+      <p>デジタルツイン技術、計算論的神経科学、機械学習における革新的な研究成果を通じて、神経計算の理解を深める研究活動を推進しています。</p>
     </div>
   </section>
 
   <div class="container">
-    <!-- STATS -->
+    <!-- Stats Section -->
     <section class="stats-section fade-in-up">
       <div class="stats-grid">
         <div class="stat-item">
           <div class="stat-number" id="totalPubs">-</div>
-          <div class="stat-label">Total Publications</div>
+          <div class="stat-label">総論文数</div>
         </div>
         <div class="stat-item">
           <div class="stat-number" id="totalCitations">-</div>
-          <div class="stat-label">Total Citations</div>
+          <div class="stat-label">総被引用数</div>
         </div>
         <div class="stat-item">
           <div class="stat-number" id="highestCitation">-</div>
-          <div class="stat-label">Highest Citations</div>
+          <div class="stat-label">最高被引用数</div>
         </div>
         <div class="stat-item">
           <div class="stat-number" id="activeYears">-</div>
-          <div class="stat-label">Years Active</div>
+          <div class="stat-label">研究年数</div>
         </div>
       </div>
     </section>
 
-    <!-- FILTERS -->
+    <!-- Filter Section -->
     <section class="filter-section fade-in-up">
       <div class="filter-buttons">
-        <button class="filter-btn active" data-filter="all">All Publications</button>
-        <button class="filter-btn" data-filter="journal">Journal Articles</button>
-        <button class="filter-btn" data-filter="conference">Conference Papers</button>
+        <button class="filter-btn active" data-filter="all">すべて</button>
+        <button class="filter-btn" data-filter="journal">Journal</button>
+        <button class="filter-btn" data-filter="conference">Conference</button>
         <button class="filter-btn" data-filter="preprint">Preprints</button>
-        <button class="filter-btn" data-filter="book">Books</button>
+        <button class="filter-btn" data-filter="misc">Misc</button>
       </div>
       <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Search publications by title, author, or keyword...">
+        <input type="text" id="searchInput" placeholder="論文のタイトル、著者、キーワードで検索...">
       </div>
     </section>
 
-    <!-- PUBLICATIONS -->
+    <!-- Publications Section -->
     <section class="publications-section fade-in-up">
       <div id="publicationsContainer">
         <div class="loading">Googleスプレッドシートから論文情報を読み込み中...</div>
@@ -575,7 +566,7 @@
     let filteredPublications = [];
     let currentFilter = 'all';
 
-    // CSVをパースする関数（修正版）
+    // CSVをパースする関数
     function parseCSV(csvText) {
       const lines = csvText.trim().split('\n');
       const data = [];
@@ -584,7 +575,7 @@
         const line = lines[i];
         if (!line.trim()) continue;
         
-        // カンマ区切りで分割（元に戻す）
+        // カンマ区切りで分割
         const values = [];
         let current = '';
         let inQuotes = false;
@@ -600,7 +591,7 @@
             current += char;
           }
         }
-        values.push(current.trim()); // 最後の値を追加
+        values.push(current.trim());
         
         const row = {
           title: values[0] || '',
@@ -614,7 +605,6 @@
           pdf_url: values[8] || ''
         };
         
-        // 空のタイトルは除外
         if (row.title && row.title.trim() !== '') {
           data.push(row);
         }
@@ -625,7 +615,9 @@
     // 著者名をハイライト
     function highlightAuthors(authorsString) {
       return authorsString.replace(/Ken Nakae/g, '<span class="highlight">Ken Nakae</span>')
-                         .replace(/K Nakae/g, '<span class="highlight">K Nakae</span>');
+                         .replace(/K Nakae/g, '<span class="highlight">K Nakae</span>')
+                         .replace(/中江健/g, '<span class="highlight">中江健</span>')
+                         .replace(/中江/g, '<span class="highlight">中江</span>');
     }
 
     // 論文タイプのクラス取得
@@ -634,7 +626,8 @@
         'journal': 'journal',
         'conference': 'conference',
         'preprint': 'preprint',
-        'book': 'book'
+        'misc': 'misc',
+        'book': 'misc'
       };
       return typeMap[type.toLowerCase()] || 'journal';
     }
@@ -645,6 +638,7 @@
         'journal': 'Journal Article',
         'conference': 'Conference Paper',
         'preprint': 'Preprint',
+        'misc': 'Misc',
         'book': 'Book Chapter'
       };
       return labelMap[type.toLowerCase()] || 'Publication';
@@ -707,7 +701,7 @@
           html += `
             <div class="publication-item" data-type="${pub.type}">
               <span class="pub-type ${getTypeClass(pub.type)}">${getTypeLabel(pub.type)}</span>
-              ${pub.citations && parseInt(pub.citations) > 0 ? `<span class="citation-count">${pub.citations} citations</span>` : ''}
+              ${pub.citations && parseInt(pub.citations) > 0 ? `<span class="citation-count">${pub.citations} 被引用</span>` : ''}
               <div class="pub-title">${pub.title}</div>
               <div class="pub-authors">${highlightAuthors(pub.authors)}</div>
               <div class="pub-venue">${pub.venue}</div>
