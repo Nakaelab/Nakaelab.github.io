@@ -47,36 +47,38 @@
       color: #1e293b;
     }
 
-    /* Left Side - Video Container */
-    .hero-video-container {
+    /* Left Side - Image Container */
+    .hero-image-container {
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-   .hero-video-frame {
-  background: transparent;
-  border-radius: 10px;
-  padding: 0;
-  box-shadow: none;
-  position: relative;
-  overflow: hidden;
-}
-.hero-video-frame::before {
-  display: none;
-}
+    .hero-image-frame {
+      background: transparent;
+      border-radius: 10px;
+      padding: 0;
+      box-shadow: none;
+      position: relative;
+      overflow: hidden;
+    }
 
-    .hero-marmoset-video {
+    .hero-marmoset-image {
       width: 450px;
       height: auto;
       border-radius: 10px;
       position: relative;
       z-index: 2;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
     }
 
-    .hero-video-placeholder {
+    .hero-marmoset-image:hover {
+      transform: scale(1.02);
+    }
+
+    .hero-image-placeholder {
       width: 450px;
       height: 300px;
       background: linear-gradient(45deg, #8B4513, #4facfe);
@@ -90,24 +92,6 @@
       line-height: 1.6;
       position: relative;
       z-index: 2;
-    }
-
-    .hero-progress-bar {
-      position: absolute;
-      bottom: 20px;
-      left: 40px;
-      right: 40px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 2px;
-      overflow: hidden;
-    }
-
-    .hero-progress-fill {
-      height: 100%;
-      background: #ffffff;
-      border-radius: 2px;
-      animation: heroProgressFill 8s ease-in-out infinite;
     }
 
     /* Right Side - Hero Content */
@@ -195,12 +179,6 @@
       100% { transform: translateX(100%); }
     }
 
-    @keyframes heroProgressFill {
-      0% { width: 0%; }
-      50% { width: 100%; }
-      100% { width: 0%; }
-    }
-
     @keyframes heroSlideInRight {
       from {
         opacity: 0;
@@ -228,8 +206,8 @@
         order: -1;
       }
       
-      .hero-marmoset-video,
-      .hero-video-placeholder {
+      .hero-marmoset-image,
+      .hero-image-placeholder {
         width: 100%;
         max-width: 400px;
       }
@@ -240,12 +218,12 @@
         padding: 40px 20px;
       }
       
-      .hero-video-frame {
+      .hero-image-frame {
         padding: 20px;
       }
       
-      .hero-marmoset-video,
-      .hero-video-placeholder {
+      .hero-marmoset-image,
+      .hero-image-placeholder {
         max-width: 320px;
         height: auto;
       }
@@ -606,26 +584,19 @@
 
   <!-- HERO SECTION -->
   <section class="hero fade-in">
-    <div class="hero-video-container">
-      <div class="hero-video-frame">
-        <video 
-          class="hero-marmoset-video" 
-          autoplay 
-          muted 
-          loop 
-          playsinline
-          poster="marmoset-poster.jpg"
-        >
-          <source src="images/research/marmoset_movie.mp4" type="video/mp4">
-          <div class="hero-video-placeholder">
-            動画を読み込み中...<br>
-            marmoset_movie.mp4<br>
-            が表示されます
-          </div>
-        </video>
+    <div class="hero-image-container">
+      <div class="hero-image-frame">
+        <img 
+          src="images/common/marmoset.jpg" 
+          alt="マーモセット" 
+          class="hero-marmoset-image"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
         
-        <div class="hero-progress-bar">
-          <div class="hero-progress-fill"></div>
+        <div class="hero-image-placeholder" style="display: none;">
+          画像を読み込み中...<br>
+          images/common/marmoset.jpg<br>
+          が表示されます
         </div>
       </div>
     </div>
@@ -785,28 +756,17 @@ document.addEventListener('DOMContentLoaded', function() {
       navMenu.classList.toggle('active');
     }
 
-    // Video error handling
-    document.querySelector('.hero-marmoset-video').addEventListener('error', function() {
-      this.style.display = 'none';
-      const placeholder = document.createElement('div');
-      placeholder.className = 'hero-video-placeholder';
-      placeholder.innerHTML = `
-        動画の読み込みに失敗しました<br>
-        marmoset_movie.mp4<br>
-        ファイルを確認してください
-      `;
-      this.parentNode.insertBefore(placeholder, this);
-    });
+    // Image interaction
+    const image = document.querySelector('.hero-marmoset-image');
+    if (image) {
+      image.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.02)';
+      });
 
-    // Video interaction
-    const video = document.querySelector('.hero-marmoset-video');
-    video.addEventListener('mouseenter', function() {
-      this.style.transform = 'scale(1.02)';
-    });
-
-    video.addEventListener('mouseleave', function() {
-      this.style.transform = 'scale(1)';
-    });
+      image.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1)';
+      });
+    }
 
     // クリックした場所に飛んでいくマーモセット
     document.addEventListener('click', function(e) {
