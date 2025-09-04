@@ -373,86 +373,89 @@
             }
         ];
 
-        // 簡単なCSVパーサー
-        function parseCSV(text) {
-            const lines = text.trim().split('\n');
-            const headers = lines[0].split(',').map(h => h.trim());
-            const data = [];
+// 修正されたCSVパーサー
+function parseCSV(text) {
+    const lines = text.trim().split('\n');
+    const headers = lines[0].split(',').map(h => h.trim());
+    const data = [];
 
-            for (let i = 1; i < lines.length; i++) {
-                const values = lines[i].split(',');
-                const row = {};
-                headers.forEach((header, index) => {
-                    row[header] = values[index] ? values[index].trim() : '';
-                });
-                if (row.name && row.name.trim()) {
-                    data.push(row);
-                }
-            }
-            return data;
+    for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(',');
+        const row = {};
+        headers.forEach((header, index) => {
+            // 空文字を空文字として保持（nullにしない）
+            row[header] = values[index] ? values[index].trim() : '';
+        });
+        // 名前が空でない場合のみ追加
+        if (row.name && row.name.trim()) {
+            data.push(row);
+        }
+    }
+    return data;
+}
+
+// メンバー表示関数も修正
+function displayMembers(members) {
+    const container = document.getElementById('membersContainer');
+    container.innerHTML = '';
+
+    let studentCount = 0;
+    
+    members.forEach(member => {
+        if (member.role === 'student') studentCount++;
+
+        const card = document.createElement('div');
+        card.className = 'member-card';
+
+        // 趣味タグ（空でない項目のみ）
+        const hobbies = [];
+        if (member.hobby1 && member.hobby1.trim()) hobbies.push(member.hobby1);
+        if (member.hobby2 && member.hobby2.trim()) hobbies.push(member.hobby2);
+        if (member.specialty && member.specialty.trim()) hobbies.push(member.specialty);
+
+        const hobbyTags = hobbies.map(hobby => 
+            `<span class="hobby-tag">${hobby}</span>`
+        ).join('');
+
+        // アバター（画像または名前の最初の文字）
+        const initial = member.name ? member.name.charAt(0) : '?';
+        const imageUrl = member.image_url && member.image_url.trim() ? member.image_url.trim() : '';
+        
+        let avatarContent = '';
+        if (imageUrl) {
+            avatarContent = `
+                <img src="${imageUrl}" alt="${member.name}" 
+                     onload="this.style.opacity='1'; this.parentNode.classList.remove('no-image');"
+                     onerror="this.parentNode.classList.add('no-image'); this.style.display='none';"
+                     style="opacity: 0; transition: opacity 0.3s;">
+                <div class="initial">${initial}</div>
+            `;
+        } else {
+            avatarContent = `<div class="initial">${initial}</div>`;
         }
 
-        // メンバー表示
-        function displayMembers(members) {
-            const container = document.getElementById('membersContainer');
-            container.innerHTML = '';
+        card.innerHTML = `
+            <div class="member-avatar${!imageUrl ? ' no-image' : ''}">${avatarContent}</div>
+            <h3 class="member-name">${member.name || 'Unknown'}</h3>
+            <p class="member-title">${member.position_jp || ''} / ${member.position_en || ''}</p>
+            ${member.research && member.research.trim() ? `<p style="color: #666; font-size: 0.9rem; margin: 0.5rem 0;">🔬 ${member.research}</p>` : ''}
+            ${hobbyTags ? `<div class="hobby-tags">${hobbyTags}</div>` : ''}
+            <div class="member-info">
+                <span style="background: #667eea; color: white; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">
+                    ${member.role === 'faculty' ? '教員' : member.role === 'staff' ? 'スタッフ' : '学生'}
+                </span>
+            </div>
+        `;
 
-            let studentCount = 0;
-            
-            members.forEach(member => {
-                if (member.role === 'student') studentCount++;
+        container.appendChild(card);
+    });
 
-                const card = document.createElement('div');
-                card.className = 'member-card';
-
-                // 趣味タグ
-                const hobbies = [];
-                if (member.hobby1) hobbies.push(member.hobby1);
-                if (member.hobby2) hobbies.push(member.hobby2);
-                if (member.specialty) hobbies.push(member.specialty);
-
-                const hobbyTags = hobbies.map(hobby => 
-                    `<span class="hobby-tag">${hobby}</span>`
-                ).join('');
-
-                // アバター（画像または名前の最初の文字）
-                const initial = member.name ? member.name.charAt(0) : '?';
-                const imageUrl = member.image_url;
-                
-                let avatarContent = '';
-                if (imageUrl && imageUrl.trim()) {
-                    avatarContent = `
-                        <img src="${imageUrl}" alt="${member.name}" 
-                             onload="this.style.opacity='1'; this.parentNode.classList.remove('no-image');"
-                             onerror="this.parentNode.classList.add('no-image'); this.style.display='none';"
-                             style="opacity: 0; transition: opacity 0.3s;">
-                        <div class="initial">${initial}</div>
-                    `;
-                } else {
-                    avatarContent = `<div class="initial">${initial}</div>`;
-                }
-
-                card.innerHTML = `
-                    <div class="member-avatar${!imageUrl ? ' no-image' : ''}">${avatarContent}</div>
-                    <h3 class="member-name">${member.name || 'Unknown'}</h3>
-                    <p class="member-title">${member.position_jp || ''} / ${member.position_en || ''}</p>
-                    ${member.research ? `<p style="color: #666; font-size: 0.9rem; margin: 0.5rem 0;">🔬 ${member.research}</p>` : ''}
-                    ${hobbyTags ? `<div class="hobby-tags">${hobbyTags}</div>` : ''}
-                    <div class="member-info">
-                        <span style="background: #667eea; color: white; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">
-                            ${member.role === 'faculty' ? '教員' : member.role === 'staff' ? 'スタッフ' : '学生'}
-                        </span>
-                    </div>
-                `;
-
-                container.appendChild(card);
-            });
-
-            // 統計更新
-            document.getElementById('totalMembers').textContent = members.length;
-            document.getElementById('studentCount').textContent = studentCount;
-        }
-
+    // 統計更新（もしstatsが存在すれば）
+    const totalElement = document.getElementById('totalMembers');
+    const studentElement = document.getElementById('studentCount');
+    if (totalElement) totalElement.textContent = members.length;
+    if (studentElement) studentElement.textContent = studentCount;
+}
         // データ読み込み
         async function loadMembers() {
             try {
