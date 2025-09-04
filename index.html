@@ -30,32 +30,92 @@
       opacity: 1;
       transform: translateY(0);
     }
+/* === UPDATED HERO SECTION === */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 500px; /* 最小高さを設定 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 0;
+  padding-top: 60px;
+  color: white;
+  box-sizing: border-box;
+  overflow: hidden;
+}
 
-    /* === UPDATED HERO SECTION === */
-    .hero {
-      position: relative;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      margin-top: 0;
-      padding-top: 60px;
-      color: white;
-      box-sizing: border-box;
-      overflow: hidden;
-    }
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  object-position: center center;
+  z-index: -1;
+}
 
-    .hero-video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
+/* レスポンシブ対応の強化 */
+@media (max-width: 1024px) {
+  .hero {
+    height: 100vh;
+    min-height: 600px;
+    padding: 60px 30px;
+  }
+  
+  .hero-video {
+    /* タブレットサイズでの調整 */
+    object-position: center center;
+  }
+}
 
+@media (max-width: 768px) {
+  .hero {
+    height: 100vh;
+    min-height: 500px;
+    padding: 40px 20px;
+  }
+  
+  .hero-video {
+    /* スマホサイズでの調整 */
+    object-position: center top;
+  }
+  
+  .hero h1 {
+    font-size: 40px;
+  }
+  
+  .hero p {
+    font-size: 20px;
+  }
+  
+  .hero-cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .hero-btn {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    min-height: 400px;
+  }
+  
+  .hero-video {
+    /* 小さなスマホでの調整 */
+    object-position: center center;
+  }
+}
     /* Background overlay for text readability */
     .hero::before {
       content: "";
@@ -550,12 +610,11 @@
 
 <!-- HERO SECTION -->
 <section class="hero fade-in">
-  <img 
-    class="hero-video" 
-    src="images/common/marmoset_hero_title.png" 
-    alt="Digital Twin Lab Hero Image"
-    style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: -1;"
-  >
+ <img 
+  class="hero-video" 
+  src="images/common/marmoset_hero_title.png" 
+  alt="Digital Twin Lab Hero Image"
+>
 </section>
 
   <!-- RESEARCH -->
