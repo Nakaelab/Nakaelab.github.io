@@ -30,92 +30,74 @@
       opacity: 1;
       transform: translateY(0);
     }
-/* === UPDATED HERO SECTION === */
-.hero {
-  position: relative;
-  height: 100vh;
-  min-height: 500px; /* 最小高さを設定 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin-top: 0;
-  padding-top: 60px;
-  color: white;
-  box-sizing: border-box;
-  overflow: hidden;
-}
 
-.hero-image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  object-position: center center;
-  z-index: -1;
-}
+    /* === UPDATED HERO SECTION === */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-top: 0;
+      padding-top: 60px;
+      color: white;
+      box-sizing: border-box;
+      overflow: hidden;
+      
+      /* 背景画像として設定 */
+      background-image: url('images/common/marmoset_hero_title.png');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
 
-/* レスポンシブ対応の強化 */
-@media (max-width: 1024px) {
-  .hero {
-    height: 100vh;
-    min-height: 600px;
-    padding: 60px 30px;
-  }
-  
-  .hero-image {
-    /* タブレットサイズでの調整 */
-    object-position: center center;
-  }
-}
+    /* レスポンシブ対応の強化 */
+    @media (max-width: 1024px) {
+      .hero {
+        height: 100vh;
+        min-height: 600px;
+        padding: 60px 30px;
+        background-position: center center;
+      }
+    }
 
-@media (max-width: 768px) {
-  .hero {
-    height: 100vh;
-    min-height: 500px;
-    padding: 40px 20px;
-  }
-  
-  .hero-image {
-    /* スマホサイズでの調整 */
-    object-position: center top;
-  }
-  
-  .hero h1 {
-    font-size: 40px;
-  }
-  
-  .hero p {
-    font-size: 20px;
-  }
-  
-  .hero-cta-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .hero-btn {
-    width: 100%;
-    max-width: 280px;
-    text-align: center;
-  }
-}
+    @media (max-width: 768px) {
+      .hero {
+        height: 100vh;
+        min-height: 500px;
+        padding: 40px 20px;
+        background-position: center top;
+      }
+      
+      .hero h1 {
+        font-size: 40px;
+      }
+      
+      .hero p {
+        font-size: 20px;
+      }
+      
+      .hero-cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .hero-btn {
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+      }
+    }
 
-@media (max-width: 480px) {
-  .hero {
-    min-height: 400px;
-  }
-  
-  .hero-image {
-    /* 小さなスマホでの調整 */
-    object-position: center center;
-  }
-}
+    @media (max-width: 480px) {
+      .hero {
+        min-height: 400px;
+        background-position: center center;
+      }
+    }
+
     /* Background overlay for text readability */
     .hero::before {
       content: "";
@@ -574,14 +556,10 @@
     🔄 Googleスプレッドシートから更新中...
   </div>
 
-<!-- HERO SECTION -->
-<section class="hero fade-in">
- <img 
-  class="hero-image" 
-  src="images/common/marmoset_hero_title.png" 
-  alt="Digital Twin Lab Hero Image"
->
-</section>
+  <!-- HERO SECTION -->
+  <section class="hero fade-in">
+    <!-- 画像は背景として設定されているため、imgタグは不要 -->
+  </section>
 
   <!-- RESEARCH -->
   <section class="research fade-in" id="research">
@@ -681,33 +659,31 @@
       const updateBadge = document.getElementById('updateBadge');
       updateBadge.style.display = 'block';
       
-      // 修正後
-    try {
-// ニュースデータ取得
-const newsResponse = await fetch(
-  `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${NEWS_SHEET_ID}`
-);
-const newsCSV = await newsResponse.text();
-const newsData = parseCSV(newsCSV);
-displayNews(newsData);
-  
-      console.log('✅ データ更新完了');
-  
-    } catch (error) {
-      console.error('❌ データの読み込みに失敗:', error);
-  
-      // エラー時はフォールバック表示
-      document.getElementById('newsContainer').innerHTML = 
-        '<li>データの読み込みに失敗しました。しばらく後に再度お試しください。</li>';
-    } finally {
-    updateBadge.style.display = 'none';
-  }
-}
+      try {
+        const newsResponse = await fetch(
+          `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${NEWS_SHEET_ID}`
+        );
+        const newsCSV = await newsResponse.text();
+        const newsData = parseCSV(newsCSV);
+        displayNews(newsData);
+        
+        console.log('✅ データ更新完了');
+        
+      } catch (error) {
+        console.error('❌ データの読み込みに失敗:', error);
+        
+        // エラー時はフォールバック表示
+        document.getElementById('newsContainer').innerHTML = 
+          '<li>データの読み込みに失敗しました。しばらく後に再度お試しください。</li>';
+      } finally {
+        updateBadge.style.display = 'none';
+      }
+    }
 
-// ここに移動
-document.addEventListener('DOMContentLoaded', function() {
-  loadData();
-});
+    // ここに移動
+    document.addEventListener('DOMContentLoaded', function() {
+      loadData();
+    });
 
     // フェードインアニメーション
     const fadeEls = document.querySelectorAll('.fade-in');
@@ -763,8 +739,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 600);
       }
     });
-   　
-　  </script>
+  </script>
 
 </body>
 </html>
