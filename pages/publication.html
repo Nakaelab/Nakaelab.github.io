@@ -622,9 +622,7 @@
               <div class="pub-authors">${highlightAuthors(pub.authors)}</div>
               <div class="pub-venue">${pub.venue}</div>
               <div class="pub-links">
-                ${pub.scholar_url && pub.scholar_url.startsWith('http') ? `<a href="${pub.scholar_url}" class="pub-link scholar" target="_blank" rel="noopener">Google Scholar</a>` : ''}
-                ${pub.doi_url && pub.doi_url.startsWith('http') ? `<a href="${pub.doi_url}" class="pub-link doi" target="_blank" rel="noopener">DOI</a>` : ''}
-                ${pub.pdf_url && pub.pdf_url.startsWith('http') ? `<a href="${pub.pdf_url}" class="pub-link pdf" target="_blank" rel="noopener">PDF</a>` : ''}
+                ${pub.doi_url && pub.doi_url.startsWith('http') ? `<a href="${pub.doi_url}" class="pub-link doi" target="_blank" rel="noopener">Read Article</a>` : ''}
               </div>
             </div>
           `;
