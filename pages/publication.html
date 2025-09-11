@@ -219,45 +219,6 @@
       border-color: #1e3c72;
     }
 
-    /* Stats Section */
-    .stats-section {
-      background: white;
-      border-radius: 15px;
-      padding: 30px;
-      margin-bottom: 30px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-    }
-
-    .stat-item {
-      text-align: center;
-      padding: 20px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border-radius: 10px;
-      transition: transform 0.3s;
-    }
-
-    .stat-item:hover {
-      transform: scale(1.05);
-    }
-
-    .stat-number {
-      font-size: 2.5em;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    .stat-label {
-      font-size: 1em;
-      opacity: 0.9;
-    }
-
     /* Publications Section */
     .publications-section {
       background: white;
@@ -501,7 +462,7 @@
 
   <!-- 自動更新バッジ -->
   <div class="auto-update-badge" id="updateBadge">
-    🔄 Googleスプレッドシートから更新中...
+    📄 Googleスプレッドシートから更新中...
   </div>
 
   <!-- Hero Section -->
@@ -513,28 +474,6 @@
   </section>
 
   <div class="container">
-    <!-- Stats Section -->
-    <section class="stats-section fade-in-up">
-      <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-number" id="totalPubs">-</div>
-          <div class="stat-label">総論文数</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" id="totalCitations">-</div>
-          <div class="stat-label">総被引用数</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" id="highestCitation">-</div>
-          <div class="stat-label">最高被引用数</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" id="activeYears">-</div>
-          <div class="stat-label">研究年数</div>
-        </div>
-      </div>
-    </section>
-
     <!-- Filter Section -->
     <section class="filter-section fade-in-up">
       <div class="filter-buttons">
@@ -657,29 +596,6 @@
       return grouped;
     }
 
-    // 統計を計算
-    function calculateStats(publications) {
-      const totalPubs = publications.length;
-      const totalCitations = publications.reduce((sum, pub) => {
-        const citations = parseInt(pub.citations) || 0;
-        return sum + citations;
-      }, 0);
-      const highestCitation = Math.max(...publications.map(pub => parseInt(pub.citations) || 0));
-      const years = [...new Set(publications.map(pub => pub.year).filter(year => year))];
-      const activeYears = years.length;
-
-      return { totalPubs, totalCitations, highestCitation, activeYears };
-    }
-
-    // 統計を更新
-    function updateStats(publications) {
-      const stats = calculateStats(publications);
-      document.getElementById('totalPubs').textContent = stats.totalPubs;
-      document.getElementById('totalCitations').textContent = stats.totalCitations + '+';
-      document.getElementById('highestCitation').textContent = stats.highestCitation;
-      document.getElementById('activeYears').textContent = stats.activeYears + '+';
-    }
-
     // 論文を表示
     function displayPublications(publications) {
       const container = document.getElementById('publicationsContainer');
@@ -735,7 +651,6 @@
       });
 
       displayPublications(filteredPublications);
-      updateStats(filteredPublications);
     }
 
     // 論文データを読み込む
@@ -764,7 +679,6 @@
         
         filteredPublications = [...allPublications];
         displayPublications(filteredPublications);
-        updateStats(filteredPublications);
         
         updateBadge.style.display = 'none';
         console.log('論文データの読み込み完了！');
