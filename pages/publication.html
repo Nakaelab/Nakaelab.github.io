@@ -617,7 +617,6 @@
           html += `
             <div class="publication-item" data-type="${pub.type}">
               <span class="pub-type ${getTypeClass(pub.type)}">${getTypeLabel(pub.type)}</span>
-              ${pub.citations && parseInt(pub.citations) > 0 ? `<span class="citation-count">${pub.citations} 被引用</span>` : ''}
               ${pub.scholar_url && pub.scholar_url.startsWith('http') ? 
                 `<div class="pub-title"><a href="${pub.scholar_url}" target="_blank" rel="noopener" style="color: #333; text-decoration: none;">${pub.title}</a></div>` : 
                 `<div class="pub-title">${pub.title}</div>`
