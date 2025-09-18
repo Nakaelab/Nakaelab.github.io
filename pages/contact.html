@@ -10,7 +10,6 @@
       font-family: 'Helvetica Neue', sans-serif;
       background-color: #f8f8f8;
       color: #111;
-      line-height: 1.7;
       padding-top: 90px;
     }
 
@@ -46,6 +45,7 @@
       text-decoration: none;
       font-weight: bold;
       padding: 8px 12px;
+      transition: background-color 0.3s;
     }
 
     nav a:hover {
@@ -54,222 +54,6 @@
       color: #1e3c72;
     }
 
-    /* Hero Section */
-    .hero {
-      position: relative;
-      height: 50vh;
-      background: linear-gradient(135deg, rgba(30, 60, 114, 0.9), rgba(52, 152, 219, 0.8)), 
-                  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23556b7d" width="1200" height="400"/><g fill="%23ffffff" opacity="0.15"><path d="M100,200 Q200,150 300,200 T500,200" stroke="%23ffffff" stroke-width="2" fill="none"/><path d="M600,180 Q700,130 800,180 T1000,180" stroke="%23ffffff" stroke-width="2" fill="none"/><circle cx="150" cy="120" r="8"/><circle cx="350" cy="140" r="6"/><circle cx="550" cy="160" r="10"/><circle cx="750" cy="100" r="7"/><circle cx="950" cy="120" r="9"/></g></svg>') center/cover no-repeat;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: #fff;
-    }
-
-    .hero-content h1 {
-      font-size: 3em;
-      margin-bottom: 0.3em;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    }
-
-    .hero-content p {
-      font-size: 1.3em;
-      max-width: 700px;
-      line-height: 1.6;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-    }
-
-    /* Container */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-
-    /* Section Styles */
-    .section {
-      background: white;
-      border-radius: 15px;
-      padding: 40px;
-      margin-bottom: 30px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    .section h2 {
-      color: #1e3c72;
-      font-size: 2.2em;
-      margin-bottom: 25px;
-      text-align: center;
-      position: relative;
-    }
-
-    .section h2::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, #1e3c72, #4a90e2);
-    }
-
-    .section h3 {
-      color: #2c5aa0;
-      font-size: 1.4em;
-      margin: 25px 0 15px;
-      border-left: 4px solid #1e3c72;
-      padding-left: 15px;
-    }
-
-    .highlight-box {
-      background: linear-gradient(135deg, #e8f4f8, #f0f8ff);
-      border: 2px solid #4a90e2;
-      border-radius: 10px;
-      padding: 25px;
-      margin: 20px 0;
-      position: relative;
-    }
-
-    .highlight-box::before {
-      position: absolute;
-      top: -10px;
-      left: 20px;
-      background: white;
-      padding: 0 10px;
-      font-size: 1.2em;
-    }
-
-    .highlight-box h3 {
-      color: #1e3c72;
-      margin-top: 0;
-      border: none;
-      padding: 0;
-    }
-
-    .recruitment-link {
-      display: inline-block;
-      background: linear-gradient(135deg, #4a90e2, #1e3c72);
-      color: white;
-      text-decoration: none;
-      padding: 12px 25px;
-      border-radius: 25px;
-      font-weight: bold;
-      margin: 15px 0;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
-    }
-
-    .recruitment-link:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
-    }
-
-    /* Contact Info Grid */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-      margin-top: 30px;
-    }
-
-    .contact-item {
-      background: #f8f9fa;
-      padding: 25px;
-      border-radius: 10px;
-      border-left: 4px solid #4a90e2;
-    }
-
-    .contact-item h4 {
-      color: #1e3c72;
-      margin-bottom: 15px;
-      font-size: 1.2em;
-    }
-
-    .contact-item p {
-      margin: 8px 0;
-      color: #555;
-    }
-
-    .email-link {
-      color: #4a90e2;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .email-link:hover {
-      text-decoration: underline;
-    }
-
-    /* Map Section */
-    .map-section {
-      margin-top: 30px;
-    }
-
-    .map-container {
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-      height: 400px;
-      position: relative;
-    }
-
-    .map-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    /* Program Info */
-    .program-info {
-      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-      border-radius: 10px;
-      padding: 20px;
-      margin: 20px 0;
-    }
-
-    .program-info h4 {
-      color: #1e3c72;
-      margin-bottom: 10px;
-    }
-
-    .program-info ul {
-      margin: 10px 0;
-      padding-left: 20px;
-    }
-
-    .program-info li {
-      margin: 5px 0;
-      color: #555;
-    }
-
-    /* Mobile */
-    @media (max-width: 768px) {
-      .hero-content h1 { 
-        font-size: 2em; 
-      }
-      
-      .hero-content p { 
-        font-size: 1.1em; 
-      }
-
-      .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-
-      .section {
-        padding: 25px;
-      }
-
-      .section h2 {
-        font-size: 1.8em;
-      }
-    }
-
-    /* Hamburger Menu */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -283,6 +67,7 @@
       min-width: 60px;
       justify-content: center;
       align-items: center;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .hamburger span {
@@ -296,9 +81,11 @@
     .hamburger.active span:nth-child(1) {
       transform: rotate(-45deg) translate(-5px, 6px);
     }
+
     .hamburger.active span:nth-child(2) {
       opacity: 0;
     }
+
     .hamburger.active span:nth-child(3) {
       transform: rotate(45deg) translate(-5px, -6px);
     }
@@ -343,6 +130,158 @@
         color: white;
       }
     }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 60vh;
+      background: linear-gradient(rgba(30, 60, 114, 0.8), rgba(30, 60, 114, 0.8)), 
+                  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23556b7d" width="1200" height="600"/><g fill="%23ffffff" opacity="0.1"><circle cx="200" cy="150" r="80"/><circle cx="600" cy="300" r="120"/><circle cx="1000" cy="200" r="60"/><circle cx="400" cy="450" r="90"/></g></svg>') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+    }
+
+    .hero-content h1 {
+      font-size: 3em;
+      margin-bottom: 0.3em;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .hero-content p {
+      font-size: 1.3em;
+      max-width: 700px;
+      line-height: 1.6;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .content-section {
+      background: white;
+      border-radius: 15px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .section-title {
+      font-size: 2em;
+      color: #1e3c72;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #1e3c72;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 30px;
+    }
+
+    .contact-info {
+      line-height: 1.8;
+    }
+
+    .contact-info h3 {
+      color: #1e3c72;
+      font-size: 1.3em;
+      margin-bottom: 15px;
+    }
+
+    .contact-info p {
+      margin-bottom: 10px;
+    }
+
+    .email {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: monospace;
+      border-left: 4px solid #1e3c72;
+    }
+
+    .recruitment-section {
+      background: #f8f9fa;
+      padding: 30px;
+      border-radius: 10px;
+      margin: 30px 0;
+      border-left: 4px solid #28a745;
+    }
+
+    .recruitment-section h3 {
+      color: #28a745;
+      margin-bottom: 15px;
+    }
+
+    .map-container {
+      width: 100%;
+      height: 400px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #ddd;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    .address-info {
+      margin-top: 20px;
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .address-info h4 {
+      color: #1e3c72;
+      margin-bottom: 10px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .hero-content h1 { 
+        font-size: 2em; 
+      }
+      
+      .hero-content p { 
+        font-size: 1.1em; 
+      }
+      
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .content-section {
+        padding: 20px;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.6s ease forwards;
+    }
   </style>
 </head>
 
@@ -354,12 +293,12 @@
       <span></span>
     </div>
     <ul id="navMenu">
-      <li><a href="../index.html">HOME</a></li>
-      <li><a href="research.html">RESEARCH</a></li>
-      <li><a href="member.html">MEMBERS</a></li>
-      <li><a href="publication.html">PUBLICATIONS</a></li>
-      <li><a href="news.html">NEWS</a></li>
-      <li><a href="contact.html" style="background-color: #1e3c72; border-radius: 4px; color: white; font-weight: bold;">CONTACT</a></li>
+        <li><a href="../index.html">HOME</a></li>
+        <li><a href="research.html">RESEARCH</a></li>
+        <li><a href="member.html">MEMBERS</a></li>
+        <li><a href="publication.html">PUBLICATIONS</a></li>
+        <li><a href="news.html">NEWS</a></li>
+        <li><a href="contact.html" style="background-color: #1e3c72; border-radius: 4px; color: white; font-weight: bold;">CONTACT</a></li>
     </ul>
   </nav>
 
@@ -372,146 +311,129 @@
   </section>
 
   <div class="container">
-    <!-- 大学院生募集 -->
-    <section class="section">
-      <h2>大学院生募集</h2>
+    <!-- Contact Information Section -->
+    <section class="content-section fade-in-up">
+      <h2 class="section-title">研究室情報</h2>
       
-      <div class="highlight-box">
-        <h3>大学院生を絶賛募集中です！</h3>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>連絡先</h3>
+          <div class="email">
+            <strong>Email:</strong> nakae [at] u-fukui.ac.jp<br>
+            <small>※ [at] を @ に置き換えてください</small>
+          </div>
+          
+          <h3 style="margin-top: 25px;">所在地</h3>
+          <p><strong>福井大学 文京キャンパス</strong></p>
+          <p>〒910-8507<br>
+          福井県福井市文京3-9-1<br>
+          総合研究棟I 0511号室</p>
+        </div>
+        
+        <div class="map-container">
+          <div id="map"></div>
+        </div>
+      </div>
+      
+      <div class="address-info">
+        <h4>アクセス</h4>
+        <p><strong>電車:</strong> えちぜん鉄道福井駅―（約10分）―福大前西福井駅</p>
+        <p><strong>バス:</strong> 京福バス福井駅―（約10分）―福井大学前停留所</p>
+        <p><strong>自動車:</strong> 北陸自動車道 福井北JCT・ICから国道416号線で西へ約7km</p>
+      </div>
+    </section>
+
+    <!-- Recruitment Section -->
+    <section class="content-section fade-in-up">
+      <h2 class="section-title">大学院生・研究員募集</h2>
+      
+      <div class="recruitment-section">
+        <h3>大学院生募集</h3>
         <p>当研究室では大学院生や学振PDを募集しています。これまでの研究内容、基礎知識は問いません。こつこつと真摯に研究に取り組んでいただける大学院生を歓迎します。</p>
         <p>大学院生活を通じて、論理力、英語力、問題発見・解決能力を培っていただき、アカデミック、民間と問わずに社会で活躍できる人材を育成したいと考えています。</p>
         <p><strong>随時、研究室見学も歓迎します。</strong></p>
-        
-        <a href="https://www.u-fukui.ac.jp/user_admission/examination/essential_point/info_grad/" target="_blank" class="recruitment-link">
-          📚 福井大学大学院入試情報
-        </a>
       </div>
-
-      <div class="program-info">
-        <h4>入学コース</h4>
-        <ul>
-          <li><strong>修士課程：</strong>工学研究科 知識社会基盤工学専攻 知能システム科学コース</li>
-          <li><strong>博士課程：</strong>工学研究科 知識社会基盤工学専攻</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- 学振PD募集 -->
-    <section class="section">
-      <h2>研究員・ポスドク募集</h2>
       
-      <div class="highlight-box">
-        <h3>学振PDの受け入れを募集中です！</h3>
-        <p>また予算状況によってはプロジェクト付きの特命助教、または助教として雇用できる場合があります。</p>
-        <p>デジタルツイン技術、計算論的神経科学、機械学習に興味をお持ちの研究者の方、お気軽にご相談ください。</p>
+      <div class="recruitment-section">
+        <h3>研究員募集</h3>
+        <p>また予算状況によってはプロジェクト付きの特命助教、または助教として雇用できる場合があります。デジタルツイン技術、計算論的神経科学、機械学習に興味をお持ちの研究者の方、お気軽にご相談ください。</p>
       </div>
-    </section>
-
-    <!-- 連絡先・アクセス -->
-    <section class="section">
-      <h2>連絡先・アクセス</h2>
       
-      <div class="contact-grid">
-        <div class="contact-item">
-          <h4>📧 メールアドレス</h4>
-          <p>
-            <a href="mailto:nakae@u-fukui.ac.jp" class="email-link">
-              nakae [at] u-fukui.ac.jp
-            </a>
-          </p>
-          <p style="font-size: 0.9em; color: #666;">
-            ※ [at] を @ に置き換えてください
-          </p>
-        </div>
-
-        <div class="contact-item">
-          <h4>📍 研究室所在地</h4>
-          <p><strong>福井大学 文京キャンパス</strong></p>
-          <p>〒910-8507</p>
-          <p>福井県福井市文京3-9-1</p>
-          <p>総合研究棟I 0511号室</p>
-        </div>
-      </div>
-
-      <div class="map-section">
-        <h3>🗺️ キャンパスマップ</h3>
-        <div class="map-container">
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3238.726719587737!2d136.19177987644814!3d36.063611172308116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5ff8bbbe67d0d5d9%3A0xaa0a11bcd6c8b6d6!2z56aP5LqV5aSn5a2mIOaWh-S6rOOCreODo-ODs-ODkeOCuQ!5e0!3m2!1sja!2sjp!4v1641000000000!5m2!1sja!2sjp"
-            allowfullscreen="" 
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
-        </div>
-      </div>
-    </section>
-
-    <!-- お問い合わせフォーム -->
-    <section class="section">
-      <h2>研究室見学・相談</h2>
-      
-      <div style="text-align: center; padding: 30px;">
-        <p style="font-size: 1.1em; margin-bottom: 25px;">
-          研究内容、大学院進学、共同研究など、どんなことでもお気軽にお問い合わせください。
-        </p>
-        
-        <div style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); padding: 25px; border-radius: 10px; margin: 20px 0;">
-          <h4 style="color: #1e3c72; margin-bottom: 15px;">💡 こんな方をお待ちしています</h4>
-          <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
-            <li>計算論的神経科学に興味がある方</li>
-            <li>デジタルツイン技術を学びたい方</li>
-            <li>機械学習・AI研究に取り組みたい方</li>
-            <li>学際的な研究に挑戦したい方</li>
-            <li>英語での研究発表に挑戦したい方</li>
-          </ul>
-        </div>
-
-        <p style="font-size: 1.2em; font-weight: bold; color: #1e3c72;">
-          ご興味がある方は、遠慮なく中江までご連絡ください。
-        </p>
-      </div>
+      <p style="margin-top: 30px; text-align: center; font-size: 1.1em;">
+        <strong>研究内容、大学院進学、共同研究など、どんなことでもお気軽にお問い合わせください。<br>
+        ご興味がある方は、遠慮なく中江までご連絡ください。</strong>
+      </p>
     </section>
   </div>
 
   <script>
+    // ハンバーガーメニューの機能
     function toggleMenu() {
-      const hamburger = document.querySelector('.hamburger');
       const navMenu = document.getElementById('navMenu');
-      hamburger.classList.toggle('active');
+      const hamburger = document.querySelector('.hamburger');
+      
       navMenu.classList.toggle('active');
+      hamburger.classList.toggle('active');
     }
 
-    // スムーススクロール
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
+    // Google Maps初期化
+    function initMap() {
+      // 福井大学文京キャンパスの正確な座標
+      const fukuiUniversity = { lat: 36.075678, lng: 136.211365 };
+      
+      const map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: fukuiUniversity,
+        mapTypeId: 'roadmap'
+      });
+      
+      const marker = new google.maps.Marker({
+        position: fukuiUniversity,
+        map: map,
+        title: '福井大学 文京キャンパス 総合研究棟I',
+        animation: google.maps.Animation.DROP
+      });
+      
+      const infoWindow = new google.maps.InfoWindow({
+        content: '<div style="padding: 10px;"><h3>福井大学 文京キャンパス</h3><p>総合研究棟I 0511号室<br>Digital Twin Lab</p></div>'
+      });
+      
+      marker.addListener('click', function() {
+        infoWindow.open(map, marker);
+      });
+    }
+
+    // 地図の読み込みエラー処理
+    function mapError() {
+      document.getElementById('map').innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #f0f0f0; color: #666;"><p>地図の読み込みに失敗しました</p></div>';
+    }
+
+    // ページ読み込み完了時の処理
+    document.addEventListener('DOMContentLoaded', function() {
+      // アニメーション要素の処理
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in-up');
+          }
         });
+      }, observerOptions);
+
+      document.querySelectorAll('.content-section').forEach(section => {
+        observer.observe(section);
       });
     });
-
-    // アニメーション効果
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.section').forEach(section => {
-      section.style.opacity = '0';
-      section.style.transform = 'translateY(30px)';
-      section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-      observer.observe(section);
-    });
+  </script>
+  
+  <!-- Google Maps APIの読み込み -->
+  <script async defer 
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&error=mapError"
+    onerror="mapError()">
   </script>
 </body>
 </html>
