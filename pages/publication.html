@@ -532,13 +532,15 @@
           authors: values[1] || '',
           venue: values[2] || '',
           year: values[3] || '',
-          type: values[4] || '',
-          citations: values[5] || '0',
-          doi_url: values[6] || '',
-          scholar_url: values[7] || '',
-          pdf_url: values[8] || '',
-          primary_url: values[9] || '',    // 列J（DOI URL）
-          fallback_url: values[10] || ''   // 列K（フォールバック用）
+          published_date: values[4] || '',
+          clean_date: values[5] || '',
+          type: values[6] || '',
+          citations: values[7] || '',
+          doi: values[8] || '',
+          doi_url: values[9] || '',         // 列J（DOI_URL）
+          primary_url: values[10] || '',    // 列K（Primary URL）
+          scholar_url: values[11] || '',    // 列L
+          pdf_url: values[12] || ''         // 列M
         };
         
         if (row.title && row.title.trim() !== '') {
@@ -611,10 +613,10 @@
         html += `<h2 class="year-header">${year}</h2>`;
         
         groupedByYear[year].forEach(pub => {
-          // リンクの優先順位：列J（DOI URL） → 列K（フォールバック） → リンクなし
+          // リンクの優先順位：列K（Primary URL） → 列J（DOI URL） → リンクなし
           const linkUrl = pub.primary_url && pub.primary_url.startsWith('http') ? 
             pub.primary_url : 
-            (pub.fallback_url && pub.fallback_url.startsWith('http') ? pub.fallback_url : '');
+            (pub.doi_url && pub.doi_url.startsWith('http') ? pub.doi_url : '');
 
           html += `
             <div class="publication-item" data-type="${pub.type}">
