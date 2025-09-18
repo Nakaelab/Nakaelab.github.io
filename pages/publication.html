@@ -297,22 +297,23 @@
     .pub-type.preprint { background: #ffc107; color: #333; }
     .pub-type.misc { background: #6f42c1; }
 
-    .citation-count {
-      float: right;
-      background: #dc3545;
-      color: white;
-      padding: 4px 10px;
-      border-radius: 15px;
-      font-size: 0.8em;
-      font-weight: bold;
-    }
-
     .pub-title {
       font-size: 1.2em;
       font-weight: bold;
       color: #333;
       margin-bottom: 10px;
       line-height: 1.4;
+    }
+
+    .pub-title a {
+      color: #333;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .pub-title a:hover {
+      color: #1e3c72;
+      text-decoration: underline;
     }
 
     .pub-authors {
@@ -416,12 +417,6 @@
       
       .pub-links {
         justify-content: flex-start;
-      }
-
-      .citation-count {
-        float: none;
-        display: inline-block;
-        margin-left: 10px;
       }
     }
 
@@ -541,7 +536,9 @@
           citations: values[5] || '0',
           doi_url: values[6] || '',
           scholar_url: values[7] || '',
-          pdf_url: values[8] || ''
+          pdf_url: values[8] || '',
+          primary_url: values[9] || '',    // 列J（DOI URL）
+          fallback_url: values[10] || ''   // 列K（フォールバック用）
         };
         
         if (row.title && row.title.trim() !== '') {
@@ -614,11 +611,16 @@
         html += `<h2 class="year-header">${year}</h2>`;
         
         groupedByYear[year].forEach(pub => {
+          // リンクの優先順位：列J（DOI URL） → 列K（フォールバック） → リンクなし
+          const linkUrl = pub.primary_url && pub.primary_url.startsWith('http') ? 
+            pub.primary_url : 
+            (pub.fallback_url && pub.fallback_url.startsWith('http') ? pub.fallback_url : '');
+
           html += `
             <div class="publication-item" data-type="${pub.type}">
               <span class="pub-type ${getTypeClass(pub.type)}">${getTypeLabel(pub.type)}</span>
-              ${pub.scholar_url && pub.scholar_url.startsWith('http') ? 
-                `<div class="pub-title"><a href="${pub.scholar_url}" target="_blank" rel="noopener" style="color: #333; text-decoration: none;">${pub.title}</a></div>` : 
+              ${linkUrl ? 
+                `<div class="pub-title"><a href="${linkUrl}" target="_blank" rel="noopener">${pub.title}</a></div>` : 
                 `<div class="pub-title">${pub.title}</div>`
               }
               <div class="pub-authors">${highlightAuthors(pub.authors)}</div>
