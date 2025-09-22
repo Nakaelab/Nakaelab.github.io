@@ -229,11 +229,41 @@
       border-radius: 10px;
       overflow: hidden;
       border: 1px solid #ddd;
+      position: relative;
     }
 
-    #map {
+    .static-map {
       width: 100%;
       height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .static-map:hover {
+      transform: scale(1.02);
+    }
+
+    .static-map .map-icon {
+      font-size: 3em;
+      margin-bottom: 15px;
+    }
+
+    .static-map h3 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .static-map p {
+      font-size: 1em;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
     }
 
     .address-info {
@@ -246,6 +276,32 @@
     .address-info h4 {
       color: #1e3c72;
       margin-bottom: 10px;
+    }
+
+    .location-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .location-btn {
+      background: #1e3c72;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 0.9em;
+      transition: all 0.3s ease;
+    }
+
+    .location-btn:hover {
+      background: #2d4a8a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(30, 60, 114, 0.3);
     }
 
     @media screen and (max-width: 768px) {
@@ -265,6 +321,14 @@
       .content-section {
         padding: 20px;
       }
+
+      .location-buttons {
+        flex-direction: column;
+      }
+
+      .location-btn {
+        text-align: center;
+      }
     }
 
     /* Animations */
@@ -281,6 +345,50 @@
 
     .fade-in-up {
       animation: fadeInUp 0.6s ease forwards;
+    }
+
+    /* Map Modal */
+    .map-modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+    }
+
+    .map-modal-content {
+      background: white;
+      margin: 5% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 800px;
+      height: 80vh;
+      position: relative;
+    }
+
+    .map-close {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .map-close:hover {
+      color: #333;
+    }
+
+    .embedded-map {
+      width: 100%;
+      height: calc(100% - 60px);
+      border: none;
+      border-radius: 8px;
     }
   </style>
 </head>
@@ -328,10 +436,21 @@
           <p>〒910-8507<br>
           福井県福井市文京3-9-1<br>
           総合研究棟I 0511号室</p>
+
+          <div class="location-buttons">
+            <a href="#" class="location-btn" onclick="openMapModal()">📍 地図を表示</a>
+            <a href="https://www.google.com/maps/place/%E7%A6%8F%E4%BA%95%E5%A4%A7%E5%AD%A6/@36.0756784,136.2091763,17z" target="_blank" class="location-btn">🗺️ Google Maps</a>
+            <a href="https://maps.apple.com/?q=36.075678,136.211365" target="_blank" class="location-btn">🍎 Apple Maps</a>
+          </div>
         </div>
         
         <div class="map-container">
-          <div id="map"></div>
+          <div class="static-map" onclick="openMapModal()">
+            <div class="map-icon">📍</div>
+            <h3>福井大学 文京キャンパス</h3>
+            <p>総合研究棟I 0511号室<br>Digital Twin Lab</p>
+            <p style="margin-top: 15px; font-size: 0.9em; opacity: 0.9;">クリックで詳細地図を表示</p>
+          </div>
         </div>
       </div>
       
@@ -366,6 +485,21 @@
     </section>
   </div>
 
+  <!-- Map Modal -->
+  <div id="mapModal" class="map-modal">
+    <div class="map-modal-content">
+      <span class="map-close" onclick="closeMapModal()">&times;</span>
+      <h3 style="margin-top: 0; color: #1e3c72;">福井大学 文京キャンパス</h3>
+      <iframe 
+        class="embedded-map"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3244.8974859583!2d136.20917631525477!3d36.07567848010082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5ff8b0f5f5f5f5f5%3A0x5f5f5f5f5f5f5f5f!2z56aP5LqV5aSn5a2m!5e0!3m2!1sja!2sjp!4v1623456789012"
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+
   <script>
     // ハンバーガーメニューの機能
     function toggleMenu() {
@@ -376,37 +510,31 @@
       hamburger.classList.toggle('active');
     }
 
-    // Google Maps初期化
-    function initMap() {
-      // 福井大学文京キャンパスの正確な座標
-      const fukuiUniversity = { lat: 36.075678, lng: 136.211365 };
-      
-      const map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
-        center: fukuiUniversity,
-        mapTypeId: 'roadmap'
-      });
-      
-      const marker = new google.maps.Marker({
-        position: fukuiUniversity,
-        map: map,
-        title: '福井大学 文京キャンパス 総合研究棟I',
-        animation: google.maps.Animation.DROP
-      });
-      
-      const infoWindow = new google.maps.InfoWindow({
-        content: '<div style="padding: 10px;"><h3>福井大学 文京キャンパス</h3><p>総合研究棟I 0511号室<br>Digital Twin Lab</p></div>'
-      });
-      
-      marker.addListener('click', function() {
-        infoWindow.open(map, marker);
-      });
+    // マップモーダルの制御
+    function openMapModal() {
+      document.getElementById('mapModal').style.display = 'block';
+      document.body.style.overflow = 'hidden';
     }
 
-    // 地図の読み込みエラー処理
-    function mapError() {
-      document.getElementById('map').innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #f0f0f0; color: #666;"><p>地図の読み込みに失敗しました</p></div>';
+    function closeMapModal() {
+      document.getElementById('mapModal').style.display = 'none';
+      document.body.style.overflow = 'auto';
     }
+
+    // モーダル外クリックで閉じる
+    window.onclick = function(event) {
+      const modal = document.getElementById('mapModal');
+      if (event.target === modal) {
+        closeMapModal();
+      }
+    }
+
+    // ESCキーでモーダルを閉じる
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeMapModal();
+      }
+    });
 
     // ページ読み込み完了時の処理
     document.addEventListener('DOMContentLoaded', function() {
@@ -428,12 +556,6 @@
         observer.observe(section);
       });
     });
-  </script>
-  
-  <!-- Google Maps APIの読み込み -->
-  <script async defer 
-    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&error=mapError"
-    onerror="mapError()">
   </script>
 </body>
 </html>
