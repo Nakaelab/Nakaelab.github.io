@@ -4,12 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Digital Twin Lab</title>
+  
+  <!-- 共通CSSを読み込み -->
+  <link rel="stylesheet" href="common.css">
+  
   <style>
     body {
       margin: 0;
-      font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', 'Meiryo', sans-serif;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', 'Meiryo', 'Helvetica Neue', sans-serif;
       background-color: #f8f8f8;
       color: #111;
+      padding-top: 90px;
     }
 
     /* パララックス効果共通 */
@@ -338,124 +343,6 @@
       color: #666;
     }
 
-    /* === NAVIGATION STYLES === */
-    nav {
-      background-color: rgba(248, 248, 248, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 10px 0;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      min-height: 40px;
-      transition: all 0.3s ease;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    }
-
-    nav ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-    }
-
-    nav li {
-      margin: 0 20px;
-    }
-
-    nav a {
-      color: #333;
-      text-decoration: none;
-      font-weight: 400;
-      font-family: 'Noto Serif JP', serif;
-      padding: 6px 10px;
-    }
-
-    nav a:hover {
-      background-color: rgba(255, 255, 255, 0.15);
-      border-radius: 4px;
-      color: #1e3c72;
-    }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      padding: 20px 15px;
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      min-height: 60px;
-      min-width: 60px;
-      justify-content: center;
-      align-items: center;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .hamburger span {
-      width: 25px;
-      height: 4px;
-      background-color: #333;
-      margin: 4px 0;
-      transition: 0.3s;
-    }
-
-    .hamburger.active span:nth-child(1) {
-      transform: rotate(-45deg) translate(-5px, 6px);
-    }
-
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-      transform: rotate(45deg) translate(-5px, -6px);
-    }
-
-    @media (max-width: 768px) {
-      .hamburger {
-        display: flex;
-      }
-
-      nav ul {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background-color: #333;
-        flex-direction: column;
-        align-items: center;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-      }
-
-      nav ul.active {
-        max-height: 500px;
-      }
-
-      nav li {
-        margin: 0;
-        width: 100%;
-        text-align: center;
-      }
-
-      nav a {
-        display: block;
-        padding: 15px 20px;
-        border-bottom: 1px solid #555;
-        font-size: 16px;
-        min-height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-      }
-    }
-
     /* === CONTACT SECTION === */
     .contact {
       background: #1e3c72;
@@ -489,48 +376,48 @@
     }
 
    .floating-marmoset {
-  position: fixed;
-  width: 60px;
-  height: 60px;
-  opacity: 0.6;
-  pointer-events: none;
-  z-index: 1000;
-  transition: all 0.1s ease;
-}
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: 1000;
+      transition: all 0.1s ease;
+    }
 
-.floating-marmoset.following {
-  background: url('images/common/m_4.png') center/contain no-repeat;
-}
+    .floating-marmoset.following {
+      background: url('images/common/m_4.png') center/contain no-repeat;
+    }
 
-.floating-marmoset.bounce {
-  animation: bounce 0.6s ease;
-}
+    .floating-marmoset.bounce {
+      animation: bounce 0.6s ease;
+    }
 
-@keyframes bounce {
-  0% { transform: scale(1) translateY(0); }
-  30% { transform: scale(1.2) translateY(-20px); }
-  50% { transform: scale(1.1) translateY(-10px); }
-  70% { transform: scale(1.15) translateY(-15px); }
-  100% { transform: scale(1) translateY(0); }
-}
+    @keyframes bounce {
+      0% { transform: scale(1) translateY(0); }
+      30% { transform: scale(1.2) translateY(-20px); }
+      50% { transform: scale(1.1) translateY(-10px); }
+      70% { transform: scale(1.15) translateY(-15px); }
+      100% { transform: scale(1) translateY(0); }
+    }
 
-.loading {
-  opacity: 0.6;
-  font-style: italic;
-}
+    .loading {
+      opacity: 0.6;
+      font-style: italic;
+    }
 
-.auto-update-badge {
-  position: fixed;
-  top: 100px;
-  right: 20px;
-  background: rgba(76, 175, 80, 0.9);
-  color: white;
-  padding: 8px 15px;
-  border-radius: 20px;
-  font-size: 12px;
-  z-index: 1001;
-  display: none;
-}
+    .auto-update-badge {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      background: rgba(76, 175, 80, 0.9);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      z-index: 1001;
+      display: none;
+    }
   </style>
 </head>
 
@@ -553,7 +440,7 @@
 
   <!-- 自動更新バッジ -->
   <div class="auto-update-badge" id="updateBadge">
-    🔄 Googleスプレッドシートから更新中...
+    📄 Googleスプレッドシートから更新中...
   </div>
 
   <!-- HERO SECTION -->
@@ -647,7 +534,7 @@
         
         // クリックでnews.htmlに移動
         li.addEventListener('click', function() {
-          window.location.href = 'news.html';
+          window.location.href = 'pages/news.html';
         });
         
         container.appendChild(li);
@@ -680,6 +567,15 @@
       }
     }
 
+    // 共通のハンバーガーメニュー関数
+    function toggleMenu() {
+      const hamburger = document.querySelector('.hamburger');
+      const navMenu = document.getElementById('navMenu');
+      
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    }
+
     // ここに移動
     document.addEventListener('DOMContentLoaded', function() {
       loadData();
@@ -695,14 +591,6 @@
       });
     }, { threshold: 0.1 });
     fadeEls.forEach(el => observer.observe(el));
-
-    function toggleMenu() {
-      const hamburger = document.querySelector('.hamburger');
-      const navMenu = document.getElementById('navMenu');
-      
-      hamburger.classList.toggle('active');
-      navMenu.classList.toggle('active');
-    }
 
     // Image interaction
     const image = document.querySelector('.hero-marmoset-image');
