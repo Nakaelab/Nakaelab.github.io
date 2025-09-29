@@ -22,59 +22,50 @@
             padding-top: 90px;
         }
 
-        /* ===== ヒーローセクション - 背景画像を更新 ===== */
+        /* ===== 画像セクション ===== */
 
-        .hero-section {
+        .hero-image-section {
             position: relative;
-            padding: 4rem 2rem;
+            height: 400px;
             background: url('../images/research/research_brain.jpg') center/cover no-repeat;
-            color: white;
-            text-align: center;
             overflow: hidden;
         }
 
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.3);
-            z-index: 1;
-        }
-
-        .hero-section::after {
+        .hero-image-section::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            height: 150px;
+            height: 100px;
             background: linear-gradient(to bottom, transparent, white);
             pointer-events: none;
-            z-index: 1;
+        }
+
+        /* ===== テキストセクション ===== */
+
+        .hero-text-section {
+            padding: 3rem 2rem 4rem;
+            background: white;
+            text-align: center;
         }
 
         .hero-content {
             max-width: 1000px;
             margin: 0 auto;
-            position: relative;
-            z-index: 2;
         }
 
         .hero-title {
             font-size: 3.5rem;
             font-weight: bold;
             margin-bottom: 1.5rem;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            color: #1e3c72;
         }
 
         .hero-subtitle {
             font-size: 1.3rem;
             margin-bottom: 2rem;
-            opacity: 0.95;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+            color: #4a5568;
         }
 
         .hero-description {
@@ -82,8 +73,7 @@
             line-height: 1.8;
             max-width: 800px;
             margin: 0 auto;
-            opacity: 0.95;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+            color: #4a5568;
         }
 
         /* ミッションセクション */
@@ -333,8 +323,13 @@
         </ul>
     </nav>
 
-    <!-- ヒーローセクション -->
-    <section class="hero-section">
+    <!-- 画像セクション -->
+    <section class="hero-image-section">
+        <!-- 背景画像のみ -->
+    </section>
+
+    <!-- テキストセクション -->
+    <section class="hero-text-section">
         <div class="hero-content">
             <h1 class="hero-title">Research</h1>
             <p class="hero-subtitle">デジタルツイン研究室の研究活動</p>
