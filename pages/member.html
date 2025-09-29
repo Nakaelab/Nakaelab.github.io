@@ -24,26 +24,16 @@
 
         /* Hero Section */
         .hero-section {
-            padding: 4rem 2rem 1rem;
-            min-height: 70vh;
+            padding: 4rem 2rem 2rem;
+            min-height: 50vh;
             background: url('../images/members/member_back.png') center/cover no-repeat;
         }
 
         .content-container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .marmoset-image {
-            width: 100%;
-            max-width: 525px;
-            height: 420px;
-            background: url('../images/members/asuwayama.JPG') center/contain no-repeat;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+            text-align: center;
+            padding: 0 2rem;
         }
 
         .main-title {
@@ -59,6 +49,25 @@
             color: #666;
             line-height: 1.8;
             margin-bottom: 3rem;
+        }
+
+        /* Collage Section */
+        .collage-section {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .collage-section img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .collage-section img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
         }
 
         /* Stats */
@@ -213,18 +222,16 @@
 
         /* Mobile */
         @media (max-width: 768px) {
-            .content-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                text-align: center;
-            }
-
             .main-title {
                 font-size: 2.5rem;
             }
 
             .stats-container {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .collage-section {
+                padding: 0 1rem;
             }
         }
     </style>
@@ -248,15 +255,17 @@
 
     <section class="hero-section">
         <div class="content-container">
-            <div class="marmoset-image"></div>
-            <div>
-                <h1 class="main-title">メンバー</h1>
-                <p class="description">
-                    デジタルツイン研究室の優秀な研究者、学生、スタッフたちが一丸となって計算論的神経科学の最前線を切り拓いています。
-                </p>
-            </div>
+            <h1 class="main-title">メンバー</h1>
+            <p class="description">
+                デジタルツイン研究室の優秀な研究者、学生、スタッフたちが一丸となって計算論的神経科学の最前線を切り拓いています。
+            </p>
         </div>
     </section>
+
+    <!-- コラージュセクション -->
+    <div class="collage-section">
+        <img src="../images/members/member_gathering.png" alt="研究室の活動風景">
+    </div>
 
     <div class="members-section">
         <h2 class="section-title">メンバー紹介</h2>
@@ -352,10 +361,8 @@
                 const values = lines[i].split(',');
                 const row = {};
                 headers.forEach((header, index) => {
-                    // 空文字を空文字として保持（nullにしない）
                     row[header] = values[index] ? values[index].trim() : '';
                 });
-                // 名前が空でない場合のみ追加
                 if (row.name && row.name.trim()) {
                     data.push(row);
                 }
@@ -363,7 +370,7 @@
             return data;
         }
 
-        // メンバー表示関数も修正
+        // メンバー表示関数
         function displayMembers(members) {
             const container = document.getElementById('membersContainer');
             container.innerHTML = '';
@@ -376,7 +383,6 @@
                 const card = document.createElement('div');
                 card.className = 'member-card';
 
-                // 趣味タグ（空でない項目のみ）
                 const hobbies = [];
                 if (member.hobby1 && member.hobby1.trim()) hobbies.push(member.hobby1);
                 if (member.hobby2 && member.hobby2.trim()) hobbies.push(member.hobby2);
@@ -386,7 +392,6 @@
                     `<span class="hobby-tag">${hobby}</span>`
                 ).join('');
 
-                // アバター（画像または名前の最初の文字）
                 const initial = member.name ? member.name.charAt(0) : '?';
                 const imageUrl = member.image_url && member.image_url.trim() ? member.image_url.trim() : '';
                 
@@ -419,7 +424,6 @@
                 container.appendChild(card);
             });
 
-            // 統計更新（もしstatsが存在すれば）
             const totalElement = document.getElementById('totalMembers');
             const studentElement = document.getElementById('studentCount');
             if (totalElement) totalElement.textContent = members.length;
@@ -447,7 +451,6 @@
                 
             } catch (error) {
                 console.error('スプレッドシート読み込みエラー:', error);
-                // エラー時はテストデータを表示
                 displayMembers(testMembers);
             }
         }
@@ -462,10 +465,8 @@
 
         // ページ読み込み時に実行
         document.addEventListener('DOMContentLoaded', function() {
-            // まずテストデータで表示（即座に表示）
             displayMembers(testMembers);
             
-            // その後、スプレッドシートから読み込みを試行
             setTimeout(() => {
                 loadMembers();
             }, 1000);
