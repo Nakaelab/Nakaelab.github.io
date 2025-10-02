@@ -20,50 +20,41 @@
       padding-top: 90px;
     }
 
-    /* ===== 画像セクション ===== */
-    .hero-image-section {
+    /* ===== Hero Section（画像とテキストを重ねる） ===== */
+    .hero {
       position: relative;
-      height: 400px;
+      height: 60vh;
+      min-height: 500px;
       background: url('../images/contact/contact_marmoset.png') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
       overflow: hidden;
     }
 
-    .hero-image-section::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 100px;
-      background: linear-gradient(to bottom, transparent, #f8f8f8);
-      pointer-events: none;
-    }
-
-    /* ===== テキストセクション ===== */
-    .hero-text-section {
-      padding: 3rem 2rem 4rem;
-      background: #f8f8f8;
-      text-align: center;
-    }
-
     .hero-content {
+      position: relative;
+      z-index: 10;
       max-width: 1000px;
-      margin: 0 auto;
+      padding: 0 20px;
     }
 
-    .hero-title {
-      font-size: 3.5rem;
-      font-weight: bold;
-      margin-bottom: 1.5rem;
+    .hero-content h1 {
+      font-size: 3.5em;
+      margin-bottom: 0.5em;
       color: #1e3c72;
+      font-weight: bold;
+      text-shadow: 2px 2px 8px rgba(255,255,255,0.9);
     }
 
-    .hero-description {
-      font-size: 1.3rem;
-      line-height: 1.8;
-      max-width: 800px;
-      margin: 0 auto;
-      color: #4a5568;
+    .hero-content p {
+      font-size: 1.3em;
+      max-width: 700px;
+      line-height: 1.6;
+      color: #333;
+      text-shadow: 1px 1px 4px rgba(255,255,255,0.9);
     }
 
     /* Main Content */
@@ -152,16 +143,17 @@
     }
 
     @media screen and (max-width: 768px) {
-      .hero-image-section {
-        height: 300px;
+      .hero {
+        height: 50vh;
+        min-height: 400px;
       }
 
-      .hero-title {
-        font-size: 2.5rem;
+      .hero-content h1 {
+        font-size: 2.5em;
       }
 
-      .hero-description {
-        font-size: 1.1rem;
+      .hero-content p {
+        font-size: 1.1em;
       }
       
       .contact-grid {
@@ -209,18 +201,11 @@
     </ul>
   </nav>
 
-  <!-- 画像セクション -->
-  <section class="hero-image-section">
-    <!-- 背景画像のみ -->
-  </section>
-
-  <!-- テキストセクション -->
-  <section class="hero-text-section">
+  <!-- Hero Section（画像の上にテキストを配置） -->
+  <section class="hero">
     <div class="hero-content">
-      <h1 class="hero-title">お問い合わせ</h1>
-      <p class="hero-description">
-        研究室へのお問い合わせ、大学院生募集、共同研究のご相談など、お気軽にご連絡ください
-      </p>
+      <h1>お問い合わせ</h1>
+      <p>研究室へのお問い合わせ、大学院生募集、共同研究のご相談など、お気軽にご連絡ください</p>
     </div>
   </section>
 
