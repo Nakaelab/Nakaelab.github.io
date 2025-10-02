@@ -17,77 +17,50 @@
       padding-top: 90px;
     }
 
-    /* Hero Section - 修正版 */
-    .hero {
+    /* ===== 画像セクション ===== */
+    .hero-image-section {
       position: relative;
-      height: 60vh;
-      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: #fff;
+      height: 400px;
+      background: url('../images/publication/brain.jpg') center/cover no-repeat;
       overflow: hidden;
     }
 
-    /* 脳の背景画像 */
-    .hero::before {
+    .hero-image-section::after {
       content: '';
       position: absolute;
-      top: 50%;
-      right: 10%;
-      transform: translateY(-50%);
-      width: 500px;
-      height: 350px;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350"><ellipse cx="250" cy="175" rx="180" ry="120" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/><path d="M 120 130 Q 160 110, 200 120 T 280 140 T 380 155" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/><path d="M 110 160 Q 150 145, 190 155 T 270 175 T 390 185" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/><path d="M 100 200 Q 140 185, 180 195 T 260 215 T 400 225" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/><line x1="160" y1="165" x2="200" y2="180" stroke="rgba(255,255,255,0.1)" stroke-width="1"/><line x1="200" y1="180" x2="250" y2="170" stroke="rgba(255,255,255,0.1)" stroke-width="1"/><line x1="250" y1="170" x2="300" y2="185" stroke="rgba(255,255,255,0.1)" stroke-width="1"/><line x1="300" y1="185" x2="340" y2="175" stroke="rgba(255,255,255,0.1)" stroke-width="1"/><circle cx="160" cy="165" r="3" fill="rgba(255,255,255,0.15)"/><circle cx="200" cy="180" r="3" fill="rgba(255,255,255,0.15)"/><circle cx="250" cy="170" r="3" fill="rgba(255,255,255,0.15)"/><circle cx="300" cy="185" r="3" fill="rgba(255,255,255,0.15)"/><circle cx="340" cy="175" r="3" fill="rgba(255,255,255,0.15)"/></svg>');
-      background-size: contain;
-      background-repeat: no-repeat;
-      opacity: 1;
-      animation: subtlePulse 6s ease-in-out infinite;
-      z-index: 1;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: linear-gradient(to bottom, transparent, #f8f8f8);
+      pointer-events: none;
     }
 
-    @keyframes subtlePulse {
-      0%, 100% { 
-        opacity: 1;
-        transform: translateY(-50%) scale(1);
-      }
-      50% { 
-        opacity: 0.7;
-        transform: translateY(-50%) scale(1.03);
-      }
-    }
-
-    /* 微妙なグリッド背景 */
-    .hero::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 40px 40px;
-      z-index: 0;
+    /* ===== テキストセクション ===== */
+    .hero-text-section {
+      padding: 3rem 2rem 4rem;
+      background: #f8f8f8;
+      text-align: center;
     }
 
     .hero-content {
-      position: relative;
-      z-index: 10;
+      max-width: 1000px;
+      margin: 0 auto;
     }
 
-    .hero-content h1 {
-      font-size: 3em;
-      margin-bottom: 0.3em;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+      color: #1e3c72;
     }
 
-    .hero-content p {
-      font-size: 1.3em;
-      max-width: 700px;
-      line-height: 1.6;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    .hero-description {
+      font-size: 1.3rem;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 0 auto;
+      color: #4a5568;
     }
 
     /* Main Content */
@@ -335,19 +308,17 @@
 
     /* Responsive */
     @media screen and (max-width: 768px) {
-      .hero {
-        height: 50vh;
+      .hero-image-section {
+        height: 300px;
       }
 
-      .hero::before {
-        width: 300px;
-        height: 210px;
-        right: -50px;
-        opacity: 0.6;
+      .hero-title {
+        font-size: 2.5rem;
       }
 
-      .hero-content h1 { font-size: 2em; }
-      .hero-content p { font-size: 1.1em; }
+      .hero-description {
+        font-size: 1.1rem;
+      }
       
       .filter-buttons {
         justify-content: flex-start;
@@ -403,11 +374,18 @@
     📄 Googleスプレッドシートから更新中...
   </div>
 
-  <!-- Hero Section -->
-  <section class="hero">
+  <!-- 画像セクション -->
+  <section class="hero-image-section">
+    <!-- 背景画像のみ -->
+  </section>
+
+  <!-- テキストセクション -->
+  <section class="hero-text-section">
     <div class="hero-content">
-      <h1>研究成果</h1>
-      <p>デジタルツイン技術、計算論的神経科学、機械学習における革新的な研究成果を通じて、神経計算の理解を深める研究活動を推進しています。</p>
+      <h1 class="hero-title">研究成果</h1>
+      <p class="hero-description">
+        デジタルツイン技術、計算論的神経科学、機械学習における革新的な研究成果を通じて、神経計算の理解を深める研究活動を推進しています。
+      </p>
     </div>
   </section>
 
