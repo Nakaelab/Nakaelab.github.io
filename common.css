@@ -98,7 +98,7 @@ nav a:hover {
   }
 
   nav ul.active {
-    max-height: 500px;
+    max-height: none;
   }
 
   nav li {
