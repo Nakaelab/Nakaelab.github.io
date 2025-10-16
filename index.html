@@ -36,7 +36,7 @@
       transform: translateY(0);
     }
 
-    /* === UPDATED HERO SECTION === */
+   /* === UPDATED HERO SECTION === */
     .hero {
       position: relative;
       height: 100vh;
@@ -50,24 +50,26 @@
       color: white;
       box-sizing: border-box;
       overflow: hidden;
-      
+
       /* 背景画像として設定 */
       background-image: url('images/common/marmoset_hero_title.png');
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
     }
-    
-    /* === モバイルでのヒーロー画像調整 === */
-    @media (max-width: 768px) {
-    .hero {
-      background-size: contain;       /* トリミング防止 */
-      background-color: #000;         /* 余白時の背景色（黒 or 白） */
-      background-position: center top; /* 被写体が上寄りの場合 */
-      height: auto;
-      aspect-ratio: 9 / 12;
-      }
-    }
+
+/* === モバイルでのヒーロー画像調整 === */
+@media (max-width: 768px) {
+  .hero {
+    background-image: url('images/common/Mobile_hero_marmoset.png'); /* ← モバイル専用 */
+    background-size: cover;          /* 全画面に自然にフィット */
+    background-position: center 25%; /* 顔が上寄りなので少し下げて見せる */
+    height: auto;
+    aspect-ratio: 3 / 4;             /* 縦長の比率に合わせる */
+    background-color: #000;          /* 余白時の馴染ませ用 */
+  }
+}
+
 
     /* レスポンシブ対応の強化 */
     @media (max-width: 1024px) {
