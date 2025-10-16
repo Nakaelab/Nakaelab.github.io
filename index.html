@@ -57,6 +57,17 @@
       background-position: center center;
       background-repeat: no-repeat;
     }
+    
+    /* === モバイルでのヒーロー画像調整 === */
+    @media (max-width: 768px) {
+    .hero {
+      background-size: contain;       /* トリミング防止 */
+      background-color: #000;         /* 余白時の背景色（黒 or 白） */
+      background-position: center top; /* 被写体が上寄りの場合 */
+      height: auto;
+      aspect-ratio: 9 / 12;
+      }
+    }
 
     /* レスポンシブ対応の強化 */
     @media (max-width: 1024px) {
