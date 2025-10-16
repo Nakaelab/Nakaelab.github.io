@@ -39,7 +39,8 @@
     /* === HERO SECTION === */
     .hero {
       position: relative;
-      height: 100vh;
+      height: 80vh;              /* 100vh → 80vh に変更 */
+      max-height: 800px;         /* この行を追加 */
       min-height: 500px;
       display: flex;
       align-items: center;
@@ -50,7 +51,7 @@
       color: white;
       box-sizing: border-box;
       overflow: hidden;
-      
+  
       /* デスクトップ用の背景画像 */
       background-image: url('images/common/marmoset_hero_title.png');
       background-size: cover;
@@ -61,7 +62,8 @@
     /* レスポンシブ対応の強化 */
     @media (max-width: 1024px) {
       .hero {
-        height: 100vh;
+        height: 80vh;            /* 100vh → 80vh に変更 */
+        max-height: 800px;       /* この行を追加 */
         min-height: 600px;
         padding: 60px 30px;
         background-position: center center;
