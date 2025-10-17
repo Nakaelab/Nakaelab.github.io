@@ -192,74 +192,7 @@
             font-size: 0.95rem;
         }
 
-        /* アプローチセクション */
-        .approach-section {
-            padding: 5rem 2rem;
-            background: white;
-        }
-
-        .approach-timeline {
-            max-width: 800px;
-            margin: 3rem auto 0;
-            position: relative;
-        }
-
-        .approach-timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, #667eea, #764ba2);
-            transform: translateX(-50%);
-        }
-
-        .approach-step {
-            display: flex;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .approach-step:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .approach-content {
-            flex: 1;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 0 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .approach-step::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 20px;
-            height: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            border: 4px solid white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-
-        .approach-title {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 0.8rem;
-        }
-
-        .approach-description {
-            color: #666;
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
+    
 
         /* レスポンシブ */
         @media (max-width: 768px) {
@@ -289,15 +222,13 @@
                 left: 20px;
             }
         }
-/* === タイムライン（縦線と●の位置をまっすぐ中央に） === */
-
+/* === タイムライン（中央の縦線と●をまっすぐ。カードは常に中央）=== */
 :root {
   --line-color: linear-gradient(to bottom, #667eea, #764ba2);
   --dot-size: 20px;
-  --gap: 140px; /* カード間の距離。広げたい時に調整 */
+  --gap: 140px; /* カード間の距離 */
 }
 
-/* タイムライン全体：中央寄せ・線を擬似要素で作成 */
 .approach-timeline {
   position: relative;
   width: 100%;
@@ -305,6 +236,7 @@
   margin: 0 auto;
 }
 
+/* 真ん中の縦線 */
 .approach-timeline::before {
   content: '';
   position: absolute;
@@ -317,11 +249,11 @@
   z-index: 0;
 }
 
-/* 一番上の丸（線の先頭） */
+/* 一番上の●（線の先頭） */
 .approach-timeline::after {
   content: '';
   position: absolute;
-  top: 0;
+  top: 0;                 /* もっと下にしたければ 6px などへ */
   left: 50%;
   transform: translate(-50%, -50%);
   width: var(--dot-size);
@@ -329,17 +261,18 @@
   border-radius: 50%;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border: 4px solid #fff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
   z-index: 2;
 }
 
-/* 各カードのコンテナ */
+/* 各ステップ（カードの親） */
 .approach-step {
   position: relative;
+  display: block;         /* ← flexをやめて幅が狭くなるのを防止 */
   margin: var(--gap) 0;
 }
 
-/* 各カードの中央に●を配置 */
+/* カードのど真ん中に● */
 .approach-step::after {
   content: '';
   position: absolute;
@@ -351,40 +284,32 @@
   border-radius: 50%;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border: 4px solid #fff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
   z-index: 2;
 }
 
-/* カードデザイン */
+/* カード本体：中央寄せで程よい幅に */
 .approach-content {
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   padding: 2rem;
   border-radius: 15px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  max-width: 800px;
-  margin: 0 auto;
+  width: min(90%, 800px); /* 画面に合わせて最大800px */
+  margin: 0 auto;        /* 中央寄せ */
   position: relative;
   z-index: 1;
 }
 
-/* スマホ対応 */
+/* スマホは左寄せの見やすい配置に */
 @media (max-width: 768px) {
-  .approach-timeline::before {
-    left: 28px;
-    transform: none;
-  }
-  .approach-timeline::after {
-    left: 28px;
-    transform: translate(-50%, -50%);
-  }
+  .approach-timeline::before,
+  .approach-timeline::after,
   .approach-step::after {
     left: 28px;
     transform: translate(-50%, -50%);
   }
-  .approach-content {
-    margin-left: 56px;
-    margin-right: 0;
-  }
+  .approach-timeline::after { top: 0; } /* 先頭の● */
+  .approach-content { margin-left: 56px; margin-right: 12px; width: auto; }
 }
 
     </style>
