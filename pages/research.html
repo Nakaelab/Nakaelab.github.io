@@ -294,7 +294,7 @@
 :root {
   --line-color: linear-gradient(to bottom, #667eea, #764ba2);
   --dot-size: 20px;
-  --dot-space: 120px; /* ← この値を広げると、カード間が広くなる */
+  --dot-space: 70px; /* ← この値を広げると、カード間が広くなる */
 }
 
 /* タイムラインの縦線 */
@@ -329,7 +329,7 @@
 
 /* 一番上の丸だけ上に余白を追加（ページ端と被らないように） */
 .approach-step:first-child::after {
-  top: calc(-1 * var(--dot-space) / 2 - 30px);
+  top: calc(-1 * var(--dot-space) / 2 - 20px);
 }
 
 /* カード（中央揃え） */
