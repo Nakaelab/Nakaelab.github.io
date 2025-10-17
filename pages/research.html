@@ -222,102 +222,88 @@
                 left: 20px;
             }
         }
-/* === タイムライン：●はカード間のど真ん中、間隔を狭める、最上部の●を上へ === */
+/* ====== タイムライン修正（真ん中に来る＆間隔調整） ====== */
 :root{
-  --line-color: linear-gradient(to bottom,#667eea,#764ba2);
-  --dot-size: 20px;
-  --gap: 80px;          /* ← カード間の“空き”。小さくするとカードが詰まる */
-  --top-offset: 30px;   /* ← 一番上の●をどれだけ上に出すか（数字↑でさらに上） */
+  /* カードとカードの間隔。狭めたければ数字を小さく、広げたければ大きく */
+  --gap: 120px;          /* 例：120px → 狭めるなら 100px / 90px など */
+  --top-offset: 36px;    /* 一番上の●の高さ（上にしたいほど数値を大きく） */
 }
 
-/* タイムライン本体 */
+/* 縦線は中央のまま */
 .approach-timeline{
   position: relative;
-  max-width: 800px;
   width: 100%;
+  max-width: 800px;
   margin: 0 auto;
-  padding-top: var(--top-offset); /* ← 一番上の●を上に出すための余白 */
 }
-
-/* 縦線 */
 .approach-timeline::before{
   content:'';
   position:absolute;
   top:0;
   bottom:0;
   left:50%;
-  transform:translateX(-50%);
   width:2px;
-  background:var(--line-color);
+  background: linear-gradient(to bottom, #667eea, #764ba2);
+  transform: translateX(-50%);
   z-index:0;
 }
-
-/* 一番上の●（線の先頭より上に少し出す） */
+/* 一番上の●の位置（上に寄せたいときは --top-offset を増やす） */
 .approach-timeline::after{
   content:'';
   position:absolute;
-  top:0;                      /* ← ここは 0 のままにして */
   left:50%;
-  transform:translate(-50%,-50%);   /* padding-top 分だけ“上”に見える */
-  width:var(--dot-size);
-  height:var(--dot-size);
-  border-radius:50%;
-  background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+  top: var(--top-offset);
+  transform: translate(-50%, -50%);
+  width:20px; height:20px; border-radius:50%;
+  background: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
   border:4px solid #fff;
   box-shadow:0 2px 10px rgba(0,0,0,.2);
   z-index:2;
 }
 
-/* 各ステップ（“下側”にだけ空きを作るのがコツ） */
+/* ★ここがポイント：margin を使わず padding で上下スペースを作る */
 .approach-step{
-  position:relative;
-  margin: 30px 0 0;          /* ← 上下のマージンは小さめ */
-  padding-bottom: var(--gap);/* ← 次のカードとの間隔はここで作る */
+  position: relative;
+  padding: calc(var(--gap)/2) 0;   /* 上下に半分ずつの余白＝カード間合計が --gap */
+  margin: 0;                       /* 既存の margin を打ち消す */
 }
 
-/* ●を「現在のカード」と「次のカード」の“ど真ん中”に置く */
+/* ●は常に step のど真ん中（カードとカードの真ん中） */
 .approach-step::after{
   content:'';
   position:absolute;
-  top: calc(100% - var(--gap)/2);   /* ← 下方向の空きの“ど真ん中” */
   left:50%;
-  transform:translate(-50%,-50%);
-  width:var(--dot-size);
-  height:var(--dot-size);
-  border-radius:50%;
-  background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+  top:50%;
+  transform: translate(-50%, -50%);
+  width:20px; height:20px; border-radius:50%;
+  background: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
   border:4px solid #fff;
   box-shadow:0 2px 10px rgba(0,0,0,.2);
   z-index:2;
 }
 
-/* カード本体 */
+/* カード本体は中央寄せのまま */
 .approach-content{
-  background:linear-gradient(135deg,#f8f9fa 0%,#e9ecef 100%);
-  padding:2rem;
-  border-radius:15px;
-  box-shadow:0 5px 15px rgba(0,0,0,.1);
-  width:min(90%,800px);
-  margin:0 auto;   /* 真ん中寄せ */
-  position:relative;
-  z-index:1;
+  background: linear-gradient(135deg,#f8f9fa 0%, #e9ecef 100%);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.1);
+  max-width: 800px;
+  margin: 0 auto;  /* 中央寄せ */
+  position: relative;
+  z-index: 1;
 }
 
-/* スマホ */
-@media (max-width:768px){
+/* スマホ：左寄せタイムラインのまま */
+@media (max-width: 768px){
   .approach-timeline::before,
   .approach-timeline::after,
   .approach-step::after{
-    left:28px;
-    transform:translate(-50%,-50%);
+    left: 28px;
+    transform: translate(-50%, -50%);
   }
-  .approach-content{
-    margin-left:56px;
-    margin-right:12px;
-    width:auto;
-  }
+  .approach-content{ margin-left: 56px; margin-right: 0; }
 }
-
 
     </style>
 </head>
