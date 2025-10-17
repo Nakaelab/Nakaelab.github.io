@@ -289,6 +289,54 @@
                 left: 20px;
             }
         }
+   /* === FIX: 研究アプローチのタイムラインを中央揃え（PC＆スマホ） === */
+
+/* 真ん中の縦ラインの基準を明確に */
+.approach-timeline {
+  position: relative;
+}
+
+/* 真ん中の縦ラインをちょうど中央に */
+.approach-timeline::before {
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 0;                 /* 線はドットより奥に */
+}
+
+/* 各ステップ（カード）の縦位置を中央にそろえる */
+.approach-step {
+  position: relative;
+  display: flex;
+  align-items: center;        /* これでドットがカードの真ん中に来やすくなる */
+}
+
+/* 真ん中の〇（ドット）を縦ラインのど真ん中に */
+.approach-step::after {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 18px;                /* 少し小さめにしてズレ感を減らす（好みで調整可） */
+  height: 18px;
+  border: 4px solid #fff;     /* 縁取りで見やすく */
+  z-index: 1;                 /* 線よりも手前に */
+}
+
+/* スマホでは左寄せに切替（ズレ防止） */
+@media (max-width: 768px) {
+  .approach-timeline::before {
+    left: 28px;
+    transform: none;
+  }
+  .approach-step::after {
+    left: 28px;
+    transform: translate(-50%, -50%);
+  }
+  .approach-content {
+    margin-left: 56px;        /* 線＋ドット分の余白を確保 */
+    margin-right: 0;
+  }
+}
+
     </style>
 </head>
 <body>
