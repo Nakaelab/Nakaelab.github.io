@@ -290,7 +290,7 @@
             }
         }
 /* === Timeline：カードは中央一直線、●はカードとカードの“間”のど真ん中 === */
-:root { --step-gap: 100px; }       /* ← ●の上下スペース（お好みで 60〜120px） */
+:root { --step-gap: 60px; }       /* ← ●の上下スペース（お好みで 60〜120px） */
 
 .approach-timeline{
   position: relative;
@@ -342,7 +342,7 @@
 
 /* 一番上の●を少しだけ“さらに上”へ（好みで微調整してOK） */
 .approach-step:first-child::after{
-  top: calc(var(--step-gap) / 2 - 40px);
+  top: calc(var(--step-gap) / 2 - 70px);
 }
 
 /* スマホ：線と●は左、カードは左にオフセットして重なり回避 */
