@@ -289,53 +289,50 @@
                 left: 20px;
             }
         }
-   /* === FIX: 研究アプローチのタイムラインを中央揃え（PC＆スマホ） === */
+/* === FIX: 丸とカードが重ならないよう、カードを中央線から離す === */
 
-/* 真ん中の縦ラインの基準を明確に */
-.approach-timeline {
-  position: relative;
+/* カードの幅を「画面の半分 − 余白」にして、中央線から少し下げる */
+.approach-content{
+  width: calc(50% - 80px);   /* ← 80px は余白。重なるなら 90〜110px に増やしてOK */
+  margin: 0;                 /* 既存の左右 2rem マージンを打ち消す */
 }
 
-/* 真ん中の縦ラインをちょうど中央に */
-.approach-timeline::before {
+/* 左側（奇数段）は中央線との間に余白を入れる */
+.approach-step:nth-child(odd) .approach-content{
+  margin-right: 80px;        /* 中央線とのスキマ */
+}
+
+/* 右側（偶数段）は反対側に余白を入れる */
+.approach-step:nth-child(even) .approach-content{
+  margin-left: 80px;         /* 中央線とのスキマ */
+}
+
+/* 丸（ドット）と線は中央のまま */
+.approach-timeline{ position: relative; }
+.approach-timeline::before{
   left: 50%;
   transform: translateX(-50%);
-  z-index: 0;                 /* 線はドットより奥に */
+  z-index: 0;
 }
-
-/* 各ステップ（カード）の縦位置を中央にそろえる */
-.approach-step {
-  position: relative;
-  display: flex;
-  align-items: center;        /* これでドットがカードの真ん中に来やすくなる */
-}
-
-/* 真ん中の〇（ドット）を縦ラインのど真ん中に */
-.approach-step::after {
+.approach-step{ display:flex; align-items:center; position:relative; }
+.approach-step::after{
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 18px;                /* 少し小さめにしてズレ感を減らす（好みで調整可） */
-  height: 18px;
-  border: 4px solid #fff;     /* 縁取りで見やすく */
-  z-index: 1;                 /* 線よりも手前に */
+  z-index: 1;
 }
 
-/* スマホでは左寄せに切替（ズレ防止） */
-@media (max-width: 768px) {
-  .approach-timeline::before {
-    left: 28px;
-    transform: none;
-  }
-  .approach-step::after {
-    left: 28px;
-    transform: translate(-50%, -50%);
-  }
-  .approach-content {
-    margin-left: 56px;        /* 線＋ドット分の余白を確保 */
+/* スマホは従来通り“左寄せ”で重なり回避 */
+@media (max-width: 768px){
+  .approach-content{
+    width: auto;
+    margin-left: 56px;       /* 左の縦線・丸ぶんの余白 */
     margin-right: 0;
   }
+  .approach-timeline::before{ left: 28px; transform: none; }
+  .approach-step::after{ left: 28px; transform: translate(-50%, -50%); }
 }
+
 
     </style>
 </head>
