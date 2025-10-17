@@ -222,13 +222,14 @@
                 left: 20px;
             }
         }
-/* === タイムライン（中央の縦線と●をまっすぐ。カードは常に中央）=== */
+/* === タイムライン（カード間の中央に●、上の●を少し上げる）=== */
 :root {
   --line-color: linear-gradient(to bottom, #667eea, #764ba2);
   --dot-size: 20px;
-  --gap: 80px; /* カード間の距離 */
+  --gap: 110px; /* ← カード間の距離を少し狭く（前は140px） */
 }
 
+/* タイムライン全体 */
 .approach-timeline {
   position: relative;
   width: 100%;
@@ -236,7 +237,7 @@
   margin: 0 auto;
 }
 
-/* 真ん中の縦線 */
+/* 縦線 */
 .approach-timeline::before {
   content: '';
   position: absolute;
@@ -249,11 +250,11 @@
   z-index: 0;
 }
 
-/* 一番上の●（線の先頭） */
+/* 一番上の●（線の先頭より少し上に） */
 .approach-timeline::after {
   content: '';
   position: absolute;
-  top: 0;                 /* もっと下にしたければ 6px などへ */
+  top: -10px; /* ← 上に10pxずらして「線より少し上」 */
   left: 50%;
   transform: translate(-50%, -50%);
   width: var(--dot-size);
@@ -265,18 +266,18 @@
   z-index: 2;
 }
 
-/* 各ステップ（カードの親） */
+/* 各カードブロック */
 .approach-step {
   position: relative;
-  display: block;         /* ← flexをやめて幅が狭くなるのを防止 */
+  display: block;
   margin: var(--gap) 0;
 }
 
-/* カードのど真ん中に● */
+/* ●をカードとカードのちょうど間に配置 */
 .approach-step::after {
   content: '';
   position: absolute;
-  top: 50%;
+  top: calc(100% + var(--gap) / -2); /* ← カードの下半分と次カードの上半分の中間点に配置 */
   left: 50%;
   transform: translate(-50%, -50%);
   width: var(--dot-size);
@@ -288,19 +289,19 @@
   z-index: 2;
 }
 
-/* カード本体：中央寄せで程よい幅に */
+/* カードデザイン */
 .approach-content {
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   padding: 2rem;
   border-radius: 15px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  width: min(90%, 800px); /* 画面に合わせて最大800px */
-  margin: 0 auto;        /* 中央寄せ */
+  width: min(90%, 800px);
+  margin: 0 auto;
   position: relative;
   z-index: 1;
 }
 
-/* スマホは左寄せの見やすい配置に */
+/* スマホ用 */
 @media (max-width: 768px) {
   .approach-timeline::before,
   .approach-timeline::after,
@@ -308,8 +309,11 @@
     left: 28px;
     transform: translate(-50%, -50%);
   }
-  .approach-timeline::after { top: 0; } /* 先頭の● */
-  .approach-content { margin-left: 56px; margin-right: 12px; width: auto; }
+  .approach-content {
+    margin-left: 56px;
+    margin-right: 12px;
+    width: auto;
+  }
 }
 
     </style>
