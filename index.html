@@ -55,15 +55,16 @@
       
       /* デスクトップ用の背景画像 */
       background-image: url('images/common/marmoset_hero_title.png');
-      background-size: cover;
+      background-size: contain;  /* このように変更 */
       background-position: center center;
       background-repeat: no-repeat;
+      background-color: #5a7a4d;  /* この1行を追加 */
     }
 
      /* 超ワイド画面での拡大を防ぐ */
   @media (min-width: 1920px) {
     .hero {
-      background-size: 1600px auto;
+      background-size: contain;  /* このように変更 */
       background-position: center center;
     }
   }
