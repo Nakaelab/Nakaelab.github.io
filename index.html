@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="common.css">
   
   <style>
-    :root { --nav-h: 80px; } 
     body {
       margin: 0;
       font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', 'Meiryo', 'Helvetica Neue', sans-serif;
@@ -55,19 +54,20 @@
       
       /* デスクトップ用の背景画像 */
       background-image: url('images/common/marmoset_hero_title.png');
-      background-size: contain;  /* このように変更 */
+      background-size: contain;
       background-position: center center;
       background-repeat: no-repeat;
-      background-color: #5a7a4d;  /* この1行を追加 */
+      background-color: #5a7a4d;
     }
 
-     /* 超ワイド画面での拡大を防ぐ */
-  @media (min-width: 1920px) {
-    .hero {
-      background-size: contain;  /* このように変更 */
-      background-position: center center;
+    /* 超ワイド画面での設定 */
+    @media (min-width: 1920px) {
+      .hero {
+        background-size: contain;
+        background-position: center center;
+      }
     }
-  }
+
     /* レスポンシブ対応の強化 */
     @media (max-width: 1024px) {
       .hero {
@@ -89,25 +89,6 @@
         background-position: center center;
         background-size: contain;
         background-color: #5a7a4d;
-      }
-      
-      .hero h1 {
-        font-size: 40px;
-      }
-      
-      .hero p {
-        font-size: 20px;
-      }
-      
-      .hero-cta-buttons {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .hero-btn {
-        width: 100%;
-        max-width: 280px;
-        text-align: center;
       }
     }
 
@@ -139,98 +120,7 @@
       margin: 0 auto;
     }
 
-    .hero-lab-name {
-      font-size: 24px;
-      color: #64748b;
-      margin-bottom: 20px;
-      font-weight: 400;
-      opacity: 0;
-      animation: heroSlideInRight 1s ease 0.5s forwards;
-    }
-
-    .hero h1 {
-      font-size: clamp(48px, 8vw, 72px);
-      font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 30px;
-      color: white;
-      opacity: 0;
-      animation: heroSlideInUp 1s ease 0.7s forwards;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    }
-
-    .hero p {
-      font-size: 36px;
-      font-weight: 700;
-      line-height: 1.4;
-      color: white;
-      margin: 0 0 20px 0;
-      opacity: 0;
-      animation: heroSlideInUp 1s ease 0.9s forwards;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-      letter-spacing: 0.05em;
-    }
-
-    .hero-lab-info {
-      font-size: 18px;
-      font-weight: 400;
-      color: white;
-      opacity: 0;
-      animation: heroSlideInUp 1s ease 1.1s forwards;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-      letter-spacing: 0.1em;
-    }
-
-    .hero-cta-buttons {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      opacity: 0;
-      animation: heroSlideInUp 1s ease 1.1s forwards;
-    }
-
-    .hero-btn {
-      padding: 16px 32px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 16px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      background: #64748b;
-      color: #ffffff;
-      border: 2px solid #64748b;
-    }
-
-    .hero-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.1);
-      transition: left 0.3s ease;
-    }
-
-    .hero-btn:hover::before {
-      left: 0;
-    }
-
-    .hero-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(100, 116, 139, 0.3);
-      background: #475569;
-      border-color: #475569;
-    }
-
     /* Hero Animations */
-    @keyframes heroShimmer {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-
     @keyframes heroSlideInUp {
       from {
         opacity: 0;
@@ -466,7 +356,8 @@
       text-decoration: underline;
     }
 
-   .floating-marmoset {
+    /* === マーモセット関連 === */
+    .floating-marmoset {
       position: fixed;
       width: 60px;
       height: 60px;
@@ -492,6 +383,7 @@
       100% { transform: scale(1) translateY(0); }
     }
 
+    /* === その他のユーティリティ === */
     .loading {
       opacity: 0.6;
       font-style: italic;
@@ -510,6 +402,7 @@
       display: none;
     }
 
+    /* === レスポンシブ対応 === */
     @media screen and (max-width: 768px) {
       .news-list li {
         flex-direction: column;
@@ -538,14 +431,14 @@
       <span></span>
       <span></span>
     </div>
-   <ul id="navMenu">
+    <ul id="navMenu">
       <li><a href="index.html" style="background-color: #1e3c72; border-radius: 4px; color: white; font-weight: bold;">HOME</a></li>
       <li><a href="pages/research.html">RESEARCH</a></li>
       <li><a href="pages/member.html">MEMBERS</a></li>
       <li><a href="https://scholar.google.co.jp/citations?user=XOE-MT8AAAAJ&hl=ja" target="_blank">PUBLICATIONS</a></li>
       <li><a href="pages/news.html">NEWS</a></li>
       <li><a href="pages/contact.html">CONTACT</a></li>
-</ul>
+    </ul>
   </nav>
 
   <!-- 自動更新バッジ -->
@@ -603,8 +496,7 @@
       <p><a href="https://www.u-fukui.ac.jp/user_admission/examination/essential_point/info_grad/" target="_blank">
           ➤ 福井大学大学院入試情報
       </a></p>
-      
-      </div>
+    </div>
   </section>
 
   <script>
@@ -644,7 +536,7 @@
           title: values[1] || '',
           detail: values[2] || '',
           category: values[3] || 'event',
-          link: values[4] || ''  // Link列を追加
+          link: values[4] || ''
         };
         
         // 空のタイトルは除外
@@ -772,7 +664,7 @@
       navMenu.classList.toggle('active');
     }
 
-    // ここに移動
+    // ページ読み込み時の初期化
     document.addEventListener('DOMContentLoaded', function() {
       loadData();
     });
@@ -787,18 +679,6 @@
       });
     }, { threshold: 0.1 });
     fadeEls.forEach(el => observer.observe(el));
-
-    // Image interaction
-    const image = document.querySelector('.hero-marmoset-image');
-    if (image) {
-      image.addEventListener('mouseenter', function() {
-        this.style.transform = 'scale(1.02)';
-      });
-
-      image.addEventListener('mouseleave', function() {
-        this.style.transform = 'scale(1)';
-      });
-    }
 
     // クリックした場所に飛んでいくマーモセット
     document.addEventListener('click', function(e) {
