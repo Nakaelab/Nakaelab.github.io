@@ -129,6 +129,15 @@ section {
     transform: translateY(0);
   }
 }
+.hero {
+  /* 動画が表示されない時の一時的な対応 */
+  background-image: url('images/common/Hero_image_ver2.png');
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: #5a7a4d;
+}
+
 
 /* === RESEARCH SECTION === */
 .research {
