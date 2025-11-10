@@ -1,0 +1,170 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', 'Meiryo', 'Helvetica Neue', sans-serif;
+    background: white;
+    min-height: 100vh;
+    padding-top: 90px;
+}
+
+/* ===== 画像セクション ===== */
+.hero-image-section {
+    position: relative;
+    height: 400px;
+    background: url('../images/research/research_brain.jpg') center/cover no-repeat;
+    overflow: hidden;
+}
+
+.hero-image-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, white);
+    pointer-events: none;
+}
+
+/* ===== テキストセクション ===== */
+.hero-text-section {
+    padding: 3rem 2rem 4rem;
+    background: white;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #1e3c72;
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    margin-bottom: 2rem;
+    color: #4a5568;
+}
+
+.hero-description {
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
+    color: #4a5568;
+}
+
+/* ===== 共通コンテナ ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section {
+    padding: 4rem 0;
+}
+
+.section-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.section-description {
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+}
+
+/* ===== ミッションセクション ===== */
+.mission-section {
+    background: #f8f9fa;
+}
+
+.mission-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.mission-item {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    border-left: 4px solid #1e3c72;
+}
+
+.mission-item-title {
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    font-weight: 600;
+    color: #1e3c72;
+    margin-bottom: 0.75rem;
+}
+
+.mission-item-description {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    color: #555;
+    line-height: 1.8;
+}
+
+/* ===== アプローチセクション ===== */
+.approach-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.approach-item {
+    background: #f8f9fa;
+    padding: 1.75rem;
+    border-radius: 8px;
+}
+
+.approach-item-title {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.approach-item-description {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    color: #666;
+    line-height: 1.7;
+}
+
+/* ===== レスポンシブ調整 ===== */
+@media (max-width: 768px) {
+    .hero-image-section {
+        height: 250px;
+    }
+
+    .hero-text-section {
+        padding: 2rem 1rem 3rem;
+    }
+
+    .section {
+        padding: 3rem 0;
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+
+    .mission-item,
+    .approach-item {
+        padding: 1.5rem;
+    }
+}
