@@ -41,19 +41,25 @@ section {
   box-sizing: border-box;
   overflow: hidden;
   
-  /* デスクトップ用の背景画像 */
-  background-image: url('images/common/Hero_image_ver2.png');
-  background-size: contain;
-  background-position: center center;
-  background-repeat: no-repeat;
+  /* フォールバック用の背景色 */
   background-color: #5a7a4d;
+}
+
+/* 背景動画のスタイル（デスクトップ用） */
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
 
 /* 超ワイド画面での設定 */
 @media (min-width: 1920px) {
   .hero {
-    background-size: contain;
-    background-position: center center;
+    /* 動画は自動的にフィット */
   }
 }
 
@@ -63,7 +69,6 @@ section {
     height: 100vh;
     min-height: 600px;
     padding: 60px 30px;
-    background-position: center center;
   }
 }
 
@@ -73,11 +78,15 @@ section {
     min-height: 500px;
     padding: 40px 20px;
     
-    /* モバイル用の背景画像に切り替え */
+    /* モバイル用は動画を非表示にして静止画に切り替え */
     background-image: url('images/common/Mobile_hero_marmoset.png');
     background-position: center center;
     background-size: contain;
     background-color: #5a7a4d;
+  }
+  
+  .hero-video {
+    display: none;
   }
 }
 
