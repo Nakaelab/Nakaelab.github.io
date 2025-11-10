@@ -41,7 +41,11 @@ section {
   box-sizing: border-box;
   overflow: hidden;
   
-  /* フォールバック用の背景色 */
+  /* フォールバック用：動画が読み込めない時は静止画を表示 */
+  background-image: url('images/common/Hero_image_ver2.png');
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
   background-color: #5a7a4d;
 }
 
@@ -129,15 +133,6 @@ section {
     transform: translateY(0);
   }
 }
-.hero {
-  /* 動画が表示されない時の一時的な対応 */
-  background-image: url('images/common/Hero_image_ver2.png');
-  background-size: contain;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-color: #5a7a4d;
-}
-
 
 /* === RESEARCH SECTION === */
 .research {
