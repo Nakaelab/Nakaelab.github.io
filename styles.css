@@ -1,0 +1,412 @@
+body {
+  margin: 0;
+  font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', 'Meiryo', 'Helvetica Neue', sans-serif;
+  background-color: #f8f8f8;
+  color: #111;
+  padding-top: 90px;
+}
+
+/* パララックス効果共通 */
+section {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* フェードインアニメーション */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === HERO SECTION === */
+.hero {
+  position: relative;
+  height: 80vh;
+  max-height: 800px;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 0;
+  padding-top: 60px;
+  color: white;
+  box-sizing: border-box;
+  overflow: hidden;
+  
+  /* デスクトップ用の背景画像 */
+  background-image: url('images/common/marmoset_hero_title.png');
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: #5a7a4d;
+}
+
+/* 超ワイド画面での設定 */
+@media (min-width: 1920px) {
+  .hero {
+    background-size: contain;
+    background-position: center center;
+  }
+}
+
+/* レスポンシブ対応の強化 */
+@media (max-width: 1024px) {
+  .hero {
+    height: 100vh;
+    min-height: 600px;
+    padding: 60px 30px;
+    background-position: center center;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    height: 100vh;
+    min-height: 500px;
+    padding: 40px 20px;
+    
+    /* モバイル用の背景画像に切り替え */
+    background-image: url('images/common/Mobile_hero_marmoset.png');
+    background-position: center center;
+    background-size: contain;
+    background-color: #5a7a4d;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    min-height: 400px;
+    background-position: center center;
+    background-size: contain;
+  }
+}
+
+/* Background overlay for text readability */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+/* Hero Content */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Hero Animations */
+@keyframes heroSlideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === RESEARCH SECTION === */
+.research {
+  background: url('images/research/brain.jpg') center/cover no-repeat, #f1f4f9;
+  position: relative;
+  text-align: center;
+  padding: 80px 20px;
+  overflow: hidden;
+}
+
+.research::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 255, 255, 0.6);
+  z-index: 1;
+}
+
+.research h2,
+.pillars {
+  position: relative;
+  z-index: 2;
+}
+
+.research h2 {
+  font-size: 2.5em;
+  margin-bottom: 40px;
+  color: #1e3c72;
+}
+
+.pillars {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.pillar {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  padding: 30px;
+  max-width: 300px;
+  flex: 1 1 250px;
+  transition: transform 0.3s;
+}
+
+.pillar:hover {
+  transform: translateY(-5px);
+}
+
+.pillar h3 {
+  font-size: 1.4em;
+  color: #1e3c72;
+  margin-bottom: 15px;
+}
+
+.pillar p {
+  font-size: 1em;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* === NEWS SECTION === */
+.news {
+  background: url('images/news/news.jpg') center/cover no-repeat, #f4f4f4;
+  position: relative;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.news::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 1;
+}
+
+.news h2,
+.news-list {
+  position: relative;
+  z-index: 2;
+}
+
+.news h2 {
+  font-size: 2.5em;
+  margin-bottom: 40px;
+  color: #1e3c72;
+}
+
+.news-list {
+  list-style: none;
+  padding: 0;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.news-list li {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.news-list li:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+}
+
+.news-list .date {
+  min-width: 100px;
+  font-weight: bold;
+  color: #666;
+  flex-shrink: 0;
+}
+
+.news-content {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.news-title {
+  flex-grow: 1;
+}
+
+/* ニュースリスト用のリンクボタン */
+.news-quick-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.news-quick-link:hover {
+  background: rgba(102, 126, 234, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+.news-quick-link-icon {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+
+/* リンクタイプ別の色 */
+.news-quick-link.paper {
+  background: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+  border-color: rgba(40, 167, 69, 0.2);
+}
+
+.news-quick-link.paper:hover {
+  background: rgba(40, 167, 69, 0.2);
+}
+
+.news-quick-link.video {
+  background: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+  border-color: rgba(220, 53, 69, 0.2);
+}
+
+.news-quick-link.video:hover {
+  background: rgba(220, 53, 69, 0.2);
+}
+
+.news-quick-link.github {
+  background: rgba(51, 51, 51, 0.1);
+  color: #333;
+  border-color: rgba(51, 51, 51, 0.2);
+}
+
+.news-quick-link.github:hover {
+  background: rgba(51, 51, 51, 0.2);
+}
+
+/* === CONTACT SECTION === */
+.contact {
+  background: #1e3c72;
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.contact h2 {
+  font-size: 2.5em;
+  margin-bottom: 40px;
+}
+
+.contact-content {
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.contact p {
+  margin-bottom: 20px;
+}
+
+.contact a {
+  color: #a8c8ff;
+  text-decoration: none;
+}
+
+.contact a:hover {
+  text-decoration: underline;
+}
+
+/* === マーモセット関連 === */
+.floating-marmoset {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1000;
+  transition: all 0.1s ease;
+}
+
+.floating-marmoset.following {
+  background: url('images/common/m_4.png') center/contain no-repeat;
+}
+
+.floating-marmoset.bounce {
+  animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+  0% { transform: scale(1) translateY(0); }
+  30% { transform: scale(1.2) translateY(-20px); }
+  50% { transform: scale(1.1) translateY(-10px); }
+  70% { transform: scale(1.15) translateY(-15px); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+/* === その他のユーティリティ === */
+.loading {
+  opacity: 0.6;
+  font-style: italic;
+}
+
+.auto-update-badge {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  background: rgba(76, 175, 80, 0.9);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  z-index: 1001;
+  display: none;
+}
+
+/* === レスポンシブ対応 === */
+@media screen and (max-width: 768px) {
+  .news-list li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .news-content {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .news-quick-link {
+    align-self: flex-end;
+  }
+}
