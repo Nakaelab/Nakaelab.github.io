@@ -42,7 +42,7 @@ section {
   overflow: hidden;
   
   /* デスクトップ用の背景画像 */
-  background-image: url('images/common/marmoset_hero_title.png');
+  background-image: url('images/common/Hero_image_ver2.png');
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
