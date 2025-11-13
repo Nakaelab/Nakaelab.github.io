@@ -9,8 +9,8 @@ body {
 /* ===== Hero Section（画像とテキストを重ねる） ===== */
 .hero {
   position: relative;
-  height: 60vh;
-  min-height: 500px;
+  height: 30vh;  /* 60vh → 30vh に変更 */
+  min-height: 300px;  /* 500px → 300px に変更 */
   background: url('../images/contact/contact_marmoset.png') center/cover no-repeat;
   display: flex;
   flex-direction: column;
