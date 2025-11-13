@@ -225,3 +225,41 @@ body {
   }
 }
 
+/* ボタンスタイル */
+.contact-buttons {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 18px 40px;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cta-button.primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.cta-button.primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.cta-button.secondary {
+  background: white;
+  color: #1e3c72;
+  border: 2px solid #1e3c72;
+}
+
+.cta-button.secondary:hover {
+  background: #1e3c72;
+  color: white;
+  transform: translateY(-3px);
+}
