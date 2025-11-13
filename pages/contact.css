@@ -167,3 +167,61 @@ body {
 .fade-in-up {
   animation: fadeInUp 0.6s ease forwards;
 }
+/* ===== お問い合わせCTAセクション ===== */
+.contact-cta {
+  margin-top: 40px;
+  padding: 30px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 15px;
+  border-left: 5px solid #1e3c72;
+}
+
+.contact-cta h3 {
+  color: #1e3c72;
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.contact-box-highlight {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.contact-email {
+  font-size: 1.2em;
+  color: #1e3c72;
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.contact-note {
+  font-size: 0.95em;
+  color: #555;
+  line-height: 1.8;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 3px solid #667eea;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .contact-cta {
+    padding: 20px;
+  }
+  
+  .contact-box-highlight {
+    padding: 20px;
+  }
+  
+  .contact-email {
+    font-size: 1.1em;
+  }
+}
+
