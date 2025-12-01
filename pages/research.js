@@ -6,26 +6,7 @@ function toggleMenu() {
     navMenu.classList.toggle('active');
 }
 
-// スクロールアニメーション
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, observerOptions);
-
-// すべての data-scroll 要素を監視
-document.querySelectorAll('[data-scroll]').forEach(el => {
-    observer.observe(el);
-});
-
-// 研究テーマのデータ(後で詳細を追加)
+// 研究テーマのデータ
 const researchTopics = {
     'デジタルツインマーモセット': 'マーモセットの行動を3Dで再現し、デジタル空間で生命現象を理解する研究です。長期的な行動データから、生命体のダイナミクスをモデル化します。',
     '3d-eegデジタルツイン': '脳波データを3次元的に可視化し、脳活動のデジタルツインを構築する研究です。非侵襲的な計測技術により、脳の状態をリアルタイムで把握します。',
@@ -60,19 +41,39 @@ function closeResearchModal(event) {
     }
 }
 
-// ESCキーで閉じる
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        closeResearchModal();
-    }
-});
-
-// 各キーワードタグにクリックイベントを追加
+// DOMが読み込まれた後に実行
 document.addEventListener('DOMContentLoaded', () => {
+    // スクロールアニメーション
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    // すべての data-scroll 要素を監視
+    document.querySelectorAll('[data-scroll]').forEach(el => {
+        observer.observe(el);
+    });
+
+    // 各キーワードタグにクリックイベントを追加
     document.querySelectorAll('.keyword-tag').forEach(tag => {
         tag.addEventListener('click', () => {
             const topicName = tag.textContent.replace('# ', '').trim();
             openResearchModal(topicName);
         });
     });
+});
+
+// ESCキーで閉じる
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeResearchModal();
+    }
 });
