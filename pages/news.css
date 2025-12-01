@@ -50,9 +50,65 @@ body {
   opacity: 0.95;
 }
 
-/* 画像は非表示 */
+/* Hero Section - 2カラムレイアウト */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  gap: 60px;
+  height: auto;
+  min-height: 400px;
+}
+
 .hero-image-container {
-  display: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-marmoset-image {
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.hero-marmoset-image:hover {
+  transform: scale(1.02);
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+    padding: 40px 30px;
+  }
+  
+  .hero-content {
+    order: -1;
+  }
+  
+  .hero-marmoset-image {
+    max-width: 400px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero {
+    padding: 30px 20px;
+  }
+  
+  .hero-marmoset-image {
+    max-width: 320px;
+  }
 }
 
 /* Main Content */
