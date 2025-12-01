@@ -228,3 +228,63 @@ body {
         font-size: 1.2rem;
     }
 }
+/* 研究キーワードセクション */
+.keywords-section {
+    padding: 60px 20px;
+    background: white;
+}
+
+.keywords-title {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #1e3c72;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.keywords-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.keyword-tag {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.keyword-tag::before {
+    content: '# ';
+    opacity: 0.8;
+}
+
+.keyword-tag:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .keywords-section {
+        padding: 40px 15px;
+    }
+    
+    .keywords-title {
+        font-size: 1.3rem;
+    }
+    
+    .keyword-tag {
+        font-size: 0.85rem;
+        padding: 10px 18px;
+    }
+}
