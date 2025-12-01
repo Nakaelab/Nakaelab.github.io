@@ -88,61 +88,101 @@ body {
     margin-bottom: 3rem;
 }
 
-/* ===== ミッションセクション ===== */
-.mission-section {
-    background: #f8f9fa;
+/* ミッションセクション - 番号なしシンプル版 */
+.mission-pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 50px;
+    max-width: 1200px;
+    margin: 40px auto 0;
 }
 
-.mission-list {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.mission-item {
+.mission-pillar {
+    text-align: left;
+    padding: 30px;
     background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    border-left: 4px solid #1e3c72;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.mission-item-title {
-    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
-    font-weight: 600;
+.mission-pillar.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.mission-pillar:nth-child(1) { transition-delay: 0.1s; }
+.mission-pillar:nth-child(2) { transition-delay: 0.2s; }
+.mission-pillar:nth-child(3) { transition-delay: 0.3s; }
+
+.mission-pillar:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+}
+
+.pillar-title {
+    font-size: 1.3rem;
     color: #1e3c72;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
 }
 
-.mission-item-description {
-    font-size: clamp(0.9rem, 2vw, 1rem);
+.pillar-description {
     color: #555;
     line-height: 1.8;
 }
 
-/* ===== アプローチセクション ===== */
+/* ===== アプローチセクション - 番号なしグリッド版 ===== */
+.approach-section {
+    background: #f8f9fa;
+}
+
 .approach-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
 }
 
 .approach-item {
-    background: #f8f9fa;
-    padding: 1.75rem;
-    border-radius: 8px;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.approach-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.approach-item:nth-child(1) { transition-delay: 0.1s; }
+.approach-item:nth-child(2) { transition-delay: 0.2s; }
+.approach-item:nth-child(3) { transition-delay: 0.3s; }
+.approach-item:nth-child(4) { transition-delay: 0.4s; }
+.approach-item:nth-child(5) { transition-delay: 0.5s; }
+
+.approach-item:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
 }
 
 .approach-item-title {
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
     font-weight: 600;
-    color: #333;
-    margin-bottom: 0.5rem;
+    color: #1e3c72;
+    margin-bottom: 15px;
 }
 
 .approach-item-description {
     font-size: clamp(0.9rem, 2vw, 1rem);
-    color: #666;
-    line-height: 1.7;
+    color: #555;
+    line-height: 1.8;
 }
 
 /* ===== レスポンシブ調整 ===== */
@@ -240,6 +280,14 @@ body {
     color: #1e3c72;
     margin-bottom: 30px;
     font-weight: 600;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.keywords-title.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .keywords-tags {
@@ -259,9 +307,26 @@ body {
     font-size: 0.95rem;
     font-weight: 500;
     box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
-    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease;
     cursor: pointer;
 }
+
+.keyword-tag.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.keyword-tag:nth-child(1) { transition-delay: 0.05s; }
+.keyword-tag:nth-child(2) { transition-delay: 0.1s; }
+.keyword-tag:nth-child(3) { transition-delay: 0.15s; }
+.keyword-tag:nth-child(4) { transition-delay: 0.2s; }
+.keyword-tag:nth-child(5) { transition-delay: 0.25s; }
+.keyword-tag:nth-child(6) { transition-delay: 0.3s; }
+.keyword-tag:nth-child(7) { transition-delay: 0.35s; }
+.keyword-tag:nth-child(8) { transition-delay: 0.4s; }
+.keyword-tag:nth-child(9) { transition-delay: 0.45s; }
 
 .keyword-tag::before {
     content: '# ';
