@@ -137,7 +137,29 @@
     </div>
 </section>
 
-    <!-- このページ専用のJavaScriptを読み込み -->
+<!-- このページ専用のJavaScriptを読み込み -->
     <script src="research.js"></script>
+    
+    <!-- スクロールアニメーション -->
+    <script>
+        // スクロールアニメーション
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // すべての data-scroll 要素を監視
+        document.querySelectorAll('[data-scroll]').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
