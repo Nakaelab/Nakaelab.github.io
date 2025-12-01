@@ -76,16 +76,36 @@ body {
 
 .section-title {
     font-size: clamp(1.75rem, 4vw, 2.5rem);
-    color: #333;
+    color: #1e3c72;
     margin-bottom: 1rem;
     font-weight: 600;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.section-title.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .section-description {
     font-size: clamp(0.95rem, 2vw, 1.05rem);
-    color: #666;
+    color: #555;
     line-height: 1.8;
     margin-bottom: 3rem;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s;
+}
+
+.section-description.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* ミッションセクション - 番号なしシンプル版 */
@@ -351,5 +371,15 @@ body {
     .keyword-tag {
         font-size: 0.85rem;
         padding: 10px 18px;
+    }
+}
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .mission-pillars {
+        grid-template-columns: 1fr;
+    }
+    
+    .approach-list {
+        grid-template-columns: 1fr;
     }
 }
