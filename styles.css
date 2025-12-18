@@ -73,14 +73,29 @@ section {
   margin: 0;
   line-height: 1.4;
   text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.9);
-  opacity: 1;  /* 0 → 1に変更 */
-  transform: translateY(0);
+  opacity: 0;  /* 0に戻す */
+  transform: translateY(30px);  /* 下から出現 */
   transition: opacity 1s ease, transform 1s ease;
 }
 
 .hero-catchphrase.visible {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: white;
+  margin-top: 30px;
+  opacity: 0;  /* 0に戻す */
+  transform: translateY(20px);
+  transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+.hero-subtitle.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 .hero-catchphrase .line-1,
