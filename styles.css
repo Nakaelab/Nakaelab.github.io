@@ -39,7 +39,6 @@ section {
   margin-top: 60px;
   padding: 0;
   overflow: hidden;
-  background: #2c3e50;
 }
 
 .hero-image {
@@ -73,9 +72,9 @@ section {
   color: white;
   margin: 0;
   line-height: 1.4;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-  opacity: 0;
-  transform: translateY(30px);
+  text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.9);
+  opacity: 1;  /* 0 → 1に変更 */
+  transform: translateY(0);
   transition: opacity 1s ease, transform 1s ease;
 }
 
@@ -97,10 +96,10 @@ section {
   font-size: 1.2rem;
   color: white;
   margin-top: 30px;
-  opacity: 0;
-  transform: translateY(20px);
+  opacity: 1;  /* 0 → 1に変更 */
+  transform: translateY(0);
   transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
 }
 
 .hero-subtitle.visible {
