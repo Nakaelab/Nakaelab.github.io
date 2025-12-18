@@ -220,4 +220,4 @@ function initHeroCatchphrase() {
 }
 
 // ページ読み込み完了後に実行
-window.addEventListener('load', initHeroCatchphrase);
+window.addEventListener('load', initHeroCatchphrase); 
