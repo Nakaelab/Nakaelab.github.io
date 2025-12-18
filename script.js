@@ -208,9 +208,6 @@ function initHeroCatchphrase() {
   
   if (!catchphrase || !subtitle) return;
   
-  // ページロード直後は強制的に非表示
-  catchphrase.style.opacity = '0';
-  subtitle.style.opacity = '0';
   
   // 少し遅延してから表示開始（スムーズな演出）
   setTimeout(() => {
