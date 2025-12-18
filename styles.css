@@ -60,22 +60,26 @@ section {
   bottom: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;  /* center → flex-start */
   justify-content: center;
-  background: transparent;  /* 透明に */
+  padding-left: 80px;  /* 左余白を追加 */
+  background: transparent;
   z-index: 2;
 }
 
-.hero-catchphrase {
-  font-size: 4rem;
-  font-weight: 300;
-  color: white;
-  margin: 0;
-  line-height: 1.4;
-  text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.9);
-  opacity: 0;  /* 0に戻す */
-  transform: translateY(30px);  /* 下から出現 */
-  transition: opacity 1s ease, transform 1s ease;
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;  /* center → flex-start */
+  justify-content: center;
+  padding-left: 80px;  /* 左余白を追加 */
+  background: transparent;
+  z-index: 2;
 }
 
 .hero-catchphrase.visible {
