@@ -62,9 +62,9 @@ section {
 }
 
 .hero-catchphrase {
-  font-size: 3.5rem;
+  font-size: 4.5rem;  /* 3.5rem → 4.5rem に拡大 */
   font-weight: 300;
-  color: white;
+  color: white;  /* すでに白 */
   margin: 0;
   line-height: 1.4;
   text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.9);
@@ -74,11 +74,12 @@ section {
 .hero-catchphrase .line-1,
 .hero-catchphrase .line-2 {
   display: block;
+  text-align: left;  /* 各行も左寄せ */
 }
 
 .hero-subtitle {
-  font-size: 1.2rem;
-  color: white;
+  font-size: 1.3rem;  /* 1.2rem → 1.3rem に拡大 */
+  color: white;  /* すでに白 */
   margin-top: 20px;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
   text-align: left;
