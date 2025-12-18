@@ -71,11 +71,6 @@ section {
   text-align: left;
 }
 
-.hero-catchphrase .line-1,
-.hero-catchphrase .line-2 {
-  display: block;
-  text-align: left;  /* 各行も左寄せ */
-}
 
 .hero-subtitle {
   font-size: 1.3rem;  /* 1.2rem → 1.3rem に拡大 */
