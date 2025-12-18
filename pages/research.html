@@ -14,20 +14,29 @@
 <body>
     <!-- ナビゲーションバー -->
     <nav>
-        <div class="hamburger" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <ul id="navMenu">
-            <li><a href="../index.html">HOME</a></li>
-            <li><a href="research.html" style="background-color: #1e3c72; border-radius: 4px; color: white; font-weight: bold;">RESEARCH</a></li>
-            <li><a href="member.html">MEMBERS</a></li>
-            <li><a href="https://scholar.google.co.jp/citations?user=XOE-MT8AAAAJ&hl=ja" target="_blank">PUBLICATIONS</a></li>
-            <li><a href="news.html">NEWS</a></li>
-            <li><a href="contact.html">CONTACT</a></li>
-        </ul>
-    </nav>
+  <!-- ロゴ -->
+  <a href="../index.html" class="logo">
+    <img src="../images/common/Nakaelab_logo.png" alt="Nakae Lab Logo">
+    <span class="logo-text">中江研究室</span>
+  </a>
+
+  <!-- ハンバーガーメニュー（スマホ用） -->
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- メニュー -->
+  <ul id="navMenu">
+    <li><a href="../index.html">トップ</a></li>
+    <li><a href="research.html">研究内容</a></li>
+    <li><a href="member.html">メンバー</a></li>
+    <li><a href="https://scholar.google.co.jp/citations?user=XOE-MT8AAAAJ&hl=ja" target="_blank">論文一覧</a></li>
+    <li><a href="news.html">ニュース</a></li>
+    <li><a href="contact.html">お問い合わせ</a></li>
+  </ul>
+</nav>
 
     <!-- 画像セクション -->
     <section class="hero-image-section"></section>
