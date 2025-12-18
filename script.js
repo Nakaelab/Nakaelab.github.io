@@ -201,3 +201,37 @@ document.addEventListener('click', function(e) {
     }, 600);
   }
 });
+// ヒーローセクションのキャッチコピーをスクロールで表示
+function initHeroCatchphrase() {
+  const catchphrase = document.querySelector('.hero-catchphrase');
+  const subtitle = document.querySelector('.hero-subtitle');
+  
+  if (!catchphrase || !subtitle) return;
+  
+  // Intersection Observerで監視
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // ビューポートに入ったら表示
+        setTimeout(() => {
+          catchphrase.classList.add('visible');
+        }, 300); // 300ms遅延
+        
+        setTimeout(() => {
+          subtitle.classList.add('visible');
+        }, 800); // 800ms遅延（キャッチコピーの後）
+      }
+    });
+  }, {
+    threshold: 0.3 // 30%見えたら発火
+  });
+  
+  observer.observe(document.querySelector('.hero'));
+}
+
+// ページ読み込み時に実行
+document.addEventListener('DOMContentLoaded', function() {
+  initHeroCatchphrase();
+  
+  // 既存のコードもここに続く
+});
