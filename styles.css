@@ -54,52 +54,21 @@ section {
 /* キャッチコピーオーバーレイ */
 .hero-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;  /* center → flex-start */
-  justify-content: center;
-  padding-left: 80px;  /* 左余白を追加 */
-  background: transparent;
+  top: 50%;
+  left: 80px;
+  transform: translateY(-50%);
   z-index: 2;
+  max-width: 600px;
 }
 
-.hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;  /* center → flex-start */
-  justify-content: center;
-  padding-left: 80px;  /* 左余白を追加 */
-  background: transparent;
-  z-index: 2;
-}
-
-.hero-catchphrase.visible {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-}
-
-.hero-subtitle {
-  font-size: 1.2rem;
+.hero-catchphrase {
+  font-size: 3.5rem;
+  font-weight: 300;
   color: white;
-  margin-top: 30px;
-  opacity: 0;  /* 0に戻す */
-  transform: translateY(20px);
-  transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
-}
-
-.hero-subtitle.visible {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+  margin: 0;
+  line-height: 1.4;
+  text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.9);
+  text-align: left;
 }
 
 .hero-catchphrase .line-1,
@@ -107,23 +76,12 @@ section {
   display: block;
 }
 
-.hero-catchphrase .line-2 {
-  margin-top: 10px;
-}
-
 .hero-subtitle {
   font-size: 1.2rem;
   color: white;
-  margin-top: 30px;
-  opacity: 1;  /* 0 → 1に変更 */
-  transform: translateY(0);
-  transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
+  margin-top: 20px;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
-}
-
-.hero-subtitle.visible {
-  opacity: 1;
-  transform: translateY(0);
+  text-align: left;
 }
 
 /* レスポンシブ対応 */
