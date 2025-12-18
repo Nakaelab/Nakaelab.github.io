@@ -208,30 +208,19 @@ function initHeroCatchphrase() {
   
   if (!catchphrase || !subtitle) return;
   
-  // Intersection Observerで監視
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // ビューポートに入ったら表示
-        setTimeout(() => {
-          catchphrase.classList.add('visible');
-        }, 300);
-        
-        setTimeout(() => {
-          subtitle.classList.add('visible');
-        }, 800);
-      }
-    });
-  }, {
-    threshold: 0.3
-  });
+  // ページロード直後は強制的に非表示
+  catchphrase.style.opacity = '0';
+  subtitle.style.opacity = '0';
   
-  observer.observe(document.querySelector('.hero'));
+  // 少し遅延してから表示開始（スムーズな演出）
+  setTimeout(() => {
+    catchphrase.classList.add('visible');
+  }, 800); // 800ms遅延
+  
+  setTimeout(() => {
+    subtitle.classList.add('visible');
+  }, 1500); // 1.5秒遅延
 }
 
-// ページ読み込み時に実行
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initHeroCatchphrase);
-} else {
-  initHeroCatchphrase();
-}
+// ページ読み込み完了後に実行
+window.addEventListener('load', initHeroCatchphrase);
