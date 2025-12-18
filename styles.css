@@ -25,10 +25,13 @@ section {
   transform: translateY(0);
 }
 
-/* === HERO SECTION === */
+/* === HERO SECTION with Catchphrase === */
 .hero {
   position: relative;
-  height: auto;
+  width: 100%;
+  height: 80vh;
+  min-height: 500px;
+  max-height: 800px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,90 +39,106 @@ section {
   margin-top: 60px;
   padding: 0;
   overflow: hidden;
-  background: transparent;
+  background: #2c3e50;
 }
 
-/* 背景動画のスタイル → 画像用に変更 */
 .hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: auto;
-  display: block;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
 }
 
-/* 超ワイド画面での設定 */
-@media (min-width: 1920px) {
-  .hero {
-    /* 動画は自動的にフィット */
-  }
-}
-
-/* レスポンシブ対応の強化 */
-@media (max-width: 1024px) {
-  .hero {
-    height: 100vh;
-    min-height: 600px;
-    padding: 60px 30px;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero {
-    height: 100vh;
-    min-height: 500px;
-    padding: 40px 20px;
-    
-    /* モバイル用は動画を非表示にして静止画に切り替え */
-    background-image: url('images/common/Mobile_hero_marmoset.png');
-    background-position: center center;
-    background-size: contain;
-    background-color: #5a7a4d;
-  }
-  
-  .hero-video {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero {
-    min-height: 400px;
-    background-position: center center;
-    background-size: contain;
-  }
-}
-
-/* Background overlay for text readability */
-.hero::before {
-  content: "";
+/* キャッチコピーオーバーレイ */
+.hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 1;
-}
-
-/* Hero Content */
-.hero-content {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
   z-index: 2;
-  max-width: 800px;
-  margin: 0 auto;
 }
 
-/* Hero Animations */
-@keyframes heroSlideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
+.hero-catchphrase {
+  font-size: 4rem;
+  font-weight: 300;
+  color: white;
+  margin: 0;
+  line-height: 1.4;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.hero-catchphrase.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-catchphrase .line-1,
+.hero-catchphrase .line-2 {
+  display: block;
+}
+
+.hero-catchphrase .line-2 {
+  margin-top: 10px;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: white;
+  margin-top: 30px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.hero-subtitle.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .hero {
+    height: 60vh;
+    min-height: 400px;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  
+  .hero-catchphrase {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+    margin-top: 20px;
   }
 }
 
+@media (max-width: 480px) {
+  .hero {
+    height: 50vh;
+    min-height: 350px;
+  }
+  
+  .hero-catchphrase {
+    font-size: 1.8rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+}
 /* === RESEARCH SECTION === */
 .research {
   padding: 80px 20px;
