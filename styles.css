@@ -62,7 +62,7 @@ section {
 }
 
 .hero-catchphrase {
-  font-size: 4.5rem;  /* 3.5rem → 4.5rem に拡大 */
+  font-size: 3.5rem;  /* 3.5rem → 4.5rem に拡大 */
   font-weight: 300;
   color: white;  /* すでに白 */
   margin: 0;
