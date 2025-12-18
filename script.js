@@ -215,23 +215,23 @@ function initHeroCatchphrase() {
         // ビューポートに入ったら表示
         setTimeout(() => {
           catchphrase.classList.add('visible');
-        }, 300); // 300ms遅延
+        }, 300);
         
         setTimeout(() => {
           subtitle.classList.add('visible');
-        }, 800); // 800ms遅延（キャッチコピーの後）
+        }, 800);
       }
     });
   }, {
-    threshold: 0.3 // 30%見えたら発火
+    threshold: 0.3
   });
   
   observer.observe(document.querySelector('.hero'));
 }
 
 // ページ読み込み時に実行
-document.addEventListener('DOMContentLoaded', function() {
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initHeroCatchphrase);
+} else {
   initHeroCatchphrase();
-  
-  // 既存のコードもここに続く
-});
+}
