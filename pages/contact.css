@@ -93,7 +93,7 @@ body {
   border-radius: 8px;
   font-family: monospace;
   border-left: 4px solid #1e3c72;
-  font-size: 1.1em; /* 追加: メールアドレスのフォントサイズを大きく */
+  font-size: 1.3em; /* 追加: メールアドレスのフォントサイズを大きく */
 }
 
 .email small {
