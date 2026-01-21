@@ -13,34 +13,42 @@
 </head>
 <body>
     <nav>
-  <!-- ロゴ -->
-  <a href="../index.html" class="logo">
-    <img src="../images/common/Nakaelab_logo.png" alt="Nakae Lab Logo">
-    <span class="logo-text">福井大学 デジタルツイン研究室</span>
-  </a>
+        <!-- ロゴ -->
+        <a href="../index.html" class="logo">
+            <img src="../images/common/Nakaelab_logo.png" alt="Nakae Lab Logo">
+            <span class="logo-text" data-ja="福井大学 デジタルツイン研究室" data-en="Digital Twin Lab, University of Fukui">福井大学 デジタルツイン研究室</span>
+        </a>
 
-  <!-- ハンバーガーメニュー（スマホ用） -->
-  <div class="hamburger" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+        <!-- ハンバーガーメニュー(スマホ用) -->
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 
-  <!-- メニュー -->
-  <ul id="navMenu">
-    <li><a href="../index.html">トップ</a></li>
-    <li><a href="research.html">研究内容</a></li>
-    <li><a href="member.html" class="active">メンバー</a></li>
-    <li><a href="https://scholar.google.co.jp/citations?user=XOE-MT8AAAAJ&hl=ja" target="_blank">論文一覧</a></li>
-    <li><a href="news.html">ニュース</a></li>
-    <li><a href="contact.html">お問い合わせ</a></li>
-  </ul>
-</nav>
+        <!-- メニュー -->
+        <ul id="navMenu">
+            <li><a href="../index.html" data-ja="トップ" data-en="Home">トップ</a></li>
+            <li><a href="research.html" data-ja="研究内容" data-en="Research">研究内容</a></li>
+            <li><a href="member.html" class="active" data-ja="メンバー" data-en="Members">メンバー</a></li>
+            <li><a href="https://scholar.google.co.jp/citations?user=XOE-MT8AAAAJ&hl=ja" target="_blank" data-ja="論文一覧" data-en="Publications">論文一覧</a></li>
+            <li><a href="news.html" data-ja="ニュース" data-en="News">ニュース</a></li>
+            <li><a href="contact.html" data-ja="お問い合わせ" data-en="Contact">お問い合わせ</a></li>
+        </ul>
+
+        <!-- 言語切り替えボタン(メニューの右側) -->
+        <div class="language-switcher">
+            <button id="langToggle" onclick="toggleLanguage()">
+                <span id="langIcon">🌐</span>
+                <span id="langText">EN</span>
+            </button>
+        </div>
+    </nav>
 
     <section class="hero-section">
         <div class="content-container">
-            <h1 class="main-title">メンバー</h1>
-            <p class="description">
+            <h1 class="main-title" data-ja="メンバー" data-en="Members">メンバー</h1>
+            <p class="description" data-ja="デジタルツイン研究室の優秀な研究者、学生、スタッフたちが一丸となって計算論的神経科学の最前線を切り拓いています。" data-en="Excellent researchers, students, and staff at the Digital Twin Lab work together to pioneer the frontiers of computational neuroscience.">
                 デジタルツイン研究室の優秀な研究者、学生、スタッフたちが一丸となって計算論的神経科学の最前線を切り拓いています。
             </p>
         </div>
@@ -52,10 +60,10 @@
     </div>
 
     <div class="members-section">
-        <h2 class="section-title">メンバー紹介</h2>
+        <h2 class="section-title" data-ja="メンバー紹介" data-en="Meet Our Team">メンバー紹介</h2>
         
         <div class="member-grid" id="membersContainer">
-            <div class="loading">メンバー情報を読み込み中...</div>
+            <div class="loading" data-ja="メンバー情報を読み込み中..." data-en="Loading member information...">メンバー情報を読み込み中...</div>
         </div>
     </div>
 
