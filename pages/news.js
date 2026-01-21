@@ -36,7 +36,7 @@ function applyLanguage(lang) {
   elements.forEach(element => {
     const text = element.getAttribute(`data-${lang}`);
     if (text) {
-      // HTMLタグを含む場合（brタグなど）
+      // HTMLタグを含む場合(brタグなど)
       if (text.includes('<br>')) {
         element.innerHTML = text;
       } else {
@@ -74,7 +74,7 @@ function parseCSV(csvText) {
     const line = lines[i];
     if (!line.trim()) continue;
     
-    // カンマ区切りで分割（引用符を考慮）
+    // カンマ区切りで分割(引用符を考慮)
     const values = [];
     let current = '';
     let inQuotes = false;
@@ -95,9 +95,11 @@ function parseCSV(csvText) {
     const row = {
       date: values[0] || '',
       title: values[1] || '',
-      detail: values[2] || '',
-      category: values[3] || 'event',
-      link: values[4] || ''  // 新規追加: Link列
+      title_en: values[2] || '',      // 追加
+      detail: values[3] || '',
+      detail_en: values[4] || '',     // 追加
+      category: values[5] || 'event',  // インデックス変更
+      link: values[6] || ''            // インデックス変更
     };
     
     // 空のタイトルは除外
@@ -144,7 +146,7 @@ function getLinkIcon(type) {
   return icons[type] || icons.website;
 }
 
-// リンクラベルを取得する関数（言語対応）
+// リンクラベルを取得する関数(言語対応)
 function getLinkLabel(type, url) {
   const labelsJa = {
     paper: '論文を読む',
@@ -164,7 +166,7 @@ function getLinkLabel(type, url) {
   return labels[type] || (currentLanguage === 'ja' ? '詳細を見る' : 'More Details');
 }
 
-// カテゴリの表示名を取得（言語対応）
+// カテゴリの表示名を取得(言語対応)
 function getCategoryLabel(category) {
   const labelMapJa = {
     'publication': '論文・出版',
@@ -204,6 +206,10 @@ function displayNews(newsArray) {
     const linkIcon = getLinkIcon(linkType);
     const linkLabel = getLinkLabel(linkType, news.link);
     
+    // 言語に応じてタイトルと詳細を選択
+    const title = currentLanguage === 'ja' ? news.title : (news.title_en || news.title);
+    const detail = currentLanguage === 'ja' ? news.detail : (news.detail_en || news.detail);
+    
     // リンクセクション
     let linkSection = '';
     if (news.link && news.link.trim() !== '') {
@@ -221,8 +227,8 @@ function displayNews(newsArray) {
       <div class="news-item ${categoryClass}" data-category="${categoryClass}" style="animation-delay: ${index * 0.1}s;">
         <span class="news-date">${news.date}</span>
         <span class="news-category ${categoryClass}">${categoryLabel}</span>
-        <h3 class="news-title">${news.title}</h3>
-        ${news.detail ? `<div class="news-description">${news.detail}</div>` : ''}
+        <h3 class="news-title">${title}</h3>
+        ${detail ? `<div class="news-description">${detail}</div>` : ''}
         ${linkSection}
       </div>
     `;
@@ -271,7 +277,7 @@ async function loadNews() {
     allNews = parseCSV(csvText);
     console.log('パース済みニュースデータ:', allNews);
     
-    // 日付でソート（新しい順）
+    // 日付でソート(新しい順)
     allNews.sort((a, b) => new Date(b.date) - new Date(a.date));
     
     filteredNews = [...allNews];
@@ -339,5 +345,5 @@ document.addEventListener('DOMContentLoaded', function() {
   loadNews();
 });
 
-// 定期的にデータを更新（10分ごと）
+// 定期的にデータを更新(10分ごと)
 setInterval(loadNews, 10 * 60 * 1000);
