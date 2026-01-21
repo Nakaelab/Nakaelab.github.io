@@ -17,56 +17,62 @@
 
 <body>
   <nav>
-  <!-- ロゴ -->
-  <a href="../index.html" class="logo">
-    <img src="../images/common/Nakaelab_logo.png" alt="Nakae Lab Logo">
-    <span class="logo-text">福井大学 デジタルツイン研究室</span>
-  </a>
+    <!-- ロゴ -->
+    <a href="../index.html" class="logo">
+      <img src="../images/common/Nakaelab_logo.png" alt="Nakae Lab Logo">
+      <span class="logo-text" data-ja="福井大学 デジタルツイン研究室" data-en="Digital Twin Lab, University of Fukui">福井大学 デジタルツイン研究室</span>
+    </a>
 
-  <!-- ハンバーガーメニュー（スマホ用） -->
-  <div class="hamburger" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+    <!-- ハンバーガーメニュー(スマホ用) -->
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
 
-  <!-- メニュー -->
-  <ul id="navMenu">
-    <li><a href="../index.html">トップ</a></li>
-    <li><a href="research.html">研究内容</a></li>
-    <li><a href="member.html">メンバー</a></li>
-    <li><a href="https://scholar.google.co.jp/citations?user=XOE-MT8AAAAJ&hl=ja" target="_blank">論文一覧</a></li>
-    <li><a href="news.html">ニュース</a></li>
-    <li><a href="contact.html" class="active">お問い合わせ</a></li>
-  </ul>
-</nav>
+    <!-- メニュー -->
+    <ul id="navMenu">
+      <li><a href="../index.html" data-ja="トップ" data-en="Home">トップ</a></li>
+      <li><a href="research.html" data-ja="研究内容" data-en="Research">研究内容</a></li>
+      <li><a href="member.html" data-ja="メンバー" data-en="Members">メンバー</a></li>
+      <li><a href="https://scholar.google.co.jp/citations?user=XOE-MT8AAAAJ&hl=ja" target="_blank" data-ja="論文一覧" data-en="Publications">論文一覧</a></li>
+      <li><a href="news.html" data-ja="ニュース" data-en="News">ニュース</a></li>
+      <li><a href="contact.html" class="active" data-ja="お問い合わせ" data-en="Contact">お問い合わせ</a></li>
+    </ul>
+
+    <!-- 言語切り替えボタン(メニューの右側) -->
+    <div class="language-switcher">
+      <button id="langToggle" onclick="toggleLanguage()">
+        <span id="langIcon">🌐</span>
+        <span id="langText">EN</span>
+      </button>
+    </div>
+  </nav>
 
   <!-- Hero Section（画像の上にテキストを配置） -->
   <section class="hero">
     <div class="hero-content">
-      <h1>お問い合わせ</h1>
-      <p>研究室へのお問い合わせ、大学院生募集、共同研究のご相談など、お気軽にご連絡ください</p>
+      <h1 data-ja="お問い合わせ" data-en="Contact">お問い合わせ</h1>
+      <p data-ja="研究室へのお問い合わせ、大学院生募集、共同研究のご相談など、お気軽にご連絡ください" data-en="Feel free to contact us for inquiries, graduate student recruitment, or collaborative research discussions">研究室へのお問い合わせ、大学院生募集、共同研究のご相談など、お気軽にご連絡ください</p>
     </div>
   </section>
 
   <div class="container">
     <!-- Contact Information Section -->
     <section class="content-section fade-in-up">
-      <h2 class="section-title">研究室情報</h2>
+      <h2 class="section-title" data-ja="研究室情報" data-en="Laboratory Information">研究室情報</h2>
       
       <div class="contact-grid">
         <div class="contact-info">
-          <h3>連絡先</h3>
+          <h3 data-ja="連絡先" data-en="Contact">連絡先</h3>
           <div class="email">
             <strong>Email:</strong> nakae [at] u-fukui.ac.jp<br>
-            <small>※ [at] を @ に置き換えてください</small>
+            <small data-ja="※ [at] を @ に置き換えてください" data-en="* Please replace [at] with @">※ [at] を @ に置き換えてください</small>
           </div>
           
-          <h3 style="margin-top: 25px;">所在地</h3>
-          <p><strong>福井大学 文京キャンパス</strong></p>
-          <p>〒910-8507<br>
-          福井県福井市文京3-9-1<br>
-          総合研究棟I 0511号室</p>
+          <h3 style="margin-top: 25px;" data-ja="所在地" data-en="Location">所在地</h3>
+          <p><strong data-ja="福井大学 文京キャンパス" data-en="University of Fukui, Bunkyo Campus">福井大学 文京キャンパス</strong></p>
+          <p data-ja="〒910-8507<br>福井県福井市文京3-9-1<br>総合研究棟I 0511号室" data-en="910-8507<br>3-9-1 Bunkyo, Fukui City, Fukui, Japan<br>Research Building I, Room 0511">〒910-8507<br>福井県福井市文京3-9-1<br>総合研究棟I 0511号室</p>
         </div>
         
         <div class="map-container">
@@ -75,64 +81,63 @@
       </div>
       
       <div class="address-info">
-        <h4>アクセス</h4>
-        <p><strong>電車:</strong> えちぜん鉄道福井駅―（約10分）―福大前西福井駅</p>
-        <p><strong>バス:</strong> 京福バス福井駅―（約10分）―福井大学前停留所</p>
-        <p><strong>自動車:</strong> 北陸自動車道 福井北JCT・ICから国道416号線で西へ約7km</p>
+        <h4 data-ja="アクセス" data-en="Access">アクセス</h4>
+        <p><strong data-ja="電車:" data-en="Train:">電車:</strong> <span data-ja="えちぜん鉄道福井駅―（約10分）―福大前西福井駅" data-en="Echizen Railway Fukui Station - (approx. 10 min) - Fukudaimae-Nishifukui Station">えちぜん鉄道福井駅―（約10分）―福大前西福井駅</span></p>
+        <p><strong data-ja="バス:" data-en="Bus:">バス:</strong> <span data-ja="京福バス福井駅―（約10分）―福井大学前停留所" data-en="Keifuku Bus Fukui Station - (approx. 10 min) - Fukui University Stop">京福バス福井駅―（約10分）―福井大学前停留所</span></p>
+        <p><strong data-ja="自動車:" data-en="Car:">自動車:</strong> <span data-ja="北陸自動車道 福井北JCT・ICから国道416号線で西へ約7km" data-en="From Hokuriku Expressway Fukui-Kita JCT/IC, take Route 416 west for approx. 7km">北陸自動車道 福井北JCT・ICから国道416号線で西へ約7km</span></p>
         
-        <h4 style="margin-top: 20px; color: #1e3c72;">キャンパス内案内</h4>
-        <p>メインゲートから入って右手の建物群の中央にある<strong>総合研究棟I</strong>の<strong>0511号室</strong>です。</p>
-        <p>建物入口で迷われた場合は、受付または警備室にお声かけください。</p>
+        <h4 style="margin-top: 20px; color: #1e3c72;" data-ja="キャンパス内案内" data-en="On-Campus Directions">キャンパス内案内</h4>
+        <p data-ja="メインゲートから入って右手の建物群の中央にある<strong>総合研究棟I</strong>の<strong>0511号室</strong>です。" data-en="Room <strong>0511</strong> in <strong>Research Building I</strong>, located in the center of the building complex on the right after entering the main gate.">メインゲートから入って右手の建物群の中央にある<strong>総合研究棟I</strong>の<strong>0511号室</strong>です。</p>
+        <p data-ja="建物入口で迷われた場合は、受付または警備室にお声かけください。" data-en="If you get lost at the building entrance, please ask at the reception desk or security office.">建物入口で迷われた場合は、受付または警備室にお声かけください。</p>
       </div>
     </section>
 
     <!-- Recruitment Section -->
     <section class="content-section fade-in-up">
-      <h2 class="section-title">大学院生・研究員募集</h2>
+      <h2 class="section-title" data-ja="大学院生・研究員募集" data-en="Graduate Students & Researchers Recruitment">大学院生・研究員募集</h2>
       
       <div class="recruitment-section">
-        <h3>大学院生募集</h3>
-        <p>当研究室では大学院生や学振PDを募集しています。これまでの研究内容、基礎知識は問いません。こつこつと真摯に研究に取り組んでいただける大学院生を歓迎します。</p>
-        <p>大学院生活を通じて、論理力、英語力、問題発見・解決能力を培っていただき、アカデミック、民間と問わずに社会で活躍できる人材を育成したいと考えています。</p>
-        <p><strong>随時、研究室見学も歓迎します。</strong></p>
+        <h3 data-ja="大学院生募集" data-en="Graduate Students Recruitment">大学院生募集</h3>
+        <p data-ja="当研究室では大学院生や学振PDを募集しています。これまでの研究内容、基礎知識は問いません。こつこつと真摯に研究に取り組んでいただける大学院生を歓迎します。" data-en="We are recruiting graduate students and JSPS PD fellows. Previous research experience or foundational knowledge is not required. We welcome graduate students who can engage diligently and sincerely in research.">当研究室では大学院生や学振PDを募集しています。これまでの研究内容、基礎知識は問いません。こつこつと真摯に研究に取り組んでいただける大学院生を歓迎します。</p>
+        <p data-ja="大学院生活を通じて、論理力、英語力、問題発見・解決能力を培っていただき、アカデミック、民間と問わずに社会で活躍できる人材を育成したいと考えています。" data-en="Through graduate school life, we aim to cultivate logical thinking, English proficiency, and problem-finding/solving abilities, nurturing talent who can succeed in both academic and private sectors.">大学院生活を通じて、論理力、英語力、問題発見・解決能力を培っていただき、アカデミック、民間と問わずに社会で活躍できる人材を育成したいと考えています。</p>
+        <p><strong data-ja="随時、研究室見学も歓迎します。" data-en="Laboratory visits are welcome anytime.">随時、研究室見学も歓迎します。</strong></p>
       </div>
       
       <div class="recruitment-section">
-        <h3>研究員募集</h3>
-        <p>また予算状況によってはプロジェクト付きの特命助教、または助教として雇用できる場合があります。デジタルツイン技術、計算論的神経科学、機械学習に興味をお持ちの研究者の方、お気軽にご相談ください。</p>
+        <h3 data-ja="研究員募集" data-en="Researchers Recruitment">研究員募集</h3>
+        <p data-ja="また予算状況によってはプロジェクト付きの特命助教、または助教として雇用できる場合があります。デジタルツイン技術、計算論的神経科学、機械学習に興味をお持ちの研究者の方、お気軽にご相談ください。" data-en="Depending on budget availability, we may be able to hire project-based specially appointed assistant professors or assistant professors. Researchers interested in digital twin technology, computational neuroscience, or machine learning are welcome to contact us.">また予算状況によってはプロジェクト付きの特命助教、または助教として雇用できる場合があります。デジタルツイン技術、計算論的神経科学、機械学習に興味をお持ちの研究者の方、お気軽にご相談ください。</p>
       </div>
       
-      <!-- 既存の部分を置き換え --> 
-  <div class="contact-cta">
-    <h3>お問い合わせ方法</h3>
-    <p>研究内容、大学院進学、共同研究など、どんなことでもお気軽にお問い合わせください。</p>
-  
-      <!-- フォームボタンを追加 -->
-  <div class="contact-buttons">
-    <a href="https://forms.gle/nmK7NEjRiwRNMmE77" target="_blank" class="cta-button primary">
-      お問い合わせフォームはこちら
-    </a>
-  </div>
-  
-  <p style="margin: 20px 0; color: #666; text-align: center;">または</p>
-  
-  <div class="contact-box-highlight">
-    <p class="contact-email">
-      <strong>📧 Email:</strong> nakae [at] u-fukui.ac.jp
-    </p>
-    <p class="contact-note">
-      メールでも受け付けています。以下をご記載ください：<br>
-      • お名前<br>
-      • 所属（大学名・学年 または 所属機関）<br>
-      • お問い合わせ内容<br>
-      • 研究室見学の場合：希望日時（第3希望まで）
-    </p>
-  </div>
-  
-  <p style="margin-top: 20px; text-align: center; font-size: 1.05em;">
-    ご興味がある方は、遠慮なく中江までご連絡ください。
-  </p>
-</div>
+      <div class="contact-cta">
+        <h3 data-ja="お問い合わせ方法" data-en="How to Contact Us">お問い合わせ方法</h3>
+        <p data-ja="研究内容、大学院進学、共同研究など、どんなことでもお気軽にお問い合わせください。" data-en="Feel free to contact us about research content, graduate school admission, collaborative research, or any other inquiries.">研究内容、大学院進学、共同研究など、どんなことでもお気軽にお問い合わせください。</p>
+      
+        <!-- フォームボタンを追加 -->
+        <div class="contact-buttons">
+          <a href="https://forms.gle/nmK7NEjRiwRNMmE77" target="_blank" class="cta-button primary" data-ja="お問い合わせフォームはこちら" data-en="Contact Form">
+            お問い合わせフォームはこちら
+          </a>
+        </div>
+      
+        <p style="margin: 20px 0; color: #666; text-align: center;" data-ja="または" data-en="or">または</p>
+      
+        <div class="contact-box-highlight">
+          <p class="contact-email">
+            <strong>📧 Email:</strong> nakae [at] u-fukui.ac.jp
+          </p>
+          <p class="contact-note" data-ja="メールでも受け付けています。以下をご記載ください：<br>• お名前<br>• 所属（大学名・学年 または 所属機関）<br>• お問い合わせ内容<br>• 研究室見学の場合：希望日時（第3希望まで）" data-en="We also accept inquiries via email. Please include:<br>• Your name<br>• Affiliation (university name/year or institution)<br>• Inquiry details<br>• For lab visits: Preferred dates/times (up to 3 options)">
+            メールでも受け付けています。以下をご記載ください：<br>
+            • お名前<br>
+            • 所属（大学名・学年 または 所属機関）<br>
+            • お問い合わせ内容<br>
+            • 研究室見学の場合：希望日時（第3希望まで）
+          </p>
+        </div>
+      
+        <p style="margin-top: 20px; text-align: center; font-size: 1.05em;" data-ja="ご興味がある方は、遠慮なく中江までご連絡ください。" data-en="If you are interested, please feel free to contact Professor Nakae.">
+          ご興味がある方は、遠慮なく中江までご連絡ください。
+        </p>
+      </div>
     </section>
   </div>
 

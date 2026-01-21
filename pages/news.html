@@ -14,32 +14,40 @@
 
 <body>
   <nav>
-  <!-- ロゴ -->
-  <a href="../index.html" class="logo">
-    <img src="../images/common/Nakaelab_logo.png" alt="Nakae Lab Logo">
-    <span class="logo-text">福井大学 デジタルツイン研究室</span>
-  </a>
+    <!-- ロゴ -->
+    <a href="../index.html" class="logo">
+      <img src="../images/common/Nakaelab_logo.png" alt="Nakae Lab Logo">
+      <span class="logo-text" data-ja="福井大学 デジタルツイン研究室" data-en="Digital Twin Lab, University of Fukui">福井大学 デジタルツイン研究室</span>
+    </a>
 
-  <!-- ハンバーガーメニュー（スマホ用） -->
-  <div class="hamburger" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+    <!-- ハンバーガーメニュー(スマホ用) -->
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
 
-  <!-- メニュー -->
-  <ul id="navMenu">
-    <li><a href="../index.html">トップ</a></li>
-    <li><a href="research.html">研究内容</a></li>
-    <li><a href="member.html">メンバー</a></li>
-    <li><a href="https://scholar.google.co.jp/citations?user=XOE-MT8AAAAJ&hl=ja" target="_blank">論文一覧</a></li>
-    <li><a href="news.html" class="active">ニュース</a></li>
-    <li><a href="contact.html">お問い合わせ</a></li>
-  </ul>
-</nav>
+    <!-- メニュー -->
+    <ul id="navMenu">
+      <li><a href="../index.html" data-ja="トップ" data-en="Home">トップ</a></li>
+      <li><a href="research.html" data-ja="研究内容" data-en="Research">研究内容</a></li>
+      <li><a href="member.html" data-ja="メンバー" data-en="Members">メンバー</a></li>
+      <li><a href="https://scholar.google.co.jp/citations?user=XOE-MT8AAAAJ&hl=ja" target="_blank" data-ja="論文一覧" data-en="Publications">論文一覧</a></li>
+      <li><a href="news.html" class="active" data-ja="ニュース" data-en="News">ニュース</a></li>
+      <li><a href="contact.html" data-ja="お問い合わせ" data-en="Contact">お問い合わせ</a></li>
+    </ul>
+
+    <!-- 言語切り替えボタン(メニューの右側) -->
+    <div class="language-switcher">
+      <button id="langToggle" onclick="toggleLanguage()">
+        <span id="langIcon">🌐</span>
+        <span id="langText">EN</span>
+      </button>
+    </div>
+  </nav>
 
   <!-- 自動更新バッジ -->
-  <div class="auto-update-badge" id="updateBadge">
+  <div class="auto-update-badge" id="updateBadge" data-ja="🔄 Googleスプレッドシートから更新中..." data-en="🔄 Updating from Google Sheets...">
     🔄 Googleスプレッドシートから更新中...
   </div>
 
@@ -58,8 +66,8 @@
     </div>
     
     <div class="hero-content">
-      <h1>ニュース</h1>
-      <p>Digital Twin Labの最新のニュース、研究成果、イベント情報をお届けします</p>
+      <h1 data-ja="ニュース" data-en="News">ニュース</h1>
+      <p data-ja="Digital Twin Labの最新のニュース、研究成果、イベント情報をお届けします" data-en="Latest news, research achievements, and event information from Digital Twin Lab">Digital Twin Labの最新のニュース、研究成果、イベント情報をお届けします</p>
     </div>
   </section>
 
@@ -67,23 +75,23 @@
     <!-- Filter Section -->
     <section class="filter-section">
       <div class="filter-buttons">
-        <button class="filter-btn active" data-filter="all">すべて</button>
-        <button class="filter-btn" data-filter="publication">論文・出版</button>
-        <button class="filter-btn" data-filter="event">イベント</button>
-        <button class="filter-btn" data-filter="award">受賞・表彰</button>
-        <button class="filter-btn" data-filter="milestone">マイルストーン</button>
+        <button class="filter-btn active" data-filter="all" data-ja="すべて" data-en="All">すべて</button>
+        <button class="filter-btn" data-filter="publication" data-ja="論文・出版" data-en="Publications">論文・出版</button>
+        <button class="filter-btn" data-filter="event" data-ja="イベント" data-en="Events">イベント</button>
+        <button class="filter-btn" data-filter="award" data-ja="受賞・表彰" data-en="Awards">受賞・表彰</button>
+        <button class="filter-btn" data-filter="milestone" data-ja="マイルストーン" data-en="Milestones">マイルストーン</button>
       </div>
       <div class="search-box">
-        <input type="text" id="searchInput" placeholder="ニュースを検索...">
+        <input type="text" id="searchInput" data-ja-placeholder="ニュースを検索..." data-en-placeholder="Search news...">
       </div>
     </section>
 
     <!-- News Section -->
     <section class="news-section">
-      <h2 class="section-title">最新ニュース</h2>
+      <h2 class="section-title" data-ja="最新ニュース" data-en="Latest News">最新ニュース</h2>
       
       <div class="news-timeline" id="newsContainer">
-        <div class="loading">Googleスプレッドシートからニュースを読み込み中...</div>
+        <div class="loading" data-ja="Googleスプレッドシートからニュースを読み込み中..." data-en="Loading news from Google Sheets...">Googleスプレッドシートからニュースを読み込み中...</div>
       </div>
     </section>
   </div>

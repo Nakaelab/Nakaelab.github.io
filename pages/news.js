@@ -1,3 +1,62 @@
+// ===== 言語切り替え機能 =====
+let currentLanguage = 'ja'; // デフォルトは日本語
+
+// ページ読み込み時に保存された言語設定を復元
+function initLanguage() {
+  const savedLang = localStorage.getItem('preferredLanguage');
+  if (savedLang) {
+    currentLanguage = savedLang;
+    applyLanguage(currentLanguage);
+  }
+}
+
+// 言語を切り替える関数
+function toggleLanguage() {
+  currentLanguage = currentLanguage === 'ja' ? 'en' : 'ja';
+  applyLanguage(currentLanguage);
+  localStorage.setItem('preferredLanguage', currentLanguage);
+  
+  // ニュース表示を更新
+  displayNews(filteredNews);
+}
+
+// 言語を適用する関数
+function applyLanguage(lang) {
+  // ボタンのテキストを更新
+  const langText = document.getElementById('langText');
+  if (langText) {
+    langText.textContent = lang === 'ja' ? 'EN' : 'JP';
+  }
+
+  // HTML要素の言語を更新
+  document.documentElement.lang = lang;
+
+  // data-ja と data-en 属性を持つすべての要素を更新
+  const elements = document.querySelectorAll('[data-ja][data-en]');
+  elements.forEach(element => {
+    const text = element.getAttribute(`data-${lang}`);
+    if (text) {
+      // HTMLタグを含む場合（brタグなど）
+      if (text.includes('<br>')) {
+        element.innerHTML = text;
+      } else {
+        element.textContent = text;
+      }
+    }
+  });
+
+  // 検索ボックスのプレースホルダーを更新
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    const placeholder = searchInput.getAttribute(`data-${lang}-placeholder`);
+    if (placeholder) {
+      searchInput.placeholder = placeholder;
+    }
+  }
+
+  console.log(`✅ 言語を${lang === 'ja' ? '日本語' : '英語'}に切り替えました`);
+}
+
 // Googleスプレッドシートの設定
 const SPREADSHEET_ID = '1tTfxn1GpsZjD39wg4LNBwg6OJv98B1MjMLNQysP5GYk';
 const NEWS_SHEET_ID = '0'; // newsシートのgid
@@ -85,26 +144,44 @@ function getLinkIcon(type) {
   return icons[type] || icons.website;
 }
 
-// リンクラベルを取得する関数
+// リンクラベルを取得する関数（言語対応）
 function getLinkLabel(type, url) {
-  const labels = {
+  const labelsJa = {
     paper: '論文を読む',
     website: 'ウェブサイト',
     video: '動画を見る',
     github: 'GitHub'
   };
-  return labels[type] || '詳細を見る';
+  
+  const labelsEn = {
+    paper: 'Read Paper',
+    website: 'Website',
+    video: 'Watch Video',
+    github: 'GitHub'
+  };
+  
+  const labels = currentLanguage === 'ja' ? labelsJa : labelsEn;
+  return labels[type] || (currentLanguage === 'ja' ? '詳細を見る' : 'More Details');
 }
 
-// カテゴリの日本語表示名を取得
+// カテゴリの表示名を取得（言語対応）
 function getCategoryLabel(category) {
-  const labelMap = {
+  const labelMapJa = {
     'publication': '論文・出版',
     'event': 'イベント',
     'award': '受賞・表彰',
     'milestone': 'マイルストーン'
   };
-  return labelMap[category] || 'その他';
+  
+  const labelMapEn = {
+    'publication': 'Publication',
+    'event': 'Event',
+    'award': 'Award',
+    'milestone': 'Milestone'
+  };
+  
+  const labelMap = currentLanguage === 'ja' ? labelMapJa : labelMapEn;
+  return labelMap[category] || (currentLanguage === 'ja' ? 'その他' : 'Other');
 }
 
 // ニュースを表示
@@ -112,7 +189,10 @@ function displayNews(newsArray) {
   const container = document.getElementById('newsContainer');
   
   if (newsArray.length === 0) {
-    container.innerHTML = '<div class="no-results">該当するニュースが見つかりませんでした。</div>';
+    const noResultsText = currentLanguage === 'ja' ? 
+      '該当するニュースが見つかりませんでした。' : 
+      'No news found.';
+    container.innerHTML = `<div class="no-results">${noResultsText}</div>`;
     return;
   }
 
@@ -198,19 +278,26 @@ async function loadNews() {
     displayNews(filteredNews);
     
     updateBadge.style.display = 'none';
-    console.log('ニュースデータの読み込み完了！');
+    console.log('ニュースデータの読み込み完了!');
     
   } catch (error) {
     console.error('ニュースデータの読み込みエラー:', error);
     
+    const errorTextJa = `エラー: ニュース情報を読み込めませんでした。<br>${error.message}`;
+    const errorTextEn = `Error: Failed to load news.<br>${error.message}`;
+    const retryTextJa = '再試行';
+    const retryTextEn = 'Retry';
+    
+    const errorText = currentLanguage === 'ja' ? errorTextJa : errorTextEn;
+    const retryText = currentLanguage === 'ja' ? retryTextJa : retryTextEn;
+    
     const container = document.getElementById('newsContainer');
     container.innerHTML = `
       <div class="loading" style="color: #e74c3c;">
-        エラー: ニュース情報を読み込めませんでした。<br>
-        ${error.message}
+        ${errorText}
         <br><br>
         <button onclick="loadNews()" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">
-          再試行
+          ${retryText}
         </button>
       </div>
     `;
@@ -231,6 +318,9 @@ function toggleMenu() {
 
 // イベントリスナー設定
 document.addEventListener('DOMContentLoaded', function() {
+  // 言語設定を初期化
+  initLanguage();
+  
   // フィルターボタンのイベント
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', function() {
