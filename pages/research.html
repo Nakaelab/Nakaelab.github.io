@@ -14,30 +14,37 @@
 <body>
     <!-- ナビゲーションバー -->
     <nav>
-  <!-- ロゴ -->
-  <a href="../index.html" class="logo">
-    <img src="../images/common/Nakaelab_logo.png" alt="Nakae Lab Logo">
-    <span class="logo-text">福井大学 デジタルツイン研究室</span>
-  </a>
+        <!-- ロゴ -->
+        <a href="../index.html" class="logo">
+            <img src="../images/common/Nakaelab_logo.png" alt="Nakae Lab Logo">
+            <span class="logo-text" data-ja="福井大学 デジタルツイン研究室" data-en="Digital Twin Lab, University of Fukui">福井大学 デジタルツイン研究室</span>
+        </a>
 
-  <!-- ハンバーガーメニュー（スマホ用） -->
-  <div class="hamburger" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+        <!-- ハンバーガーメニュー(スマホ用) -->
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 
-  <!-- メニュー -->
-  <ul id="navMenu">
-    <li><a href="../index.html">トップ</a></li>
-    <li><a href="research.html" class="active">研究内容</a></li>
-    <li><a href="member.html">メンバー</a></li>
-    <li><a href="https://scholar.google.co.jp/citations?user=XOE-MT8AAAAJ&hl=ja" target="_blank">論文一覧</a></li>
-    <li><a href="news.html">ニュース</a></li>
-    <li><a href="contact.html">お問い合わせ</a></li>
-  </ul>
-</nav>
+        <!-- メニュー -->
+        <ul id="navMenu">
+            <li><a href="../index.html" data-ja="トップ" data-en="Home">トップ</a></li>
+            <li><a href="research.html" class="active" data-ja="研究内容" data-en="Research">研究内容</a></li>
+            <li><a href="member.html" data-ja="メンバー" data-en="Members">メンバー</a></li>
+            <li><a href="https://scholar.google.co.jp/citations?user=XOE-MT8AAAAJ&hl=ja" target="_blank" data-ja="論文一覧" data-en="Publications">論文一覧</a></li>
+            <li><a href="news.html" data-ja="ニュース" data-en="News">ニュース</a></li>
+            <li><a href="contact.html" data-ja="お問い合わせ" data-en="Contact">お問い合わせ</a></li>
+        </ul>
 
+        <!-- 言語切り替えボタン(メニューの右側) -->
+        <div class="language-switcher">
+            <button id="langToggle" onclick="toggleLanguage()">
+                <span id="langIcon">🌐</span>
+                <span id="langText">EN</span>
+            </button>
+        </div>
+    </nav>
 
     <!-- 画像セクション -->
     <section class="hero-image-section"></section>
@@ -46,8 +53,8 @@
     <section class="hero-text-section">
         <div class="hero-content">
             <h1 class="hero-title">Research</h1>
-            <p class="hero-subtitle">デジタルツイン研究室の研究活動</p>
-            <p class="hero-description">
+            <p class="hero-subtitle" data-ja="デジタルツイン研究室の研究活動" data-en="Research Activities of Digital Twin Lab">デジタルツイン研究室の研究活動</p>
+            <p class="hero-description" data-ja="私たちは計算論的神経科学とデジタルツイン技術を組み合わせ、生体のダイナミクスを数理的に理解し、未来の医療・ヘルスケアに貢献する革新的な研究を行っています。" data-en="We combine computational neuroscience and digital twin technology to mathematically understand biological dynamics and conduct innovative research contributing to future healthcare and medicine.">
                 私たちは計算論的神経科学とデジタルツイン技術を組み合わせ、生体のダイナミクスを数理的に理解し、未来の医療・ヘルスケアに貢献する革新的な研究を行っています。
             </p>
         </div>
@@ -58,15 +65,15 @@
         <div class="container">
             <h3 class="keywords-title" data-scroll>Research Topics</h3>
             <div class="keywords-tags">
-                <span class="keyword-tag" data-scroll>デジタルツインマーモセット</span>
-                <span class="keyword-tag" data-scroll>3d-eegデジタルツイン</span>
-                <span class="keyword-tag" data-scroll>行動変容生物学</span>
-                <span class="keyword-tag" data-scroll>スマートネスト</span>
-                <span class="keyword-tag" data-scroll>足羽山動物園</span>
-                <span class="keyword-tag" data-scroll>キーポイント推定全般</span>
-                <span class="keyword-tag" data-scroll>凝集たんぱく質伝播モデル</span>
-                <span class="keyword-tag" data-scroll>建築×生命デジタルツイン</span>
-                <span class="keyword-tag" data-scroll>マーモセット脳データ解析</span>
+                <span class="keyword-tag" data-scroll data-ja="デジタルツインマーモセット" data-en="Digital Twin Marmoset">デジタルツインマーモセット</span>
+                <span class="keyword-tag" data-scroll data-ja="3d-eegデジタルツイン" data-en="3D-EEG Digital Twin">3d-eegデジタルツイン</span>
+                <span class="keyword-tag" data-scroll data-ja="行動変容生物学" data-en="Behavioral Change Biology">行動変容生物学</span>
+                <span class="keyword-tag" data-scroll data-ja="スマートネスト" data-en="Smart Nest">スマートネスト</span>
+                <span class="keyword-tag" data-scroll data-ja="足羽山動物園" data-en="Asuwa Zoo">足羽山動物園</span>
+                <span class="keyword-tag" data-scroll data-ja="キーポイント推定全般" data-en="Keypoint Estimation">キーポイント推定全般</span>
+                <span class="keyword-tag" data-scroll data-ja="凝集たんぱく質伝播モデル" data-en="Protein Aggregation Model">凝集たんぱく質伝播モデル</span>
+                <span class="keyword-tag" data-scroll data-ja="建築×生命デジタルツイン" data-en="Architecture × Life Digital Twin">建築×生命デジタルツイン</span>
+                <span class="keyword-tag" data-scroll data-ja="マーモセット脳データ解析" data-en="Marmoset Brain Data Analysis">マーモセット脳データ解析</span>
             </div>
         </div>
     </section>
@@ -75,28 +82,28 @@
     <section class="section mission-section">
         <div class="container">
             <h2 class="section-title" data-scroll>Mission</h2>
-            <p class="section-description" data-scroll>
+            <p class="section-description" data-scroll data-ja="私たちのミッションは、現実世界の複雑な多様な生命現象をデジタル空間へ抽象的かつ再現的に再現することで、科学の最前線を切り拓き、未来の医療・エンターテインメント・福祉分野を支える新たな価値を創造することです。" data-en="Our mission is to pioneer the frontiers of science by abstractly and reproductively recreating complex and diverse life phenomena in digital space, creating new value to support future healthcare, entertainment, and welfare fields.">
                 私たちのミッションは、現実世界の複雑な多様な生命現象をデジタル空間へ抽象的かつ再現的に再現することで、科学の最前線を切り拓き、未来の医療・エンターテインメント・福祉分野を支える新たな価値を創造することです。
             </p>
             
             <div class="mission-pillars">
                 <div class="mission-pillar" data-scroll>
-                    <h3 class="pillar-title">生命のダイナミクスを解明する3Dデジタルツインの構築</h3>
-                    <p class="pillar-description">
+                    <h3 class="pillar-title" data-ja="生命のダイナミクスを解明する3Dデジタルツインの構築" data-en="Building 3D Digital Twins to Elucidate Life Dynamics">生命のダイナミクスを解明する3Dデジタルツインの構築</h3>
+                    <p class="pillar-description" data-ja="霊長類であるマーモセットの複雑な軌跡、さらには行動全体を包括的に3D再現技術と大量データによる解析を通じて主観的な感覚や複雑な行動パターンをデジタル空間に再現します。これにより、デジタル上で生命体の自然的な挙動に応じた行動を定量化する新しいモデルの構築を目指します。" data-en="We recreate subjective sensations and complex behavioral patterns of primates like marmosets in digital space through comprehensive 3D reconstruction technology and big data analysis. This aims to build new models that quantify natural behaviors of living organisms in digital environments.">
                         霊長類であるマーモセットの複雑な軌跡、さらには行動全体を包括的に3D再現技術と大量データによる解析を通じて主観的な感覚や複雑な行動パターンをデジタル空間に再現します。これにより、デジタル上で生命体の自然的な挙動に応じた行動を定量化する新しいモデルの構築を目指します。
                     </p>
                 </div>
 
                 <div class="mission-pillar" data-scroll>
-                    <h3 class="pillar-title">先進的な生体計測技術の活用と健康と疾病の最適化</h3>
-                    <p class="pillar-description">
+                    <h3 class="pillar-title" data-ja="先進的な生体計測技術の活用と健康と疾病の最適化" data-en="Utilizing Advanced Biometric Technologies for Health Optimization">先進的な生体計測技術の活用と健康と疾病の最適化</h3>
+                    <p class="pillar-description" data-ja="生物発光技術を用い、脳血流の誘導や疾病機構の低干渉な観測リアルタイムで自動測定する装置を開発します。マーモセットを通じた静的解析的な手法により、脳血レベルから個体全体の状態を把握し、認知症やその他の疾患の早期発見、予防に寄与する技術を確立します。" data-en="We develop devices that use bioluminescence technology for real-time automatic measurement of cerebral blood flow and low-interference observation of disease mechanisms. Through marmoset studies, we establish technologies to detect and prevent dementia and other diseases by understanding whole-body states from brain blood levels.">
                         生物発光技術を用い、脳血流の誘導や疾病機構の低干渉な観測リアルタイムで自動測定する装置を開発します。マーモセットを通じた静的解析的な手法により、脳血レベルから個体全体の状態を把握し、認知症やその他の疾患の早期発見、予防に寄与する技術を確立します。
                     </p>
                 </div>
 
                 <div class="mission-pillar" data-scroll>
-                    <h3 class="pillar-title">脳・行動データの解析による多次元アプローチ</h3>
-                    <p class="pillar-description">
+                    <h3 class="pillar-title" data-ja="脳・行動データの解析による多次元アプローチ" data-en="Multi-dimensional Approach through Brain and Behavioral Data Analysis">脳・行動データの解析による多次元アプローチ</h3>
+                    <p class="pillar-description" data-ja="動物やヒトの脳データの大規模データベース構築と先進的な解析手法の開発を通じ、構造的なネットワークと動的な脳活動、さらには身体各部の動態まで、多階層に解明します。これにより、未来の生命現象の理解を深めるとともに、実用的な応用技術の創出につなげます。" data-en="We build large-scale databases of animal and human brain data and develop advanced analysis methods to elucidate structural networks, dynamic brain activity, and body dynamics across multiple layers. This deepens understanding of life phenomena and leads to practical applications.">
                         動物やヒトの脳データの大規模データベース構築と先進的な解析手法の開発を通じ、構造的なネットワークと動的な脳活動、さらには身体各部の動態まで、多階層に解明します。これにより、未来の生命現象の理解を深めるとともに、実用的な応用技術の創出につなげます。
                     </p>
                 </div>
@@ -107,40 +114,40 @@
     <!-- アプローチセクション -->
     <section class="section approach-section">
         <div class="container">
-            <h2 class="section-title" data-scroll>Research Approach</h2>
+            <h2 class="section-title" data-scroll data-ja="Research Approach" data-en="Research Approach">Research Approach</h2>
             
             <div class="approach-list">
                 <div class="approach-item" data-scroll>
-                    <h3 class="approach-item-title">データ収集・計測</h3>
-                    <p class="approach-item-description">
+                    <h3 class="approach-item-title" data-ja="データ収集・計測" data-en="Data Collection & Measurement">データ収集・計測</h3>
+                    <p class="approach-item-description" data-ja="高精度な生体計測技術を用いて、脳波・行動・生理指標などの多次元データを収集します。" data-en="We collect multi-dimensional data including EEG, behavior, and physiological indicators using high-precision biometric technologies.">
                         高精度な生体計測技術を用いて、脳波・行動・生理指標などの多次元データを収集します。
                     </p>
                 </div>
 
                 <div class="approach-item" data-scroll>
-                    <h3 class="approach-item-title">数理モデル構築</h3>
-                    <p class="approach-item-description">
+                    <h3 class="approach-item-title" data-ja="数理モデル構築" data-en="Mathematical Modeling">数理モデル構築</h3>
+                    <p class="approach-item-description" data-ja="収集したデータを基に、生体システムの数理モデルを構築し、デジタルツインを実現します。" data-en="We build mathematical models of biological systems based on collected data to realize digital twins.">
                         収集したデータを基に、生体システムの数理モデルを構築し、デジタルツインを実現します。
                     </p>
                 </div>
 
                 <div class="approach-item" data-scroll>
-                    <h3 class="approach-item-title">機械学習による解析</h3>
-                    <p class="approach-item-description">
+                    <h3 class="approach-item-title" data-ja="機械学習による解析" data-en="Machine Learning Analysis">機械学習による解析</h3>
+                    <p class="approach-item-description" data-ja="深層学習や統計的機械学習手法を適用し、複雑なパターンや因果関係を発見します。" data-en="We apply deep learning and statistical machine learning methods to discover complex patterns and causal relationships.">
                         深層学習や統計的機械学習手法を適用し、複雑なパターンや因果関係を発見します。
                     </p>
                 </div>
 
                 <div class="approach-item" data-scroll>
-                    <h3 class="approach-item-title">予測・最適化</h3>
-                    <p class="approach-item-description">
+                    <h3 class="approach-item-title" data-ja="予測・最適化" data-en="Prediction & Optimization">予測・最適化</h3>
+                    <p class="approach-item-description" data-ja="構築したモデルを用いて生体状態の予測を行い、最適な介入方法を提案します。" data-en="We predict biological states using constructed models and propose optimal intervention methods.">
                         構築したモデルを用いて生体状態の予測を行い、最適な介入方法を提案します。
                     </p>
                 </div>
 
                 <div class="approach-item" data-scroll>
-                    <h3 class="approach-item-title">社会実装</h3>
-                    <p class="approach-item-description">
+                    <h3 class="approach-item-title" data-ja="社会実装" data-en="Social Implementation">社会実装</h3>
+                    <p class="approach-item-description" data-ja="研究成果を実際の医療現場やヘルスケアシステムに応用し、社会に貢献します。" data-en="We apply research results to actual medical settings and healthcare systems to contribute to society.">
                         研究成果を実際の医療現場やヘルスケアシステムに応用し、社会に貢献します。
                     </p>
                 </div>
@@ -152,11 +159,11 @@
     <div class="modal-overlay" id="researchModal" onclick="closeResearchModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-header">
-                <h3 class="modal-title" id="modalTitle">研究テーマ</h3>
+                <h3 class="modal-title" id="modalTitle" data-ja="研究テーマ" data-en="Research Theme">研究テーマ</h3>
                 <button class="modal-close" onclick="closeResearchModal()">×</button>
             </div>
             <div class="modal-body">
-                <p class="modal-description" id="modalDescription">
+                <p class="modal-description" id="modalDescription" data-ja="研究テーマの詳細がここに表示されます。" data-en="Research theme details will be displayed here.">
                     研究テーマの詳細がここに表示されます。
                 </p>
             </div>
