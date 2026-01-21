@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Digital Twin Lab</title>
   <link rel="icon" type="image/png" href="images/common/Nakaelab_logo.png">
-    <!-- ↓↓↓ ここから追加 ↓↓↓ -->
+  
   <!-- Open Graph / SNSシェア用メタタグ -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://nakaelab.github.io/">
@@ -20,7 +20,6 @@
   <meta name="twitter:title" content="福井大学 デジタルツイン研究室">
   <meta name="twitter:description" content="デジタル空間で生きる生命を創る。福井大学 中江健研究室では、生命のデジタルツイン、脳神経データ解析の研究を行っています。">
   <meta name="twitter:image" content="https://nakaelab.github.io/images/common/og-image.png">
-  <!-- ↑↑↑ ここまで追加 ↑↑↑ -->
   
   <!-- 共通CSSを読み込み -->
   <link rel="stylesheet" href="common.css">
@@ -35,10 +34,10 @@
   <!-- ロゴ -->
   <a href="index.html" class="logo">
     <img src="images/common/Nakaelab_logo.png" alt="Nakae Lab Logo">
-    <span class="logo-text">福井大学 デジタルツイン研究室</span>
+    <span class="logo-text" data-ja="福井大学 デジタルツイン研究室" data-en="Digital Twin Lab, University of Fukui">福井大学 デジタルツイン研究室</span>
   </a>
 
-  <!-- ハンバーガーメニュー（スマホ用） -->
+  <!-- ハンバーガーメニュー(スマホ用) -->
   <div class="hamburger" onclick="toggleMenu()">
     <span></span>
     <span></span>
@@ -47,17 +46,25 @@
 
   <!-- メニュー -->
   <ul id="navMenu">
-    <li><a href="index.html" class="active">トップ</a></li>
-    <li><a href="pages/research.html">研究内容</a></li>
-    <li><a href="pages/member.html">メンバー</a></li>
-    <li><a href="https://scholar.google.co.jp/citations?user=XOE-MT8AAAAJ&hl=ja" target="_blank">論文一覧</a></li>
-    <li><a href="pages/news.html">ニュース</a></li>
-    <li><a href="pages/contact.html">お問い合わせ</a></li>
+    <li><a href="index.html" class="active" data-ja="トップ" data-en="Home">トップ</a></li>
+    <li><a href="pages/research.html" data-ja="研究内容" data-en="Research">研究内容</a></li>
+    <li><a href="pages/member.html" data-ja="メンバー" data-en="Members">メンバー</a></li>
+    <li><a href="https://scholar.google.co.jp/citations?user=XOE-MT8AAAAJ&hl=ja" target="_blank" data-ja="論文一覧" data-en="Publications">論文一覧</a></li>
+    <li><a href="pages/news.html" data-ja="ニュース" data-en="News">ニュース</a></li>
+    <li><a href="pages/contact.html" data-ja="お問い合わせ" data-en="Contact">お問い合わせ</a></li>
   </ul>
+
+  <!-- 言語切り替えボタン(メニューの右側) -->
+  <div class="language-switcher">
+    <button id="langToggle" onclick="toggleLanguage()">
+      <span id="langIcon">🌐</span>
+      <span id="langText">EN</span>
+    </button>
+  </div>
 </nav>
 
   <!-- 自動更新バッジ -->
-  <div class="auto-update-badge" id="updateBadge">
+  <div class="auto-update-badge" id="updateBadge" data-ja="🔄 Googleスプレッドシートから更新中..." data-en="🔄 Updating from Google Sheets...">
     🔄 Googleスプレッドシートから更新中...
   </div>
 
@@ -68,32 +75,32 @@
   
   <!-- キャッチコピーオーバーレイ -->
   <div class="hero-overlay">
-    <h1 class="hero-catchphrase">
+    <h1 class="hero-catchphrase" data-ja="デジタル空間で生きる<br>生命を創る" data-en="Creating Life<br>in Digital Spaces">
       デジタル空間で生きる<br>生命を創る
     </h1>
-    <p class="hero-subtitle">福井大学　中江健　研究室</p>
+    <p class="hero-subtitle" data-ja="福井大学　中江健　研究室" data-en="Nakae Lab, University of Fukui">福井大学　中江健　研究室</p>
   </div>
 </section>
 
   <!-- RESEARCH -->
 <section class="research fade-in" id="research">
   <div class="floating-marmoset following"></div>
-  <h2>研究の3本柱</h2>
+  <h2 data-ja="研究の3本柱" data-en="Three Research Pillars">研究の3本柱</h2>
   <div class="pillars">
     <div class="pillar">
       <div class="number">01</div>
-      <h3>生命のデジタルツイン</h3>
-      <p>動物やヒトの感覚と行動の長期計測から、そのダイナミクスを人工知能技術などを用いてモデル化しデジタル空間で自発的に生きる生命を作ります。</p>
+      <h3 data-ja="生命のデジタルツイン" data-en="Digital Twin of Life">生命のデジタルツイン</h3>
+      <p data-ja="動物やヒトの感覚と行動の長期計測から、そのダイナミクスを人工知能技術などを用いてモデル化しデジタル空間で自発的に生きる生命を作ります。" data-en="We create digital twins of living organisms by modeling their sensory-motor dynamics through long-term behavioral measurements, enabling autonomous life in digital spaces using AI technologies.">動物やヒトの感覚と行動の長期計測から、そのダイナミクスを人工知能技術などを用いてモデル化しデジタル空間で自発的に生きる生命を作ります。</p>
     </div>
     <div class="pillar">
       <div class="number">02</div>
-      <h3>脳神経データ解析</h3>
-      <p>デジタルツインやデータベースを用いてアルツハイマー病やてんかんといった神経内科学(Neurology)分野を理論的に理解するための枠組みを発展させます。</p>
+      <h3 data-ja="脳神経データ解析" data-en="Neural Data Analysis">脳神経データ解析</h3>
+      <p data-ja="デジタルツインやデータベースを用いてアルツハイマー病やてんかんといった神経内科学(Neurology)分野を理論的に理解するための枠組みを発展させます。" data-en="We develop theoretical frameworks for understanding neurological diseases such as Alzheimer's and epilepsy using digital twins and databases.">デジタルツインやデータベースを用いてアルツハイマー病やてんかんといった神経内科学(Neurology)分野を理論的に理解するための枠組みを発展させます。</p>
     </div>
     <div class="pillar">
       <div class="number">03</div>
       <h3>Computational Neurology</h3>
-      <p>大規模な脳・行動データを解析し、生命の複雑さのアーキテクチャを解読します。</p>
+      <p data-ja="大規模な脳・行動データを解析し、生命の複雑さのアーキテクチャを解読します。" data-en="We analyze large-scale brain and behavioral data to decode the architecture of biological complexity.">大規模な脳・行動データを解析し、生命の複雑さのアーキテクチャを解読します。</p>
     </div>
   </div>
 </section>
@@ -103,19 +110,20 @@
   <section class="news fade-in" id="news">
     <h2>News</h2>
     <ul class="news-list" id="newsContainer">
-      <li class="loading">Googleスプレッドシートからニュースを読み込み中...</li>
+      <li class="loading" data-ja="Googleスプレッドシートからニュースを読み込み中..." data-en="Loading news from Google Sheets...">Googleスプレッドシートからニュースを読み込み中...</li>
     </ul>
   </section>
+  
   <!-- SEMINARS & EVENTS -->
   <section class="seminars fade-in" id="seminars">
     <h2>Seminars & Events</h2>
     <div class="seminar-list">
       <div class="seminar-item">
         <h3 class="seminar-title">Computational Neurology Club</h3>
-        <p class="seminar-description">
+        <p class="seminar-description" data-ja="計算論的手法を用いて、アルツハイマー病・パーキンソン病・てんかんなど神経内科疾患の病態理解と臨床応用をめざすコミュニティです。2ヶ月に1回のオンラインセミナーを通じて、学生・研究者・臨床家が分野を越えて議論する場を提供します。" data-en="A community aiming to understand and clinically apply computational approaches to neurological diseases such as Alzheimer's, Parkinson's, and epilepsy. We provide a platform for students, researchers, and clinicians to discuss across disciplines through bimonthly online seminars.">
           計算論的手法を用いて、アルツハイマー病・パーキンソン病・てんかんなど神経内科疾患の病態理解と臨床応用をめざすコミュニティです。2ヶ月に1回のオンラインセミナーを通じて、学生・研究者・臨床家が分野を越えて議論する場を提供します。
         </p>
-        <a href="https://nakaelab.github.io/ComputationalNeurologyClub/" target="_blank" class="seminar-link">詳細を見る →</a>
+        <a href="https://nakaelab.github.io/ComputationalNeurologyClub/" target="_blank" class="seminar-link" data-ja="詳細を見る →" data-en="More details →">詳細を見る →</a>
       </div>
       <div class="seminar-item">
         <h3 class="seminar-title">Digital Brain Seminar</h3>
@@ -129,19 +137,19 @@
 
   <!-- Contact -->
   <section class="contact fade-in">
-    <h2>お問合せ</h2>
+    <h2 data-ja="お問合せ" data-en="Contact">お問合せ</h2>
     <div class="contact-content">
-      <p><strong>所在地:</strong><br>
-      福井大学 文京キャンパス　総合研究棟Ⅰ 0511号室<br>
-      住所：〒910-8507 福井県福井市文京3-9-1　総合研究棟I 0511</p>
+      <p><strong data-ja="所在地:" data-en="Location:">所在地:</strong><br>
+      <span data-ja="福井大学 文京キャンパス　総合研究棟Ⅰ 0511号室" data-en="University of Fukui, Bunkyo Campus, Research Building I, Room 0511">福井大学 文京キャンパス　総合研究棟Ⅰ 0511号室</span><br>
+      <span data-ja="住所：〒910-8507 福井県福井市文京3-9-1　総合研究棟I 0511" data-en="Address: 3-9-1 Bunkyo, Fukui City, Fukui 910-8507, Japan">住所：〒910-8507 福井県福井市文京3-9-1　総合研究棟I 0511</span></p>
 
       <p><strong>Email:</strong><br>
       nakae [at] u-fukui.ac.jp</p>
 
-      <p><strong>大学院生・JSPS特別研究員を募集しています！</strong><br>
-      研究に情熱を持つ方を歓迎します。</p>
+      <p><strong data-ja="大学院生・JSPS特別研究員を募集しています！" data-en="We are recruiting graduate students and JSPS research fellows!">大学院生・JSPS特別研究員を募集しています!</strong><br>
+      <span data-ja="研究に情熱を持つ方を歓迎します。" data-en="We welcome passionate researchers.">研究に情熱を持つ方を歓迎します。</span></p>
 
-      <p><a href="https://www.u-fukui.ac.jp/user_admission/examination/essential_point/info_grad/" target="_blank">
+      <p><a href="https://www.u-fukui.ac.jp/user_admission/examination/essential_point/info_grad/" target="_blank" data-ja="➤ 福井大学大学院入試情報" data-en="➤ University of Fukui Graduate School Admissions">
           ➤ 福井大学大学院入試情報
       </a></p>
     </div>
@@ -152,7 +160,7 @@
   <div class="floating-cta">
     <a href="pages/contact.html" class="circle-button">
       <span class="emoji">🎓</span>
-      <span class="text">大学院生<br>募集中!</span>
+      <span class="text" data-ja="大学院生<br>募集中!" data-en="Graduate<br>Students<br>Wanted!">大学院生<br>募集中!</span>
     </a>
   </div>
 

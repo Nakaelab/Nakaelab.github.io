@@ -2,6 +2,53 @@
 const SPREADSHEET_ID = '1tTfxn1GpsZjD39wg4LNBwg6OJv98B1MjMLNQysP5GYk';
 const NEWS_SHEET_ID = '0'; // newsシートのgid
 
+// ===== 言語切り替え機能 =====
+let currentLanguage = 'ja'; // デフォルトは日本語
+
+// ページ読み込み時に保存された言語設定を復元
+function initLanguage() {
+  const savedLang = localStorage.getItem('preferredLanguage');
+  if (savedLang) {
+    currentLanguage = savedLang;
+    applyLanguage(currentLanguage);
+  }
+}
+
+// 言語を切り替える関数
+function toggleLanguage() {
+  currentLanguage = currentLanguage === 'ja' ? 'en' : 'ja';
+  applyLanguage(currentLanguage);
+  localStorage.setItem('preferredLanguage', currentLanguage);
+}
+
+// 言語を適用する関数
+function applyLanguage(lang) {
+  // ボタンのテキストを更新
+  const langText = document.getElementById('langText');
+  if (langText) {
+    langText.textContent = lang === 'ja' ? 'EN' : 'JP';
+  }
+
+  // HTML要素の言語を更新
+  document.documentElement.lang = lang;
+
+  // data-ja と data-en 属性を持つすべての要素を更新
+  const elements = document.querySelectorAll('[data-ja][data-en]');
+  elements.forEach(element => {
+    const text = element.getAttribute(`data-${lang}`);
+    if (text) {
+      // HTMLタグを含む場合（brタグなど）
+      if (text.includes('<br>')) {
+        element.innerHTML = text;
+      } else {
+        element.textContent = text;
+      }
+    }
+  });
+
+  console.log(`✅ 言語を${lang === 'ja' ? '日本語' : '英語'}に切り替えました`);
+}
+
 // CSVをパースする関数
 function parseCSV(csvText) {
   const lines = csvText.trim().split('\n');
@@ -164,6 +211,7 @@ function toggleMenu() {
 
 // ページ読み込み時の初期化
 document.addEventListener('DOMContentLoaded', function() {
+  initLanguage(); // 言語設定を初期化
   loadData();
 });
 
@@ -201,6 +249,7 @@ document.addEventListener('click', function(e) {
     }, 600);
   }
 });
+
 // ヒーローセクションのキャッチコピーをスクロールで表示
 function initHeroCatchphrase() {
   const catchphrase = document.querySelector('.hero-catchphrase');
@@ -220,4 +269,4 @@ function initHeroCatchphrase() {
 }
 
 // ページ読み込み完了後に実行
-window.addEventListener('load', initHeroCatchphrase); 
+window.addEventListener('load', initHeroCatchphrase);

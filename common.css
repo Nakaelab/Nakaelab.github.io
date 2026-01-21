@@ -12,6 +12,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px; /* 要素間のスペース */
 }
 
 /* ロゴスタイル */
@@ -20,6 +21,7 @@ nav .logo {
   align-items: center;
   gap: 12px;
   text-decoration: none;
+  flex-shrink: 0; /* ロゴが縮まないように */
 }
 
 nav .logo img {
@@ -41,8 +43,10 @@ nav ul {
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start; /* 左寄せに変更 */
   gap: 32px;
+  flex: 1; /* これは残す(言語ボタンを右端に押し出すため) */
+  margin-left: 40px; /* ロゴとメニューの間にスペース */
 }
 
 nav li {
@@ -93,6 +97,48 @@ nav a.active {
 
 nav a.active::after {
   width: 100%;
+}
+
+/* ===== 言語切り替えボタン ===== */
+.language-switcher {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; /* ボタンが縮まないように */
+}
+
+.language-switcher button {
+  background-color: transparent;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 8px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+  transition: all 0.3s ease;
+  font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', 'Meiryo', 'Helvetica Neue', sans-serif;
+}
+
+.language-switcher button:hover {
+  background-color: #f5f5f5;
+  border-color: #4A9FBF;
+  color: #4A9FBF;
+}
+
+.language-switcher button:active {
+  transform: scale(0.95);
+}
+
+#langIcon {
+  font-size: 16px;
+}
+
+#langText {
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 
 /* ハンバーガーメニュー */
@@ -147,6 +193,23 @@ nav a.active::after {
   }
 
   nav .logo-text {
+    font-size: 14px;
+  }
+
+  /* 言語切り替えボタン(スマホ) */
+  .language-switcher {
+    position: absolute;
+    right: 70px; /* ハンバーガーメニューの左側 */
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .language-switcher button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  #langIcon {
     font-size: 14px;
   }
 
