@@ -1,7 +1,7 @@
 /* ===== 新しい共通ナビゲーションスタイル ===== */
 nav {
   background-color: #fafafa;
-  padding: 18px 60px;
+  padding: 18px clamp(20px, 4vw, 60px); /* 左右パディングを可変に */
   position: fixed;
   top: 0;
   left: 0;
@@ -12,29 +12,30 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px; /* 要素間のスペース */
+  gap: clamp(10px, 2vw, 20px); /* 要素間のスペースを可変に */
 }
 
 /* ロゴスタイル */
 nav .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: clamp(8px, 1vw, 12px);
   text-decoration: none;
   flex-shrink: 0; /* ロゴが縮まないように */
 }
 
 nav .logo img {
-  height: 36px;
+  height: clamp(28px, 3vw, 36px); /* ロゴサイズを可変に */
   width: auto;
 }
 
 nav .logo-text {
-  font-size: 22px;
+  font-size: clamp(16px, 1.8vw, 22px); /* 画面幅に応じて16px〜22pxで調整 */
   font-weight: 700;
   color: #333;
   letter-spacing: 0.05em;
   font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', 'Meiryo', 'Helvetica Neue', sans-serif;
+  white-space: nowrap; /* テキストが折り返さないように */
 }
 
 /* メニューリスト */
@@ -44,9 +45,10 @@ nav ul {
   padding: 0;
   display: flex;
   justify-content: flex-start; /* 左寄せに変更 */
-  gap: 32px;
+  gap: clamp(12px, 2.5vw, 32px); /* 画面幅に応じて12px〜32pxで調整 */
   flex: 1; /* これは残す(言語ボタンを右端に押し出すため) */
-  margin-left: 40px; /* ロゴとメニューの間にスペース */
+  margin-left: clamp(20px, 3vw, 40px); /* ロゴとメニューの間を可変に */
+  flex-wrap: wrap; /* メニューが収まらない時は2行に折り返す */
 }
 
 nav li {
@@ -58,11 +60,12 @@ nav a {
   text-decoration: none;
   font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', 'Meiryo', 'Helvetica Neue', sans-serif;
   font-weight: 400;
-  font-size: 20px;
+  font-size: clamp(14px, 1.6vw, 20px); /* 画面幅に応じて14px〜20pxで調整 */
   padding: 0;
   transition: all 0.3s ease;
   letter-spacing: 0.03em;
   position: relative;
+  white-space: nowrap; /* メニューテキストが折り返さないように */
 }
 
 nav a:hover {
@@ -110,16 +113,17 @@ nav a.active::after {
   background-color: transparent;
   border: 1px solid #ddd;
   border-radius: 20px;
-  padding: 8px 16px;
+  padding: clamp(6px, 0.8vw, 8px) clamp(12px, 1.2vw, 16px); /* パディングを可変に */
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 14px;
+  font-size: clamp(12px, 1.2vw, 14px); /* フォントサイズを可変に */
   font-weight: 500;
   color: #555;
   transition: all 0.3s ease;
   font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', 'Meiryo', 'Helvetica Neue', sans-serif;
+  white-space: nowrap; /* ボタンテキストが折り返さないように */
 }
 
 .language-switcher button:hover {
@@ -133,7 +137,7 @@ nav a.active::after {
 }
 
 #langIcon {
-  font-size: 16px;
+  font-size: clamp(14px, 1.4vw, 16px);
 }
 
 #langText {
