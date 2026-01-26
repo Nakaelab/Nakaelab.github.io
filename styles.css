@@ -344,6 +344,16 @@ section {
   text-decoration: underline;
 }
 
+/* コピーライト表記 */
+.copyright {
+  margin-top: 40px !important;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.85em;
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
 /* === マーモセット関連 === */
 .floating-marmoset {
   position: fixed;
