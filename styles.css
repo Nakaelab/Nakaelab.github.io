@@ -475,7 +475,7 @@ section {
 /* Seminars Section */
 .seminars {
   background: white;
-  padding-top: 60px;
+  padding: 80px 20px;
 }
 
 .seminars h2 {
