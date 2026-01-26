@@ -415,3 +415,22 @@ body {
     justify-content: center;
   }
 }
+
+/* ===== フッター ===== */
+.footer {
+  background: #1e3c72;
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.copyright {
+  font-size: 0.85em;
+  opacity: 0.8;
+  line-height: 1.6;
+}
