@@ -102,11 +102,26 @@ body {
     font-weight: 300;
 }
 
+/* カテゴリ見出し */
+.category-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #1e3c72;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #667eea;
+}
+
+.category-title:first-child {
+    margin-top: 0;
+}
+
 .member-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
-    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 
 .member-card {
@@ -116,7 +131,7 @@ body {
     text-align: center;
     box-shadow: 0 8px 25px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
-    min-height: 300px;
+    min-height: 200px;
 }
 
 .member-card:hover {
@@ -173,32 +188,11 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.member-title {
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-}
-
-.member-info {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid #eee;
-}
-
-.hobby-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-    margin: 1rem 0;
-}
-
-.hobby-tag {
-    background: linear-gradient(135deg, #4ecdc4, #44a08d);
-    color: white;
-    padding: 0.3rem 0.8rem;
-    border-radius: 12px;
-    font-size: 0.75rem;
+.member-position {
+    color: #1e3c72;
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
 }
 
 .loading {
@@ -220,6 +214,11 @@ body {
     
     .collage-section {
         padding: 0 1rem;
+    }
+
+    .category-title {
+        font-size: 1.3rem;
+        margin-top: 2rem;
     }
 }
 
