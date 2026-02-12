@@ -156,6 +156,7 @@ function categorizeMembers(members) {
         const role = (member.role || '').toLowerCase().trim();
         const posJp = (member.position_jp || '').trim();
 
+        // faculty または staff を含む場合は教職員（"staff, student" のようなケースも教職員に）
         if (role.includes('faculty') || role.includes('staff')) {
             staff.push(member);
         } else if (role.includes('student')) {
@@ -164,16 +165,11 @@ function categorizeMembers(members) {
             } else if (posJp.includes('B3') || (member.position_en || '').includes('B3')) {
                 b3.push(member);
             } else {
-                // B3/B4が判別できない場合はとりあえずB4に
+                // B3/B4が判別できない学生はB4に
                 b4.push(member);
             }
         } else {
-            // roleが複数ある場合（例: "staff, student"）
-            if (role.includes('staff') || role.includes('faculty')) {
-                staff.push(member);
-            } else {
-                staff.push(member);
-            }
+            staff.push(member);
         }
     });
 
