@@ -59,7 +59,7 @@ let currentMembersData = [];
 // テストデータ（フォールバック用）
 const testMembers = [
     {
-        name: '中江健',
+        name: '中江 健',
         position_jp: '准教授',
         position_en: 'Associate Professor',
         role: 'faculty',
@@ -71,7 +71,7 @@ const testMembers = [
         image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID1'
     },
     {
-        name: '岩田康希',
+        name: '岩田 康希',
         position_jp: '非常勤研究員',
         position_en: 'Research Fellow',
         role: 'staff',
@@ -82,7 +82,7 @@ const testMembers = [
         image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID2'
     },
     {
-        name: '朝日桃梨菜',
+        name: '朝日 恵梨菜',
         position_jp: '事務補佐員',
         position_en: 'Admin Assistant',
         role: 'staff',
@@ -93,7 +93,7 @@ const testMembers = [
         image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID3'
     },
     {
-        name: '佐川篤志',
+        name: '坂川 篤志',
         position_jp: '技術補佐員',
         position_en: 'Technical Assistant',
         role: 'staff',
@@ -104,7 +104,7 @@ const testMembers = [
         image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID4'
     },
     {
-        name: '前田智流美',
+        name: '吉田　智恵美',
         position_jp: '技術補佐員',
         position_en: 'Technical Assistant',
         role: 'staff',
