@@ -97,9 +97,8 @@ function parseCSV(csvText) {
       title: values[1] || '',
       title_en: values[2] || '',
       detail: values[3] || '',
-      detail_en: values[4] || '',     // 追加
-      category: values[5] || 'event',  // ← 5から4に変更
-      link: values[6] || ''            // ← 6から5に変更
+      category: values[4] || 'event',
+      link: values[5] || ''
     };
     
     // 空のタイトルは除外
