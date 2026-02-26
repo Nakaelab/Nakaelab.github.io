@@ -31,22 +31,13 @@ function applyLanguage(lang) {
   // HTML要素の言語を更新
   document.documentElement.lang = lang;
 
-  // data-ja と data-en 属性を持つすべての要素を更新
+// data-ja と data-en 属性を持つすべての要素を更新
   const elements = document.querySelectorAll('[data-ja][data-en]');
   elements.forEach(element => {
     const text = element.getAttribute(`data-${lang}`);
     if (text) {
-      // HTMLタグを含む場合（brタグなど）
-      if (text.includes('<br>')) {
-        element.innerHTML = text;
-      } else {
-        // ボタンの場合はtextContentを使用
-        if (element.tagName === 'A' && element.classList.contains('cta-button')) {
-          element.textContent = text;
-        } else {
-          element.textContent = text;
-        }
-      }
+      // HTMLタグを含む可能性があるので常にinnerHTMLを使用
+      element.innerHTML = text;
     }
   });
 
