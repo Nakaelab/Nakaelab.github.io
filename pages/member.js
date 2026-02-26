@@ -197,7 +197,9 @@ function createMemberCard(member) {
         avatarContent = `<div class="initial">${initial}</div>`;
     }
 
-    // 言語に応じて役職を表示
+    // 言語に応じて役職を表示（学生は非表示）
+    const role = (member.role || '').toLowerCase().trim();
+    const isStudent = role.includes('student');
     const position = currentLanguage === 'ja' ? 
         (member.position_jp || '') : 
         (member.position_en || member.position_jp || '');
@@ -205,7 +207,7 @@ function createMemberCard(member) {
     card.innerHTML = `
         <div class="member-avatar${!imageUrl ? ' no-image' : ''}">${avatarContent}</div>
         <h3 class="member-name">${member.name || 'Unknown'}</h3>
-        <p class="member-position">${position}</p>
+        ${!isStudent ? `<p class="member-position">${position}</p>` : ''}
     `;
 
     return card;
