@@ -227,7 +227,7 @@ function displayNews(newsArray) {
       <div class="news-item ${categoryClass}" data-category="${categoryClass}" style="animation-delay: ${index * 0.1}s;">
         <span class="news-date">${news.date}</span>
         <span class="news-category ${categoryClass}">${categoryLabel}</span>
-        <h3 class="news-title">${title}</h3>
+        <h3 class="news-title">${news.link ? `<a href="${news.link}" target="_blank">${title}</a>` : title}</h3>
         ${detail ? `<div class="news-description">${detail}</div>` : ''}
         ${linkSection}
       </div>
