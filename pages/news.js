@@ -95,11 +95,11 @@ function parseCSV(csvText) {
     const row = {
       date: values[0] || '',
       title: values[1] || '',
-      title_en: values[2] || '',      // 追加
+      title_en: values[2] || '',
       detail: values[3] || '',
       detail_en: values[4] || '',     // 追加
-      category: values[5] || 'event',  // インデックス変更
-      link: values[6] || ''            // インデックス変更
+      category: values[5] || 'event',  // ← 5から4に変更
+      link: values[6] || ''            // ← 6から5に変更
     };
     
     // 空のタイトルは除外
