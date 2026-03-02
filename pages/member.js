@@ -261,9 +261,13 @@ function createMemberCard(member) {
         (member.position_jp || '') : 
         (member.position_en || member.position_jp || '');
 
+    const displayName = currentLanguage === 'en' && member.name_en
+        ? member.name_en
+        : (member.name || 'Unknown');
+
     card.innerHTML = `
         <div class="member-avatar${!imageUrl ? ' no-image' : ''}">${avatarContent}</div>
-        <h3 class="member-name">${member.name || 'Unknown'}</h3>
+        <h3 class="member-name">${displayName}</h3>
         ${!isStudent ? `<p class="member-position">${position}</p>` : ''}
     `;
 
