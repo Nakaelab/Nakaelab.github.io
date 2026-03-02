@@ -278,6 +278,7 @@ function displayMembers(members) {
 
     // 教員を表示
     const facultyContainer = document.getElementById('facultyContainer');
+    if (!facultyContainer) return;
     facultyContainer.innerHTML = '';
     faculty.forEach(member => {
         facultyContainer.appendChild(createMemberCard(member));
@@ -285,6 +286,7 @@ function displayMembers(members) {
 
     // 博士課程を表示
     const doctoralContainer = document.getElementById('doctoralContainer');
+    if (!doctoralContainer) return;
     doctoralContainer.innerHTML = '';
     doctoral.forEach(member => {
         doctoralContainer.appendChild(createMemberCard(member));
@@ -292,6 +294,7 @@ function displayMembers(members) {
 
     // 修士課程を表示
     const masterContainer = document.getElementById('masterContainer');
+    if (!masterContainer) return;
     masterContainer.innerHTML = '';
     master.forEach(member => {
         masterContainer.appendChild(createMemberCard(member));
