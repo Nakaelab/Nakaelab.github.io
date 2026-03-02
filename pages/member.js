@@ -1,7 +1,6 @@
 // ===== 言語切り替え機能 =====
-let currentLanguage = 'ja'; // デフォルトは日本語
+let currentLanguage = 'ja';
 
-// ページ読み込み時に保存された言語設定を復元
 function initLanguage() {
   const savedLang = localStorage.getItem('preferredLanguage');
   if (savedLang) {
@@ -10,30 +9,24 @@ function initLanguage() {
   }
 }
 
-// 言語を切り替える関数
 function toggleLanguage() {
   currentLanguage = currentLanguage === 'ja' ? 'en' : 'ja';
   applyLanguage(currentLanguage);
   localStorage.setItem('preferredLanguage', currentLanguage);
   
-  // メンバーカードを再表示
   if (currentMembersData.length > 0) {
     displayMembers(currentMembersData);
   }
 }
 
-// 言語を適用する関数
 function applyLanguage(lang) {
-  // ボタンのテキストを更新
   const langText = document.getElementById('langText');
   if (langText) {
     langText.textContent = lang === 'ja' ? 'EN' : 'JP';
   }
 
-  // HTML要素の言語を更新
   document.documentElement.lang = lang;
 
-  // data-ja と data-en 属性を持つすべての要素を更新
   const elements = document.querySelectorAll('[data-ja][data-en]');
   elements.forEach(element => {
     const text = element.getAttribute(`data-${lang}`);
@@ -53,7 +46,6 @@ function applyLanguage(lang) {
 const SPREADSHEET_ID = '1tTfxn1GpsZjD39wg4LNBwg6OJv98B1MjMLNQysP5GYk';
 const SHEET_ID = '926336242';
 
-// 現在のメンバーデータを保持
 let currentMembersData = [];
 
 // テストデータ（フォールバック用）
@@ -68,66 +60,129 @@ const testMembers = [
         hobby2: '映画鑑賞',
         specialty: 'AI研究',
         email: 'nakae@example.com',
-        image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID1'
+        image_url: '../images/members/nakae2.png'
     },
     {
         name: '岩田 康希',
         position_jp: '非常勤研究員',
-        position_en: 'Research Fellow',
-        role: 'staff',
-        research: 'データ解析',
-        hobby1: '登山',
-        hobby2: '猫',
-        specialty: 'Webページ制作',
-        image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID2'
+        position_en: 'Doctoral course student',
+        role: 'doctoral',
+        research: 'デジタルツインマーモセット',
+        hobby1: '',
+        hobby2: '',
+        specialty: '',
+        email: 'iwata.koki.sd@gmail.com',
+        image_url: ''
     },
     {
         name: '朝日 恵梨菜',
         position_jp: '事務補佐員',
         position_en: 'Admin Assistant',
         role: 'staff',
-        research: '事務サポート',
-        hobby1: '子供のお世話',
-        hobby2: '猫と遊ぶ',
+        research: '',
+        hobby1: '子供と猫と遊ぶ',
+        hobby2: 'サ活',
         specialty: '秘書',
-        image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID3'
+        email: 'e1kn5@g.u-fukui.ac.jp',
+        image_url: '../images/members/asahi.jpg'
     },
     {
         name: '坂川 篤志',
         position_jp: '技術補佐員',
         position_en: 'Technical Assistant',
         role: 'staff',
-        research: '技術サポート',
-        hobby1: 'プログラミング',
-        hobby2: 'ゲーム',
-        specialty: 'システム管理',
-        image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID4'
+        research: '3D-EEGシステムの開発',
+        hobby1: 'コンピュータ',
+        hobby2: '猫',
+        specialty: '技術的な補佐',
+        email: 'sakagawa@g.u-fukui.ac.jp',
+        image_url: '../images/members/sakagawa.jpg'
     },
     {
-        name: '吉田　智恵美',
+        name: '吉田 智恵美',
         position_jp: '技術補佐員',
         position_en: 'Technical Assistant',
         role: 'staff',
-        research: '地域幸福と文化の関係性探求',
+        research: '（仮）社会的実践としてのアートにおける中間支援者の役割',
         hobby1: '登山',
         hobby2: '猫',
-        specialty: 'Webページ制作',
-        image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID5'
+        specialty: 'Webページ制作 他',
+        email: 'chiemiyo@g.u-fukui.ac.jp',
+        image_url: '../images/members/yoshida2.jpg'
     },
     {
-        name: '山内隆広',
+        name: '山内 隆広',
         position_jp: 'B4学生',
         position_en: 'B4 Student',
         role: 'student',
-        research: '機械学習',
-        hobby1: '音楽',
-        hobby2: 'ゲーム',
-        specialty: 'データサイエンス',
-        image_url: 'https://drive.google.com/uc?id=YOUR_GOOGLE_DRIVE_FILE_ID6'
+        image_url: ''
+    },
+    {
+        name: '山本 侑玄',
+        position_jp: 'B4学生',
+        position_en: 'B4 Student',
+        role: 'student',
+        image_url: '../images/members/yamamoto.jpg'
+    },
+    {
+        name: '石田 海',
+        position_jp: 'B4学生',
+        position_en: 'B4 Student',
+        role: 'student',
+        image_url: ''
+    },
+    {
+        name: '吉野 琴音',
+        position_jp: 'B4学生',
+        position_en: 'B4 Student',
+        role: 'student',
+        image_url: ''
+    },
+    {
+        name: '石橋 燈河',
+        position_jp: 'B3学生',
+        position_en: 'B3 Student',
+        role: 'student',
+        image_url: ''
+    },
+    {
+        name: '筒井 輝',
+        position_jp: 'B3学生',
+        position_en: 'B3 Student',
+        role: 'student',
+        image_url: ''
+    },
+    {
+        name: '畑 祐成',
+        position_jp: 'B3学生',
+        position_en: 'B3 Student',
+        role: 'student',
+        image_url: ''
+    },
+    {
+        name: '松鷹 直央',
+        position_jp: 'B3学生',
+        position_en: 'B3 Student',
+        role: 'student',
+        image_url: ''
+    },
+    {
+        name: '森田 都登',
+        position_jp: 'B3学生',
+        position_en: 'B3 Student',
+        role: 'student',
+        image_url: ''
+    },
+    {
+        name: '横田 哲',
+        position_jp: 'B3学生',
+        position_en: 'B3 Student',
+        role: 'student',
+        image_url: ''
     }
 ];
 
-// 修正されたCSVパーサー
+// CSVパーサー
 function parseCSV(text) {
     const lines = text.trim().split('\n');
     const headers = lines[0].split(',').map(h => h.trim());
@@ -147,33 +202,36 @@ function parseCSV(text) {
 }
 
 // メンバーをカテゴリに振り分ける関数
+// Google Sheetsのrole列の値：
+//   faculty  → 教員
+//   doctoral → 博士課程
+//   master   → 修士課程
+//   student  → 学部（B3・B4まとめて）
+//   staff    → 教員セクションに含める（事務・技術補佐員）
 function categorizeMembers(members) {
-    const staff = [];    // 教職員（faculty + staff）
-    const b4 = [];       // B4学生
-    const b3 = [];       // B3学生
+    const faculty = [];   // 教員＋スタッフ
+    const doctoral = [];  // 博士課程
+    const master = [];    // 修士課程
+    const undergrad = []; // 学部
 
     members.forEach(member => {
         const role = (member.role || '').toLowerCase().trim();
-        const posJp = (member.position_jp || '').trim();
 
-        // faculty または staff を含む場合は教職員（"staff, student" のようなケースも教職員に）
-        if (role.includes('faculty') || role.includes('staff')) {
-            staff.push(member);
-        } else if (role.includes('student')) {
-            if (posJp.includes('B4') || (member.position_en || '').includes('B4')) {
-                b4.push(member);
-            } else if (posJp.includes('B3') || (member.position_en || '').includes('B3')) {
-                b3.push(member);
-            } else {
-                // B3/B4が判別できない学生はB4に
-                b4.push(member);
-            }
+        if (role === 'faculty' || role === 'staff') {
+            faculty.push(member);
+        } else if (role === 'doctoral') {
+            doctoral.push(member);
+        } else if (role === 'master') {
+            master.push(member);
+        } else if (role === 'student') {
+            undergrad.push(member);
         } else {
-            staff.push(member);
+            // roleが未設定・不明な場合は教員側に
+            faculty.push(member);
         }
     });
 
-    return { staff, b4, b3 };
+    return { faculty, doctoral, master, undergrad };
 }
 
 // 1枚のメンバーカードHTMLを生成する関数
@@ -197,9 +255,8 @@ function createMemberCard(member) {
         avatarContent = `<div class="initial">${initial}</div>`;
     }
 
-    // 言語に応じて役職を表示（学生は非表示）
     const role = (member.role || '').toLowerCase().trim();
-    const isStudent = role.includes('student');
+    const isStudent = role === 'student';
     const position = currentLanguage === 'ja' ? 
         (member.position_jp || '') : 
         (member.position_en || member.position_jp || '');
@@ -213,31 +270,38 @@ function createMemberCard(member) {
     return card;
 }
 
-// メンバー表示関数（カテゴリ別）
+// メンバー表示関数（4カテゴリー）
 function displayMembers(members) {
     currentMembersData = members;
 
-    const { staff, b4, b3 } = categorizeMembers(members);
+    const { faculty, doctoral, master, undergrad } = categorizeMembers(members);
 
-    // 教職員を表示
-    const staffContainer = document.getElementById('staffContainer');
-    staffContainer.innerHTML = '';
-    staff.forEach(member => {
-        staffContainer.appendChild(createMemberCard(member));
+    // 教員を表示
+    const facultyContainer = document.getElementById('facultyContainer');
+    facultyContainer.innerHTML = '';
+    faculty.forEach(member => {
+        facultyContainer.appendChild(createMemberCard(member));
     });
 
-    // B4学生を表示
-    const b4Container = document.getElementById('b4Container');
-    b4Container.innerHTML = '';
-    b4.forEach(member => {
-        b4Container.appendChild(createMemberCard(member));
+    // 博士課程を表示
+    const doctoralContainer = document.getElementById('doctoralContainer');
+    doctoralContainer.innerHTML = '';
+    doctoral.forEach(member => {
+        doctoralContainer.appendChild(createMemberCard(member));
     });
 
-    // B3学生を表示
-    const b3Container = document.getElementById('b3Container');
-    b3Container.innerHTML = '';
-    b3.forEach(member => {
-        b3Container.appendChild(createMemberCard(member));
+    // 修士課程を表示
+    const masterContainer = document.getElementById('masterContainer');
+    masterContainer.innerHTML = '';
+    master.forEach(member => {
+        masterContainer.appendChild(createMemberCard(member));
+    });
+
+    // 学部を表示
+    const undergradContainer = document.getElementById('undergradContainer');
+    undergradContainer.innerHTML = '';
+    undergrad.forEach(member => {
+        undergradContainer.appendChild(createMemberCard(member));
     });
 }
 
@@ -276,7 +340,6 @@ function toggleMenu() {
 
 // ページ読み込み時に実行
 document.addEventListener('DOMContentLoaded', function() {
-    // 言語設定を初期化
     initLanguage();
     
     displayMembers(testMembers);

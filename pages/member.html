@@ -5,33 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>メンバー - 福井大学 デジタルツイン研究室</title>
     
-    <!-- ↓↓↓ ここから追加 ↓↓↓ -->
     <meta name="description" content="福井大学 デジタルツイン研究室のメンバー紹介。中江健教授と研究室メンバーの情報。大学院生・JSPS特別研究員を募集しています。">
     <meta name="keywords" content="中江健,研究室メンバー,福井大学,デジタルツイン研究室,大学院生募集">
-    <!-- ↑↑↑ ここまで追加 ↑↑↑ -->
     
-    <!-- 共通CSSを読み込み -->
     <link rel="stylesheet" href="../common.css">
-    
-    <!-- このページ専用のCSSを読み込み -->
     <link rel="stylesheet" href="member.css">
 </head>
 <body>
     <nav>
-        <!-- ロゴ -->
         <a href="../index.html" class="logo">
             <img src="../images/common/Nakaelab_logo.png" alt="Nakae Lab Logo">
             <span class="logo-text" data-ja="福井大学 デジタルツイン研究室" data-en="Digital Twin Lab, University of Fukui">福井大学 デジタルツイン研究室</span>
         </a>
 
-        <!-- ハンバーガーメニュー(スマホ用) -->
         <div class="hamburger" onclick="toggleMenu()">
             <span></span>
             <span></span>
             <span></span>
         </div>
 
-        <!-- メニュー -->
         <ul id="navMenu">
             <li><a href="../index.html" data-ja="トップ" data-en="Home">トップ</a></li>
             <li><a href="research.html" data-ja="研究内容" data-en="Research">研究内容</a></li>
@@ -41,7 +33,6 @@
             <li><a href="contact.html" data-ja="お問い合わせ" data-en="Contact">お問い合わせ</a></li>
         </ul>
 
-        <!-- 言語切り替えボタン(メニューの右側) -->
         <div class="language-switcher">
             <button id="langToggle" onclick="toggleLanguage()">
                 <span id="langIcon">🌐</span>
@@ -56,28 +47,30 @@
         </div>
     </section>
 
-    <!-- コラージュセクション -->
     <div class="collage-section">
         <img src="../images/members/asuwayama_exp1.png" alt="研究室の活動風景">
     </div>
 
     <div class="members-section">
-        <!-- 教職員セクション -->
-        <h2 class="category-title" data-ja="教職員" data-en="Faculty & Staff">教職員</h2>
-        <div class="member-grid" id="staffContainer">
+        <!-- 教員セクション -->
+        <h2 class="category-title" data-ja="教員" data-en="Faculty">教員</h2>
+        <div class="member-grid" id="facultyContainer">
             <div class="loading" data-ja="メンバー情報を読み込み中..." data-en="Loading member information...">メンバー情報を読み込み中...</div>
         </div>
 
-        <!-- B4学生セクション -->
-        <h2 class="category-title" data-ja="学部4年" data-en="4th Year Students">学部4年</h2>
-        <div class="member-grid" id="b4Container"></div>
+        <!-- 博士課程セクション -->
+        <h2 class="category-title" data-ja="博士課程" data-en="Doctoral Students">博士課程</h2>
+        <div class="member-grid" id="doctoralContainer"></div>
 
-        <!-- B3学生セクション -->
-        <h2 class="category-title" data-ja="学部3年" data-en="3rd Year Students">学部3年</h2>
-        <div class="member-grid" id="b3Container"></div>
+        <!-- 修士課程セクション -->
+        <h2 class="category-title" data-ja="修士課程" data-en="Master's Students">修士課程</h2>
+        <div class="member-grid" id="masterContainer"></div>
+
+        <!-- 学部セクション -->
+        <h2 class="category-title" data-ja="学部" data-en="Undergraduate Students">学部</h2>
+        <div class="member-grid" id="undergradContainer"></div>
     </div>
 
-    <!-- フッター -->
     <footer class="footer">
         <div class="footer-content">
             <p class="copyright" data-ja="© 2025 福井大学 中江研究室 | Nakae Lab, University of Fukui<br>本サイトの内容の無断転載を禁じます。" data-en="© 2025 Nakae Lab, University of Fukui<br>All rights reserved.">
@@ -86,7 +79,6 @@
         </div>
     </footer>
 
-    <!-- このページ専用のJavaScriptを読み込み -->
     <script src="member.js"></script>
 </body>
 </html>
