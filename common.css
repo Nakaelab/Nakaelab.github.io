@@ -207,22 +207,26 @@ nav a.active::after {
   /* 言語切り替えボタン(スマホ) */
   .language-switcher {
     position: absolute;
-    right: 70px;
+    right: 60px; /* ハンバーガーと被らないよう調整 */
     top: 50%;
     transform: translateY(-50%);
   }
 
   .language-switcher button {
-    padding: 6px 12px;
-    font-size: 12px;
+    padding: 5px 10px;
+    font-size: 11px;
   }
 
   #langIcon {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .hamburger {
     display: flex;
+    right: 10px; /* 右端に寄せる */
+    min-width: 44px;
+    min-height: 44px;
+    padding: 10px;
   }
 
   nav ul {
@@ -230,7 +234,7 @@ nav a.active::after {
     top: 100%;
     left: 0;
     right: 0;
-    background-color: #333;
+    background-color: rgba(40, 40, 40, 0.97); /* 少し明るく・軽く */
     flex-direction: column;
     align-items: center;
     max-height: 0;
@@ -241,7 +245,7 @@ nav a.active::after {
   }
 
   nav ul.active {
-    max-height: 500px;
+    max-height: 400px;
   }
 
   nav li {
@@ -252,13 +256,15 @@ nav a.active::after {
 
   nav a {
     display: flex;
-    padding: 20px 20px;
-    border-bottom: 1px solid #555;
-    font-size: 16px;
-    min-height: 60px;
+    padding: 12px 20px; /* 行の高さを小さく */
+    border-bottom: 1px solid rgba(255,255,255,0.1); /* 区切り線を軽く */
+    font-size: 14px; /* フォントも少し小さく */
+    font-weight: 300; /* 細めに → 軽い印象 */
+    min-height: 44px;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: rgba(255,255,255,0.85); /* 真っ白より少し柔らかく */
+    letter-spacing: 0.08em;
   }
 
   nav a::after {
@@ -267,11 +273,11 @@ nav a.active::after {
 
   nav a:hover {
     color: white;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.08);
   }
 
   nav a.active {
     color: white;
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.12);
   }
 }
