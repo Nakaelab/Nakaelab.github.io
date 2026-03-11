@@ -232,11 +232,9 @@ nav a.active::after {
   nav ul {
     position: absolute;
     top: 100%;
-    left: 0;
-    right: 0;
-    margin: 0 5%;
-    width: 90%;
-    background-color: rgba(40, 40, 40, 0.97); /* 少し明るく・軽く */
+    left: 5%;
+    right: 5%;
+    background-color: rgba(40, 40, 40, 0.97);
     flex-direction: column;
     align-items: center;
     max-height: 0;
