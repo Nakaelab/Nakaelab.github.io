@@ -196,14 +196,15 @@ nav a.active::after {
     height: 32px;
   }
 
+  /* スマホではロゴテキストを非表示 */
   nav .logo-text {
-    font-size: 14px;
+    display: none;
   }
 
   /* 言語切り替えボタン(スマホ) */
   .language-switcher {
     position: absolute;
-    right: 70px; /* ハンバーガーメニューの左側 */
+    right: 70px;
     top: 50%;
     transform: translateY(-50%);
   }
@@ -233,6 +234,7 @@ nav a.active::after {
     overflow: hidden;
     transition: max-height 0.3s ease;
     gap: 0;
+    z-index: 999; /* ← これを追加！背景の透け防止 */
   }
 
   nav ul.active {
@@ -246,12 +248,11 @@ nav a.active::after {
   }
 
   nav a {
-    display: block;
+    display: flex;
     padding: 20px 20px;
     border-bottom: 1px solid #555;
     font-size: 16px;
     min-height: 60px;
-    display: flex;
     align-items: center;
     justify-content: center;
     color: white;
