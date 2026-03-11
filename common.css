@@ -207,7 +207,7 @@ nav a.active::after {
   /* 言語切り替えボタン(スマホ) */
   .language-switcher {
     position: absolute;
-    right: 60px; /* ハンバーガーと被らないよう調整 */
+    right: 70%; /* ハンバーガーと被らないよう調整 */
     top: 50%;
     transform: translateY(-50%);
   }
