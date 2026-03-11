@@ -225,15 +225,15 @@ nav a.active::after {
     display: flex;
     right: 10px; /* 右端に寄せる */
     min-width: 44px;
-    min-height: 44px;
+    min-height: 38px;
     padding: 10px;
   }
 
   nav ul {
     position: absolute;
     top: 100%;
-    left: 0;
-    right: 0;
+    left: 5%;
+    right: 5%;
     background-color: rgba(40, 40, 40, 0.97); /* 少し明るく・軽く */
     flex-direction: column;
     align-items: center;
@@ -242,10 +242,11 @@ nav a.active::after {
     transition: max-height 0.3s ease;
     gap: 0;
     z-index: 999;
+    border-radius: 8px;
   }
 
   nav ul.active {
-    max-height: 400px;
+    max-height: 500px;
   }
 
   nav li {
@@ -256,11 +257,11 @@ nav a.active::after {
 
   nav a {
     display: flex;
-    padding: 12px 20px; /* 行の高さを小さく */
+    padding: 10px 20px;
     border-bottom: 1px solid rgba(255,255,255,0.1); /* 区切り線を軽く */
     font-size: 14px; /* フォントも少し小さく */
     font-weight: 300; /* 細めに → 軽い印象 */
-    min-height: 44px;
+    min-height: 38px;
     align-items: center;
     justify-content: center;
     color: rgba(255,255,255,0.85); /* 真っ白より少し柔らかく */
