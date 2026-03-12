@@ -205,6 +205,10 @@ body {
 
 /* Mobile */
 @media (max-width: 768px) {
+    body {
+        padding-top: 72px; /* スマホ用に調整 */
+    }
+
     .main-title {
         font-size: 2.5rem;
     }
