@@ -83,30 +83,55 @@ section {
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
   .hero {
-    height: 60vh;
-    min-height: 400px;
+    flex-direction: column;
+    height: auto;
+    min-height: unset;
+    max-height: unset;
+    margin-top: 60px;
   }
-  
+
+  .hero-image {
+    position: relative;
+    width: 100%;
+    height: 56vw;
+    min-height: 220px;
+    max-height: 320px;
+    object-fit: cover;
+    object-position: center 30%;
+  }
+
+  .hero-overlay {
+    position: relative;
+    top: unset;
+    left: unset;
+    transform: none;
+    padding: 24px 20px 32px;
+    background: #fafafa;
+    width: 100%;
+    max-width: 100%;
+  }
+
   .hero-catchphrase {
-    font-size: 2.5rem;
+    font-size: 1.8rem;
+    color: #333;
+    text-shadow: none;
+    text-align: left;
   }
-  
+
   .hero-subtitle {
     font-size: 1rem;
-    margin-top: 20px;
+    margin-top: 12px;
+    color: #555;
+    text-shadow: none;
+    text-align: left;
   }
 }
 
 @media (max-width: 480px) {
-  .hero {
-    height: 50vh;
-    min-height: 350px;
-  }
-  
   .hero-catchphrase {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
-  
+
   .hero-subtitle {
     font-size: 0.9rem;
   }
