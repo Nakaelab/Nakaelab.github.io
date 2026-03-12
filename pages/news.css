@@ -1,4 +1,4 @@
-*:not(nav):not(nav *) {
+*:not(nav):not(nav *):not(body) {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -389,7 +389,7 @@ body {
     body {
     padding-top: 72px; /* ← 追加 */
   }
-  
+
   .hero-content h1 { 
     font-size: 2.5rem;
   }
