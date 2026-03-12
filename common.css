@@ -256,15 +256,15 @@ nav a.active::after {
   }
 
   nav a {
-    display: flex;
-    padding: 10px 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.1); /* 区切り線を軽く */
-    font-size: 14px; /* フォントも少し小さく */
-    font-weight: 300; /* 細めに → 軽い印象 */
-    min-height: 38px;
+    display: flex !important;
+    padding: 10px 20px !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 14px;
+    font-weight: 300;
+    min-height: 38px !important;
     align-items: center;
     justify-content: center;
-    color: rgba(255,255,255,0.85); /* 真っ白より少し柔らかく */
+    color: rgba(255,255,255,0.85);
     letter-spacing: 0.08em;
   }
 
