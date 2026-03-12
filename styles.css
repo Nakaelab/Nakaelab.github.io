@@ -100,6 +100,7 @@ section {
     object-position: center 30%;
   }
 
+  /* 変更後 */
   .hero-overlay {
     position: relative;
     top: unset;
@@ -109,6 +110,7 @@ section {
     background: #fafafa;
     width: 100%;
     max-width: 100%;
+    text-align: center;
   }
 
   .hero-catchphrase {
