@@ -206,7 +206,7 @@ body {
 /* Mobile */
 @media (max-width: 768px) {
     body {
-        padding-top: 72px; /* スマホ用に調整 */
+        padding-top: 100px; /* スマホ用に調整 */
     }
 
     .main-title {
