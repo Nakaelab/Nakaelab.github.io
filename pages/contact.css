@@ -141,8 +141,12 @@ body {
 
 @media screen and (max-width: 768px) {
   .hero {
-    height: 50vh;
-    min-height: 400px;
+    height: auto;
+    min-height: unset;
+    padding: 60px 20px;
+    background-size: contain;
+    background-color: #ffffff;
+    background-position: center center;
   }
 
   .hero-content h1 {
@@ -152,12 +156,12 @@ body {
   .hero-content p {
     font-size: 1.1em;
   }
-  
+
   .contact-grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
-  
+
   .content-section {
     padding: 20px;
   }
