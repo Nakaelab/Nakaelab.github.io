@@ -143,10 +143,9 @@ body {
   .hero {
     height: auto;
     min-height: unset;
-    padding: 60px 20px;
-    background-size: contain;
-    background-color: #ffffff;
-    background-position: center center;
+    padding: 50px 20px;
+    background-image: none;
+    background-color: #f0f4fa;
   }
 
   .hero-content h1 {
