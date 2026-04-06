@@ -259,7 +259,7 @@ function createMemberCard(member) {
     const position = currentLanguage === 'ja' ?
         (member.position_jp || '') :
         (member.position_en || member.position_jp || '');
-
+    const formattedPosition = position.replace('（', '<br>（');
     const displayName = currentLanguage === 'en' && member.name_en
         ? member.name_en
         : (member.name || 'Unknown');
@@ -274,7 +274,7 @@ function createMemberCard(member) {
             <div class="member-card-front">
                 <div class="member-avatar${!imageUrl ? ' no-image' : ''}">${avatarContent}</div>
                 <h3 class="member-name">${displayName}</h3>
-                ${!isStudent ? `<p class="member-position">${position}</p>` : ''}
+                ${!isStudent ? `<p class="member-position">${formattedPosition}</p>` : ''}
             </div>
             <div class="member-card-back">
                 <p class="back-name">${displayName}</p>
