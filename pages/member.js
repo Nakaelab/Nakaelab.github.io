@@ -234,14 +234,13 @@ function categorizeMembers(members) {
     return { faculty, doctoral, master, undergrad };
 }
 
-// 1枚のメンバーカードHTMLを生成する関数
 function createMemberCard(member) {
     const card = document.createElement('div');
     card.className = 'member-card';
 
     const initial = member.name ? member.name.charAt(0) : '?';
     const imageUrl = member.image_url && member.image_url.trim() ? member.image_url.trim() : '';
-    
+
     let avatarContent = '';
     if (imageUrl) {
         avatarContent = `
@@ -257,19 +256,38 @@ function createMemberCard(member) {
 
     const role = (member.role || '').toLowerCase().trim();
     const isStudent = role === 'student';
-    const position = currentLanguage === 'ja' ? 
-        (member.position_jp || '') : 
+    const position = currentLanguage === 'ja' ?
+        (member.position_jp || '') :
         (member.position_en || member.position_jp || '');
 
     const displayName = currentLanguage === 'en' && member.name_en
         ? member.name_en
         : (member.name || 'Unknown');
 
+    // 裏面コンテンツ
+    const hobby = (member.hobby1 || '').trim();
+    const backLabel = currentLanguage === 'ja' ? '趣味・好きなこと' : 'Hobby';
+    const backText = hobby || (currentLanguage === 'ja' ? '情報準備中' : 'Coming soon');
+
     card.innerHTML = `
-        <div class="member-avatar${!imageUrl ? ' no-image' : ''}">${avatarContent}</div>
-        <h3 class="member-name">${displayName}</h3>
-        ${!isStudent ? `<p class="member-position">${position}</p>` : ''}
+        <div class="member-card-inner">
+            <div class="member-card-front">
+                <div class="member-avatar${!imageUrl ? ' no-image' : ''}">${avatarContent}</div>
+                <h3 class="member-name">${displayName}</h3>
+                ${!isStudent ? `<p class="member-position">${position}</p>` : ''}
+            </div>
+            <div class="member-card-back">
+                <p class="back-name">${displayName}</p>
+                <p class="back-label">${backLabel}</p>
+                <p class="back-content">${backText}</p>
+            </div>
+        </div>
     `;
+
+    // タップでフリップ（モバイル対応）
+    card.addEventListener('click', () => {
+        card.classList.toggle('flipped');
+    });
 
     return card;
 }
