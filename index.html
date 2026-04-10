@@ -73,26 +73,25 @@
   margin: 0; padding: 0;
 }
 .news-preview-item {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-  padding: 14px 0;
+  display: grid;
+  grid-template-columns: 110px auto 1fr;
+  align-items: start;
+  gap: 12px;
+  padding: 16px 0;
   border-bottom: 1px solid #f0f0f0;
-  font-size: 13px;
 }
-.news-preview-item:last-child { border-bottom: none; }
 .news-preview-date {
   color: #999;
   white-space: nowrap;
-  font-size: 12px;
-  flex-shrink: 0;
+  font-size: 13px;
+  padding-top: 2px;
 }
 .news-preview-tag {
-  font-size: 10px;
-  padding: 2px 8px;
+  font-size: 11px;
+  padding: 3px 10px;
   border-radius: 10px;
   white-space: nowrap;
-  flex-shrink: 0;
+  margin-top: 1px;
 }
 .news-preview-tag.publication { background: #e8f5e9; color: #388e3c; }
 .news-preview-tag.event { background: #e3f2fd; color: #1976d2; }
@@ -100,23 +99,14 @@
 .news-preview-tag.milestone { background: #fce4ec; color: #c2185b; }
 .news-preview-title {
   color: #333;
-  line-height: 1.5;
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.6;
+  font-size: 14px;
 }
-@media (max-width: 900px) {
-  .news-preview-title {
-    white-space: normal;
-    overflow-wrap: break-word;
-  }
-}
+.news-preview-title a { color: inherit; text-decoration: none; }
 .news-preview-loading { color: #aaa; font-size: 12px; }
 @media (max-width: 768px) {
   .news-preview-inner { padding: 28px 20px; }
-  .news-preview-item { flex-wrap: wrap; gap: 8px; }
+  .news-preview-item { grid-template-columns: 1fr; gap: 6px; }
 }
 </style>
 </head>

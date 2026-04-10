@@ -207,10 +207,10 @@ function displayNewsPreview(newsData) {
 
     const lang = currentLanguage || 'ja';
     const labelMap = lang === 'ja' ? categoryLabelJa : categoryLabelEn;
-    const cat = (news.category || '').trim();
-    const catLabel = cat ? (labelMap[cat] || cat) : '';
+    const cat = (news.category || '').trim() || 'event';
+    const catLabel = labelMap[cat] || cat;
     const title = lang === 'en' && news.title_en ? news.title_en : news.title;
-    const tagHtml = catLabel ? `<span class="news-preview-tag ${cat}">${catLabel}</span>` : '';
+    const tagHtml = `<span class="news-preview-tag ${cat}">${catLabel}</span>`;
 
     li.innerHTML = `
       <span class="news-preview-date">${news.date}</span>
