@@ -131,7 +131,7 @@ function getLinkIcon(type) {
 // ニュースを表示
 function displayNews(newsData) {
   const container = document.getElementById('newsContainer');
-  container.innerHTML = '';
+  if (!container) return;
 
   // 最新順に表示（最大5件）
   const recentNews = newsData.slice(0, 5);
@@ -224,8 +224,10 @@ async function loadData() {
     console.error('❌ データの読み込みに失敗:', error);
     
     // エラー時はフォールバック表示
-    document.getElementById('newsContainer').innerHTML = 
-      '<li>データの読み込みに失敗しました。しばらく後に再度お試しください。</li>';
+    const newsContainer = document.getElementById('newsContainer');
+    if (newsContainer) {
+      newsContainer.innerHTML = '<li>データの読み込みに失敗しました。しばらく後に再度お試しください。</li>';
+    }
   } finally {
     updateBadge.style.display = 'none';
   }
