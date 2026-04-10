@@ -107,8 +107,13 @@ function initMap() {
     // 福井大学文京キャンパスの座標
     const fukuiUniversity = [36.075678, 136.211365];
     
-    // 地図を作成
-    map = L.map('map').setView(fukuiUniversity, 16);
+    // 地図を作成（モバイル対応）
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    map = L.map('map', {
+      scrollWheelZoom: false,
+      dragging: !isMobile,
+      tap: !isMobile,
+    }).setView(fukuiUniversity, 16);
     
     // OpenStreetMapタイルを追加
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

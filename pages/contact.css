@@ -265,21 +265,22 @@ body {
   color: white;
 }
 
-.cta-button.primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-}
-
 .cta-button.secondary {
   background: white;
   color: #1e3c72;
   border: 2px solid #1e3c72;
 }
 
-.cta-button.secondary:hover {
-  background: #1e3c72;
-  color: white;
-  transform: translateY(-3px);
+@media (hover: hover) and (pointer: fine) {
+  .cta-button.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  }
+  .cta-button.secondary:hover {
+    background: #1e3c72;
+    color: white;
+    transform: translateY(-3px);
+  }
 }
 /* ===== フッター ===== */
 .footer {

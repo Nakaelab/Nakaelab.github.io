@@ -13,18 +13,9 @@ body {
   padding-top: 90px;
 }
 
-/* Hero Section */
-.hero {
-  position: relative;
-  background: white;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 60px 40px;
-  gap: 60px;
-  overflow: hidden;
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(30px); }
 }
 
 .hero-content {
@@ -37,29 +28,10 @@ body {
   animation: fadeInUp 0.8s ease 0.2s forwards;
 }
 
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-}
+.hero-content h1 { font-size: 4rem; font-weight: 700; margin-bottom: 15px; }
+.hero-content p { font-size: 1.3rem; opacity: 0.95; }
 
-.hero-content h1 {
-  font-size: 4rem;
-  font-weight: 700;
-  margin-bottom: 15px;
-}
-
-.hero-content p {
-  font-size: 1.3rem;
-  opacity: 0.95;
-}
-
-/* Hero Section - 2カラムレイアウト */
+/* Hero Section */
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -86,10 +58,6 @@ body {
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
-}
-
-.hero-marmoset-image:hover {
-  transform: scale(1.02);
 }
 
 /* レスポンシブ対応 */
@@ -157,10 +125,20 @@ body {
   font-size: 0.95rem;
 }
 
-.filter-btn:hover, .filter-btn.active {
+@media (hover: hover) and (pointer: fine) {
+  .filter-btn:hover {
+    background: #1e3c72;
+    color: white;
+    transform: translateY(-2px);
+  }
+  .hero-marmoset-image:hover {
+    transform: scale(1.02);
+  }
+}
+
+.filter-btn.active {
   background: #1e3c72;
   color: white;
-  transform: translateY(-2px);
 }
 
 .search-box {

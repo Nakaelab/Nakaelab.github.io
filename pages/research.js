@@ -97,8 +97,14 @@ function openResearchModal(topicName) {
     title.textContent = topicName;
     description.textContent = researchTopics[topicName] || (currentLanguage === 'ja' ? '研究テーマの詳細は準備中です。' : 'Research theme details are in preparation.');
     
+    // iOS Safari対策：スクロール位置を記憶して固定
+    const scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
+    document.body.dataset.scrollY = scrollY;
+
     modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
 }
 
 // モーダルを閉じる
@@ -106,7 +112,13 @@ function closeResearchModal(event) {
     if (!event || event.target.id === 'researchModal' || event.target.classList.contains('modal-close')) {
         const modal = document.getElementById('researchModal');
         modal.classList.remove('active');
-        document.body.style.overflow = '';
+        
+        // iOS Safari対策：スクロール位置を復元
+        const scrollY = document.body.dataset.scrollY || 0;
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, parseInt(scrollY));
     }
 }
 

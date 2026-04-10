@@ -143,9 +143,14 @@ body {
     transform-style: preserve-3d;
 }
 
-.member-card:hover .member-card-inner,
 .member-card.flipped .member-card-inner {
     transform: rotateY(180deg);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .member-card:hover .member-card-inner {
+        transform: rotateY(180deg);
+    }
 }
 
 .member-card-front,

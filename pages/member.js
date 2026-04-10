@@ -241,19 +241,6 @@ function createMemberCard(member) {
     const initial = member.name ? member.name.charAt(0) : '?';
     const imageUrl = member.image_url && member.image_url.trim() ? member.image_url.trim() : '';
 
-    let avatarContent = '';
-    if (imageUrl) {
-        avatarContent = `
-            <img src="${imageUrl}" alt="${member.name}" 
-                 onload="this.style.opacity='1'; this.parentNode.classList.remove('no-image');"
-                 onerror="this.parentNode.classList.add('no-image'); this.style.display='none';"
-                 style="opacity: 0; transition: opacity 0.3s;">
-            <div class="initial">${initial}</div>
-        `;
-    } else {
-        avatarContent = `<div class="initial">${initial}</div>`;
-    }
-
     const role = (member.role || '').toLowerCase().trim();
     const isStudent = role === 'student';
     const position = currentLanguage === 'ja' ?
@@ -264,15 +251,30 @@ function createMemberCard(member) {
         ? member.name_en
         : (member.name || 'Unknown');
 
-    // 裏面コンテンツ
     const hobby = (member.hobby1 || '').trim();
     const backLabel = currentLanguage === 'ja' ? '趣味・好きなこと' : 'Hobby';
     const backText = hobby || (currentLanguage === 'ja' ? '情報準備中' : 'Coming soon');
 
+    // アバター：画像とイニシャルを明確に分離
+    let avatarHtml = '';
+    if (imageUrl) {
+        avatarHtml = `<div class="member-avatar" id="avatar-${encodeURIComponent(member.name)}">
+            <img src="${imageUrl}" alt="${displayName}"
+                 onload="this.style.opacity='1'; document.getElementById('initial-${encodeURIComponent(member.name)}').style.display='none';"
+                 onerror="this.style.display='none'; document.getElementById('initial-${encodeURIComponent(member.name)}').style.display='flex';"
+                 style="opacity:0; transition:opacity 0.3s;">
+            <div class="initial" id="initial-${encodeURIComponent(member.name)}" style="display:none;">${initial}</div>
+        </div>`;
+    } else {
+        avatarHtml = `<div class="member-avatar no-image">
+            <div class="initial">${initial}</div>
+        </div>`;
+    }
+
     card.innerHTML = `
         <div class="member-card-inner">
             <div class="member-card-front">
-                <div class="member-avatar${!imageUrl ? ' no-image' : ''}">${avatarContent}</div>
+                ${avatarHtml}
                 <h3 class="member-name">${displayName}</h3>
                 ${!isStudent ? `<p class="member-position">${position}</p>` : ''}
             </div>
@@ -284,8 +286,8 @@ function createMemberCard(member) {
         </div>
     `;
 
-    // タップでフリップ（モバイル対応）
-    card.addEventListener('click', () => {
+    card.addEventListener('click', (e) => {
+        e.stopPropagation();
         card.classList.toggle('flipped');
     });
 
@@ -372,4 +374,9 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         loadMembers();
     }, 1000);
+
+    // カード外タップで全カードを閉じる
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.member-card.flipped').forEach(c => c.classList.remove('flipped'));
+    });
 });
