@@ -49,6 +49,26 @@ function applyLanguage(lang) {
   console.log(`✅ 言語を${lang === 'ja' ? '日本語' : '英語'}に切り替えました`);
 }
 
+// TSVをパースする関数（タブ区切り・カンマ問題を回避）
+function parseTSV(tsvText) {
+  const lines = tsvText.trim().split('\n');
+  const data = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    const values = lines[i].split('\t');
+    const row = {
+      date:     (values[0] || '').trim(),
+      title:    (values[1] || '').trim(),
+      title_en: (values[2] || '').trim(),
+      detail:   (values[3] || '').trim(),
+      category: (values[4] || '').trim(),
+      link:     (values[5] || '').trim()
+    };
+    if (row.title) data.push(row);
+  }
+  return data;
+}
+
 // CSVをパースする関数
 function parseCSV(csvText) {
   const lines = csvText.trim().split('\n');
@@ -195,7 +215,9 @@ function displayNewsPreview(newsData) {
     li.innerHTML = `
       <span class="news-preview-date">${news.date}</span>
       ${tagHtml}
-      <span class="news-preview-title">${news.link ? `<a href="${news.link}" target="_blank" style="color:inherit;text-decoration:none;">${title}</a>` : title}</span>
+      <span class="news-preview-title">${news.link 
+        ? `<a href="${news.link}" target="_blank" style="color:inherit;text-decoration:none;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${title}</a>` 
+        : title}</span>
     `;
     container.appendChild(li);
   });
@@ -208,10 +230,10 @@ async function loadData() {
   
   try {
     const newsResponse = await fetch(
-      `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${NEWS_SHEET_ID}`
+      `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=tsv&gid=${NEWS_SHEET_ID}`
     );
     const newsCSV = await newsResponse.text();
-    const newsData = parseCSV(newsCSV);
+    const newsData = parseTSV(newsCSV);
     
     // 日付でソート（新しい順）
     newsData.sort((a, b) => new Date(b.date) - new Date(a.date));
