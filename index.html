@@ -103,7 +103,15 @@
   line-height: 1.5;
   flex: 1;
   min-width: 0;
-  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 900px) {
+  .news-preview-title {
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
 }
 .news-preview-loading { color: #aaa; font-size: 12px; }
 @media (max-width: 768px) {
