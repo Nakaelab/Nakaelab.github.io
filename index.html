@@ -108,7 +108,17 @@
 .news-preview-loading { color: #aaa; font-size: 12px; }
 @media (max-width: 768px) {
   .news-preview-inner { padding: 28px 20px; }
-  .news-preview-item { grid-template-columns: 1fr; gap: 6px; }
+  .news-preview-item {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .news-preview-tag {
+    display: inline-block;
+    width: auto;
+  }
+  .news-preview-title {
+    word-break: break-all;
+  }
 }
 </style>
 </head>
