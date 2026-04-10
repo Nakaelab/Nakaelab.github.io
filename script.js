@@ -216,7 +216,7 @@ function displayNewsPreview(newsData) {
       <span class="news-preview-date">${news.date}</span>
       ${tagHtml}
       <span class="news-preview-title">${news.link 
-        ? `<a href="${news.link}" target="_blank" style="color:inherit;text-decoration:none;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${title}</a>` 
+        ? `<a href="${news.link}" target="_blank">${title}</a>` 
         : title}</span>
     `;
     container.appendChild(li);
