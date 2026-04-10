@@ -36,6 +36,79 @@
   
   <!-- 分離したCSSを読み込み -->
   <link rel="stylesheet" href="styles.css">
+<style>
+.news-preview {
+  background: #fff;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+.news-preview-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 32px;
+}
+.news-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.news-preview-label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #1e3c72;
+  text-transform: uppercase;
+}
+.news-preview-more {
+  font-size: 12px;
+  color: #4A9FBF;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+.news-preview-more:hover { color: #1e3c72; }
+.news-preview-list {
+  list-style: none;
+  margin: 0; padding: 0;
+}
+.news-preview-item {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 13px;
+}
+.news-preview-item:last-child { border-bottom: none; }
+.news-preview-date {
+  color: #999;
+  white-space: nowrap;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.news-preview-tag {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.news-preview-tag.publication { background: #e8f5e9; color: #388e3c; }
+.news-preview-tag.event { background: #e3f2fd; color: #1976d2; }
+.news-preview-tag.award { background: #fff3e0; color: #f57c00; }
+.news-preview-tag.milestone { background: #fce4ec; color: #c2185b; }
+.news-preview-title {
+  color: #333;
+  line-height: 1.5;
+  flex: 1;
+}
+.news-preview-loading { color: #aaa; font-size: 12px; }
+@media (max-width: 768px) {
+  .news-preview-inner { padding: 28px 20px; }
+  .news-preview-item { flex-wrap: wrap; gap: 8px; }
+}
+</style>
 </head>
 
 <body>
@@ -89,6 +162,19 @@
       デジタル空間で生きる<br>生命を創る
     </h1>
     <p class="hero-subtitle" data-ja="福井大学　中江研究室" data-en="Nakae Lab, University of Fukui">福井大学　中江研究室</p>
+  </div>
+</section>
+
+  <!-- NEWS -->
+<section class="news-preview fade-in" id="news-preview">
+  <div class="news-preview-inner">
+    <div class="news-preview-header">
+      <span class="news-preview-label" data-ja="お知らせ" data-en="News">お知らせ</span>
+      <a href="pages/news.html" class="news-preview-more" data-ja="一覧を見る →" data-en="View all →">一覧を見る →</a>
+    </div>
+    <ul class="news-preview-list" id="newsPreviewContainer">
+      <li class="news-preview-item"><span class="news-preview-loading" data-ja="読み込み中..." data-en="Loading...">読み込み中...</span></li>
+    </ul>
   </div>
 </section>
 

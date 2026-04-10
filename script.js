@@ -170,6 +170,36 @@ function displayNews(newsData) {
   });
 }
 
+// トップページのニュースプレビュー表示（4件）
+function displayNewsPreview(newsData) {
+  const container = document.getElementById('newsPreviewContainer');
+  if (!container) return;
+
+  const categoryLabelJa = { publication:'論文・出版', event:'イベント', award:'受賞・表彰', milestone:'マイルストーン' };
+  const categoryLabelEn = { publication:'Publication', event:'Event', award:'Award', milestone:'Milestone' };
+
+  const recent = newsData.slice(0, 4);
+  container.innerHTML = '';
+
+  recent.forEach(news => {
+    const li = document.createElement('li');
+    li.className = 'news-preview-item';
+
+    const lang = currentLanguage || 'ja';
+    const labelMap = lang === 'ja' ? categoryLabelJa : categoryLabelEn;
+    const cat = news.category || 'event';
+    const catLabel = labelMap[cat] || cat;
+    const title = lang === 'en' && news.title_en ? news.title_en : news.title;
+
+    li.innerHTML = `
+      <span class="news-preview-date">${news.date}</span>
+      <span class="news-preview-tag ${cat}">${catLabel}</span>
+      <span class="news-preview-title">${news.link ? `<a href="${news.link}" target="_blank" style="color:inherit;text-decoration:none;">${title}</a>` : title}</span>
+    `;
+    container.appendChild(li);
+  });
+}
+
 // Googleスプレッドシートからデータを読み込み
 async function loadData() {
   const updateBadge = document.getElementById('updateBadge');
@@ -186,6 +216,7 @@ async function loadData() {
     newsData.sort((a, b) => new Date(b.date) - new Date(a.date));
     
     displayNews(newsData);
+    displayNewsPreview(newsData);
     
     console.log('✅ データ更新完了');
     
