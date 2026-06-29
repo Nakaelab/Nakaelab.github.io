@@ -301,7 +301,7 @@ function createMemberCard(member) {
 function displayMembers(members) {
     currentMembersData = members;
 
-    const { faculty, doctoral, master, undergrad } = categorizeMembers(members);
+    const { faculty, doctoral, master, undergrad, alumni } = categorizeMembers(members);
 
     // 教員を表示
     const facultyContainer = document.getElementById('facultyContainer');
