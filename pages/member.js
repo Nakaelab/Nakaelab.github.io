@@ -213,6 +213,7 @@ function categorizeMembers(members) {
     const doctoral = [];  // 博士課程
     const master = [];    // 修士課程
     const undergrad = []; // 学部
+    const alumni = []; // ← 卒業生（将来的に追加予定）
 
     members.forEach(member => {
         const role = (member.role || '').toLowerCase().trim();
@@ -225,13 +226,15 @@ function categorizeMembers(members) {
             master.push(member);
         } else if (role === 'student') {
             undergrad.push(member);
+        } else if (role === 'alumni') { // ← 追記
+            alumni.push(member);        // ← 追記
         } else {
             // roleが未設定・不明な場合は教員側に
             faculty.push(member);
         }
     });
 
-    return { faculty, doctoral, master, undergrad };
+    return { faculty, doctoral, master, undergrad, alumni };
 }
 
 function createMemberCard(member) {
@@ -294,7 +297,7 @@ function createMemberCard(member) {
     return card;
 }
 
-// メンバー表示関数（4カテゴリー）
+// メンバー表示関数（5カテゴリー）
 function displayMembers(members) {
     currentMembersData = members;
 
@@ -330,6 +333,15 @@ function displayMembers(members) {
     undergrad.forEach(member => {
         undergradContainer.appendChild(createMemberCard(member));
     });
+
+    // ↓ そのまま末尾に追記
+    const alumniContainer = document.getElementById('alumniContainer');
+    if (alumniContainer) {
+    alumniContainer.innerHTML = '';
+    alumni.forEach(member => {
+        alumniContainer.appendChild(createMemberCard(member));
+    });
+}
 }
 
 // データ読み込み
