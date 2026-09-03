@@ -66,33 +66,55 @@ let filteredNews = [];
 let currentFilter = 'all';
 
 // CSVをパースする関数
+// 引用符内の改行(セル内改行)を考慮し、行分割の前ではなく
+// テキスト全体を1文字ずつ走査してレコード/フィールドを組み立てる
 function parseCSV(csvText) {
-  const lines = csvText.trim().split('\n');
-  const data = [];
-  
-  for (let i = 1; i < lines.length; i++) {
-    const line = lines[i];
-    if (!line.trim()) continue;
-    
-    // カンマ区切りで分割(引用符を考慮)
-    const values = [];
-    let current = '';
-    let inQuotes = false;
-    
-    for (let j = 0; j < line.length; j++) {
-      const char = line[j];
-      if (char === '"') {
-        inQuotes = !inQuotes;
-      } else if (char === ',' && !inQuotes) {
-        values.push(current.trim());
-        current = '';
+  const rows = [];
+  let row = [];
+  let current = '';
+  let inQuotes = false;
+
+  for (let i = 0; i < csvText.length; i++) {
+    const char = csvText[i];
+    const next = csvText[i + 1];
+
+    if (inQuotes) {
+      if (char === '"' && next === '"') {
+        current += '"';
+        i++; // エスケープされた引用符をスキップ
+      } else if (char === '"') {
+        inQuotes = false;
       } else {
         current += char;
       }
+    } else if (char === '"') {
+      inQuotes = true;
+    } else if (char === ',') {
+      row.push(current.trim());
+      current = '';
+    } else if (char === '\r') {
+      // 改行はこの後の\nでまとめて処理するため無視
+    } else if (char === '\n') {
+      row.push(current.trim());
+      rows.push(row);
+      row = [];
+      current = '';
+    } else {
+      current += char;
     }
-    values.push(current.trim());
-    
-    const row = {
+  }
+  // 最後のフィールド/行を追加
+  if (current !== '' || row.length > 0) {
+    row.push(current.trim());
+    rows.push(row);
+  }
+
+  const data = [];
+  for (let i = 1; i < rows.length; i++) {
+    const values = rows[i];
+    if (values.every(v => v === '')) continue; // 空行はスキップ
+
+    const item = {
       date: values[0] || '',
       title: values[1] || '',
       title_en: values[2] || '',
@@ -100,10 +122,10 @@ function parseCSV(csvText) {
       category: values[4] || 'event',
       link: values[5] || ''
     };
-    
+
     // 空のタイトルは除外
-    if (row.title && row.title.trim() !== '') {
-      data.push(row);
+    if (item.title && item.title.trim() !== '') {
+      data.push(item);
     }
   }
   return data;
