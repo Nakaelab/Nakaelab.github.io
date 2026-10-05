@@ -72,7 +72,7 @@ const testMembers = [
         hobby2: '',
         specialty: '',
         email: 'iwata.koki.sd@gmail.com',
-        image_url: ''
+        image_url: '../images/members/iwata.jpg'
     },
     {
         name: '朝日 恵梨菜',
