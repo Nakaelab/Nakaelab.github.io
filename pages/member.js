@@ -264,6 +264,22 @@ function sortByGrade(members) {
     });
 }
 
+// 学年ごとに小見出しを入れてカードを並べる
+function appendByGrade(container, members) {
+    let lastYear = null;
+    sortByGrade(members).forEach(member => {
+        const grade = getGrade(member);
+        if (grade && grade.year !== lastYear) {
+            const heading = document.createElement('h3');
+            heading.className = 'grade-subtitle';
+            heading.textContent = currentLanguage === 'ja' ? `${grade.year}年生` : `Year ${grade.year}`;
+            container.appendChild(heading);
+            lastYear = grade.year;
+        }
+        container.appendChild(createMemberCard(member));
+    });
+}
+
 function createMemberCard(member) {
     const card = document.createElement('div');
     card.className = 'member-card';
@@ -352,16 +368,12 @@ function displayMembers(members) {
     const masterContainer = document.getElementById('masterContainer');
     if (!masterContainer) return;
     masterContainer.innerHTML = '';
-    sortByGrade(master).forEach(member => {
-        masterContainer.appendChild(createMemberCard(member));
-    });
+    appendByGrade(masterContainer, master);
 
     // 学部を表示
     const undergradContainer = document.getElementById('undergradContainer');
     undergradContainer.innerHTML = '';
-    sortByGrade(undergrad).forEach(member => {
-        undergradContainer.appendChild(createMemberCard(member));
-    });
+    appendByGrade(undergradContainer, undergrad);
 
     // ↓ そのまま末尾に追記
     const alumniContainer = document.getElementById('alumniContainer');

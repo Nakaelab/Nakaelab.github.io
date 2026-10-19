@@ -124,6 +124,21 @@ body {
     margin-bottom: 1rem;
 }
 
+/* 学年ごとの小見出し（グリッドの横幅いっぱいに表示） */
+.grade-subtitle {
+    grid-column: 1 / -1;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #1e3c72;
+    padding-left: 0.7rem;
+    border-left: 4px solid #667eea;
+    margin-bottom: -0.5rem;
+}
+
+.grade-subtitle:not(:first-child) {
+    margin-top: 1rem;
+}
+
 /* ===== カードフリップ ===== */
 .member-card {
     background: transparent;
