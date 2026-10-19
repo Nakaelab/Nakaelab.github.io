@@ -115,10 +115,10 @@ function parseCSV(csvText) {
     if (values.every(v => v === '')) continue; // 空行はスキップ
 
     const item = {
-      date: values[0] || '',
+      date: normalizeDate(values[0] || ''),
       title: values[1] || '',
       title_en: values[2] || '',
-      detail: values[3] || '',
+      detail: normalizeDetail(values[3] || ''),
       category: values[4] || 'event',
       link: values[5] || ''
     };
@@ -129,6 +129,47 @@ function parseCSV(csvText) {
     }
   }
   return data;
+}
+
+// 日付を「YYYY.MM.DD」にそろえる（例：2026.7.22 → 2026.07.22、2025.10.17-19 → 2025.10.17–19）
+function normalizeDate(date) {
+  const match = date.trim().match(/^(\d{4})[.\/-](\d{1,2})[.\/-](\d{1,2})(?:\s*[-–〜~]\s*(\d{1,2}))?$/);
+  if (!match) return date.trim();
+  const [, year, month, day, endDay] = match;
+  const pad = n => n.padStart(2, '0');
+  return `${year}.${pad(month)}.${pad(day)}` + (endDay ? `–${pad(endDay)}` : '');
+}
+
+// 並べ替え用に日付を比較できる値にする（期間の場合は開始日）
+function dateSortKey(date) {
+  const match = date.match(/^(\d{4})\.(\d{2})\.(\d{2})/);
+  return match ? Number(match[1] + match[2] + match[3]) : 0;
+}
+
+// 詳細文の見出し名のゆれをそろえる
+const DETAIL_HEADING_ALIASES = {
+  'Register': '参加登録',
+  'register': '参加登録'
+};
+
+// 詳細文を「【見出し】改行 本文」の形にそろえ、見出しの間を1行あける
+// 中身が空の見出しは表示しない
+function normalizeDetail(detail) {
+  const text = detail.replace(/\r/g, '').trim();
+  if (!text.includes('【')) return text;
+
+  const parts = text.split(/【([^】]+)】/);
+  const blocks = [];
+  const intro = parts[0].trim();
+  if (intro) blocks.push(intro);
+
+  for (let i = 1; i < parts.length; i += 2) {
+    const heading = parts[i].trim();
+    const body = (parts[i + 1] || '').trim();
+    if (!body) continue;
+    blocks.push(`【${DETAIL_HEADING_ALIASES[heading] || heading}】\n${body}`);
+  }
+  return blocks.join('\n\n');
 }
 
 // リンクのタイプを判定する関数
@@ -322,7 +363,7 @@ async function loadNews() {
     console.log('パース済みニュースデータ:', allNews);
     
     // 日付でソート(新しい順)
-    allNews.sort((a, b) => new Date(b.date) - new Date(a.date));
+    allNews.sort((a, b) => dateSortKey(b.date) - dateSortKey(a.date));
     
     filteredNews = [...allNews];
     displayNews(filteredNews);

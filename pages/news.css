@@ -298,6 +298,7 @@ body {
   line-height: 1.7;
   margin-bottom: 12px;
   white-space: pre-line;
+  overflow-wrap: anywhere; /* 長いURLもカード内で折り返す */
 }
 
 /* 折りたたみ時は約5行だけ表示し、下端をフェードさせる */
