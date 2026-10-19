@@ -249,13 +249,36 @@ function displayNews(newsArray) {
         <span class="news-date">${news.date}</span>
         <span class="news-category ${categoryClass}">${categoryLabel}</span>
         <h3 class="news-title">${news.link ? `<a href="${news.link}" target="_blank">${title}</a>` : title}</h3>
-        ${detail ? `<div class="news-description">${detail}</div>` : ''}
+        ${detail ? `<div class="news-description collapsed">${detail}</div>
+        <button type="button" class="news-more-btn" hidden>${currentLanguage === 'ja' ? '続きを読む' : 'Read more'}</button>` : ''}
         ${linkSection}
       </div>
     `;
   });
 
   container.innerHTML = html;
+  setupReadMore(container);
+}
+
+// 長い詳細文を折りたたみ、「続きを読む」で開閉できるようにする
+function setupReadMore(container) {
+  const moreText = currentLanguage === 'ja' ? '続きを読む' : 'Read more';
+  const lessText = currentLanguage === 'ja' ? '閉じる' : 'Show less';
+
+  container.querySelectorAll('.news-description.collapsed').forEach(description => {
+    const button = description.nextElementSibling;
+    // 折りたたまなくても全文が収まる短い文章ではボタンを出さない
+    if (description.scrollHeight <= description.clientHeight + 4) {
+      description.classList.remove('collapsed');
+      return;
+    }
+    button.hidden = false;
+    button.addEventListener('click', () => {
+      const isCollapsed = description.classList.toggle('collapsed');
+      button.textContent = isCollapsed ? moreText : lessText;
+      button.classList.toggle('expanded', !isCollapsed);
+    });
+  });
 }
 
 // フィルター処理
