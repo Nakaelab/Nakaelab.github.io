@@ -237,6 +237,33 @@ function categorizeMembers(members) {
     return { faculty, doctoral, master, undergrad, alumni };
 }
 
+// 学年を取得（position_en / position_jp から "M1" "B4" などを抽出）
+function getGrade(member) {
+    const text = `${member.position_en || ''} ${member.position_jp || ''}`;
+    const match = text.match(/\b([BMD])\s*([1-6])\b/i);
+    if (!match) return null;
+    return { level: match[1].toUpperCase(), year: Number(match[2]) };
+}
+
+// 学年の表示テキスト（例：JA「学部4年」/ EN「B4 Student」）
+function formatGrade(grade) {
+    if (!grade) return '';
+    if (currentLanguage === 'ja') {
+        const levelJa = { B: '学部', M: '修士', D: '博士' }[grade.level];
+        return `${levelJa}${grade.year}年`;
+    }
+    return `${grade.level}${grade.year} Student`;
+}
+
+// 学年の高い順に並べる（学年不明は末尾）
+function sortByGrade(members) {
+    return [...members].sort((a, b) => {
+        const ga = getGrade(a);
+        const gb = getGrade(b);
+        return (gb ? gb.year : 0) - (ga ? ga.year : 0);
+    });
+}
+
 function createMemberCard(member) {
     const card = document.createElement('div');
     card.className = 'member-card';
@@ -245,8 +272,9 @@ function createMemberCard(member) {
     const imageUrl = member.image_url && member.image_url.trim() ? member.image_url.trim() : '';
 
     const role = (member.role || '').toLowerCase().trim();
-    const isStudent = role === 'student';
-    const position = currentLanguage === 'ja' ?
+    const isStudent = role === 'student' || role === 'master';
+    const grade = isStudent ? getGrade(member) : null;
+    const position = grade ? formatGrade(grade) : currentLanguage === 'ja' ?
         (member.position_jp || '') :
         (member.position_en || member.position_jp || '');
 
@@ -279,7 +307,8 @@ function createMemberCard(member) {
             <div class="member-card-front">
                 ${avatarHtml}
                 <h3 class="member-name">${displayName}</h3>
-                ${!isStudent ? `<p class="member-position">${position}</p>` : ''}
+                ${grade ? `<p class="member-grade">${position}</p>`
+                    : !isStudent ? `<p class="member-position">${position}</p>` : ''}
             </div>
             <div class="member-card-back">
                 <p class="back-name">${displayName}</p>
@@ -323,14 +352,14 @@ function displayMembers(members) {
     const masterContainer = document.getElementById('masterContainer');
     if (!masterContainer) return;
     masterContainer.innerHTML = '';
-    master.forEach(member => {
+    sortByGrade(master).forEach(member => {
         masterContainer.appendChild(createMemberCard(member));
     });
 
     // 学部を表示
     const undergradContainer = document.getElementById('undergradContainer');
     undergradContainer.innerHTML = '';
-    undergrad.forEach(member => {
+    sortByGrade(undergrad).forEach(member => {
         undergradContainer.appendChild(createMemberCard(member));
     });
 
