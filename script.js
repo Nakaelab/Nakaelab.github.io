@@ -49,6 +49,22 @@ function applyLanguage(lang) {
   console.log(`✅ 言語を${lang === 'ja' ? '日本語' : '英語'}に切り替えました`);
 }
 
+// 日付を「YYYY.MM.DD」にそろえる（例：2026.7.22 → 2026.07.22、2025.10.17-19 → 2025.10.17–19）
+// ※ pages/news.js と同じ処理
+function normalizeDate(date) {
+  const match = date.trim().match(/^(\d{4})[.\/-](\d{1,2})[.\/-](\d{1,2})(?:\s*[-–〜~]\s*(\d{1,2}))?$/);
+  if (!match) return date.trim();
+  const [, year, month, day, endDay] = match;
+  const pad = n => n.padStart(2, '0');
+  return `${year}.${pad(month)}.${pad(day)}` + (endDay ? `–${pad(endDay)}` : '');
+}
+
+// 並べ替え用に日付を比較できる値にする（期間の場合は開始日）
+function dateSortKey(date) {
+  const match = date.match(/^(\d{4})\.(\d{2})\.(\d{2})/);
+  return match ? Number(match[1] + match[2] + match[3]) : 0;
+}
+
 // TSVをパースする関数（タブ区切り・カンマ問題を回避）
 function parseTSV(tsvText) {
   const lines = tsvText.trim().split('\n');
@@ -57,7 +73,7 @@ function parseTSV(tsvText) {
   for (let i = 1; i < lines.length; i++) {
     const values = lines[i].split('\t');
     const row = {
-      date:     (values[0] || '').trim(),
+      date:     normalizeDate(values[0] || ''),
       title:    (values[1] || '').trim(),
       title_en: (values[2] || '').trim(),
       detail:   (values[3] || '').trim(),
@@ -195,8 +211,8 @@ function displayNewsPreview(newsData) {
   const container = document.getElementById('newsPreviewContainer');
   if (!container) return;
 
-  const categoryLabelJa = { publication:'論文・出版', event:'イベント', award:'受賞・表彰', milestone:'マイルストーン' };
-  const categoryLabelEn = { publication:'Publication', event:'Event', award:'Award', milestone:'Milestone' };
+  const categoryLabelJa = { publication:'論文・出版', event:'イベント', award:'受賞・表彰', milestone:'研究室ニュース' };
+  const categoryLabelEn = { publication:'Publication', event:'Event', award:'Award', milestone:'Lab News' };
 
   const recent = newsData.slice(0, 4);
   container.innerHTML = '';
@@ -208,7 +224,7 @@ function displayNewsPreview(newsData) {
     const lang = currentLanguage || 'ja';
     const labelMap = lang === 'ja' ? categoryLabelJa : categoryLabelEn;
     const cat = (news.category || '').trim() || 'event';
-    const catLabel = labelMap[cat] || cat;
+    const catLabel = labelMap[cat] || (lang === 'ja' ? 'その他' : 'Other'); // ニュースページと同じ
     const title = lang === 'en' && news.title_en ? news.title_en : news.title;
     const tagHtml = `<span class="news-preview-tag ${cat}">${catLabel}</span>`;
 
@@ -236,7 +252,7 @@ async function loadData() {
     const newsData = parseTSV(newsCSV);
     
     // 日付でソート（新しい順）
-    newsData.sort((a, b) => new Date(b.date) - new Date(a.date));
+    newsData.sort((a, b) => dateSortKey(b.date) - dateSortKey(a.date));
     
     displayNews(newsData);
     displayNewsPreview(newsData);

@@ -234,14 +234,14 @@ function getCategoryLabel(category) {
     'publication': '論文・出版',
     'event': 'イベント',
     'award': '受賞・表彰',
-    'milestone': 'マイルストーン'
+    'milestone': '研究室ニュース'
   };
   
   const labelMapEn = {
     'publication': 'Publication',
     'event': 'Event',
     'award': 'Award',
-    'milestone': 'Milestone'
+    'milestone': 'Lab News'
   };
   
   const labelMap = currentLanguage === 'ja' ? labelMapJa : labelMapEn;
